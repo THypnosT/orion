@@ -8,7 +8,8 @@ from werkzeug.security import generate_password_hash, check_password_hash
 import enviarEmail
 
 # Ruta relativa de conexión a la base de datos
-database = r'static/db/SaicMotor.db'
+#database = r'static/db/SaicMotor.db'
+database = r'static/db/EcommerceOrion.db'
 
 
 def crearConexion():
@@ -40,7 +41,7 @@ def validarUsuario(cuentaCorreo):
 
     # Verificar si el correo existe en la base de datos.
     queryUser = cursor.execute(
-        "SELECT email FROM Persona WHERE email = '%s'" % cuentaCorreo).fetchone()
+        "SELECT email FROM Usuario WHERE email = '%s'" % cuentaCorreo).fetchone()
 
     # Si queryUser trae datos, se toma el primer valor de la tupla.
     if queryUser is not None:
@@ -75,7 +76,7 @@ def validarContrasena(cuentaCorreo, password):
         cursor = conn.cursor()
 
         queryPass = cursor.execute(
-            "SELECT usr.contrasena FROM Persona per, Usuario usr WHERE usr.id_persona = per.id_persona AND per.email = '%s'" % cuentaCorreo).fetchone()[0]
+            "SELECT usr.contrasena FROM Persona per, Usuario usr WHERE usr.id_persona = per.id_persona AND usr.email = '%s'" % cuentaCorreo).fetchone()[0]
     else:
         return False
     
@@ -104,7 +105,7 @@ def validarTipoUsuario(cuentaCorreo):
         cursor = conn.cursor()
 
         queryUserType = cursor.execute(
-        "SELECT rol.descripcion_rol FROM Persona per, Usuario usr, Rol rol WHERE usr.id_persona = per.id_persona AND rol.id_rol = usr.id_rol AND per.email = '%s'" % cuentaCorreo).fetchone()
+        "SELECT rol.descripcion_rol FROM Persona per, Usuario usr, Rol rol WHERE usr.id_persona = per.id_persona AND rol.id_rol = usr.id_rol AND usr.email = '%s'" % cuentaCorreo).fetchone()
         
         conn.close()
         return queryUserType[0]
@@ -129,7 +130,7 @@ def obtenerIDUsuario(cuentaCorreo):
         cursor = conn.cursor()
 
         queryUserId = cursor.execute(
-        "SELECT usr.id_usuario FROM Usuario usr, Persona per WHERE per.id_persona = usr.id_persona AND per.email = '%s'" % cuentaCorreo).fetchone()
+        "SELECT usr.id_usuario FROM Usuario usr, Persona per WHERE per.id_persona = usr.id_persona AND usr.email = '%s'" % cuentaCorreo).fetchone()
         
         conn.close()
         return queryUserId[0]
@@ -253,14 +254,14 @@ def obtenerDatosUsuario(cuentaCorreo):
 
     queryDatosUsuario = cursor.execute(
         """
-            SELECT per.id_persona, per.nombre_persona, per.apellido_persona, per.telefono_persona, per.email, per.imagen_src,
+            SELECT per.id_persona, per.nombre_persona, per.apellido_persona, usr.telefono, usr.email, per.imagen_src,
                     usr.id_usuario, usr.estatus_usuario, rol.descripcion_rol, sede.nombre_sede, ciudad.nombre_ciudad, pais.nombre_pais
-            
+
             FROM Persona per, Usuario usr, Rol rol, Sede sede, Ciudad ciudad, Pais pais
-            
+
             WHERE usr.id_persona = per.id_persona AND rol.id_rol = usr.id_rol AND usr.id_sede = sede.id_sede
             AND sede.id_ciudad = ciudad.id_ciudad AND ciudad.id_pais = pais.id_pais
-            AND per.email =  '%s'
+            AND usr.email = '%s'
         """ % cuentaCorreo)
 
     i = 0
@@ -339,7 +340,7 @@ def listaProductos():
 
     queryDatosProductos = cursor.execute(
         """
-            SELECT pro.id_producto,
+            SELECT pro.codigo_producto,
                 pro.nombre_producto,
                 prove.id_proveedor,
                 prove.nombre_proveedor,
@@ -348,7 +349,7 @@ def listaProductos():
                 pro.src_imagen,
                 alm.cantidad_disponible
             FROM Producto pro, Almacen alm, Proveedor prove
-            WHERE alm.id_producto = pro.id_producto AND alm.id_proveedor = prove.id_proveedor
+            WHERE alm.codigo_producto = pro.codigo_producto AND alm.id_proveedor = prove.id_proveedor
             ORDER BY pro.fecha_creado DESC;
         """)
 
