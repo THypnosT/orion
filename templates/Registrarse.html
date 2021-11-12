@@ -14,8 +14,9 @@
     <div class="box">
         <div class="login">
             <h2>Registrarse</h2>
-            <p>Registrarse</p>
-            <form action="/ConfirmacionNewPass" method="POST" id="login-form">
+            <p>Llene los siguientes datos para registrarse en el sistema. Su contraseña temporal sera enviada al correo
+                ingresado</p>
+            <form action="/registrar" method="POST" id="login-form">
 
                 <div class="input-grup">
                     <div class="inputBox">
@@ -43,8 +44,65 @@
                     </div>
 
                 </div>
-
                 <div class="input-grup">
+                    <div class="inputBox">
+                        <label for="sexo">Sexo</label>
+                        <div class="select-box-sexo">
+                            <div class="options-container-sexo">
+                                <div class="option-sexo">
+                                    <input type="radio" class="radio" id="sexM" name="category-sexo" value="M" />
+                                    <label for="sexM" id="lblsexM">M</label>
+                                </div>
+                                <div class="option-sexo">
+                                    <input type="radio" class="radio" id="sexF" name="category-sexo" value="F" />
+                                    <label for="sexF" id="lblsexF">F</label>
+                                </div>
+                                
+                            </div>
+
+                        </div>
+                        <div class="selected-sexo" id="selected-sexo">
+                            M
+                        </div>
+                        <input type="hidden" id="inputSelectedSexo" name="selectedSexo"  value="M">
+
+
+                    </div>
+                    <div class="inputBox">
+                        <input type="number" name="edad_user" value="" required
+                            onkeyup="this.setAttribute('value', this.value);">
+                        <label>Edad</label>
+                    </div>
+
+                </div>
+                <div class="input-grup">
+                    <div class="inputBox">
+                        <input type="text" name="cedula_user" value="" required
+                            onkeyup="this.setAttribute('value', this.value);">
+                        <label>Cedula</label>
+                    </div>
+                    <div class="inputBox">
+                        <input type="text" name="ciudad_user" value="" required
+                            onkeyup="this.setAttribute('value', this.value);">
+                        <label>Ciudad</label>
+                    </div>
+
+                </div>
+                <div class="input-grup">
+                    <div class="inputBox">
+                        <input type="text" name="direccion_user" value="" required
+                            onkeyup="this.setAttribute('value', this.value);">
+                        <label>Direccion</label>
+                    </div>
+                    <div class="inputBox">
+                        <input type="tel" name="telefono_user" value="" required
+                            onkeyup="this.setAttribute('value', this.value);">
+                        <label>Telefono</label>
+                    </div>
+
+                </div>
+
+                <!-- <div class="input-grup">
                     <div class="inputBox">
                         <input type="password" name="newpw" value="" id="newpw"
                             pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
@@ -63,10 +121,14 @@
                             title="Debe contener al menos un número y una letra mayúscula y minúscula, y al menos 8 caracteres o más">
                         <label>Repetir Contraseña</label>
                     </div>
+                </div> -->
+
+                <!-- <label id="coinciden" style="display: none;">¡Las contraseñas no coinciden!</label>
+                <br> -->
+                <div class="botones">
+                    <input type="button" class="btn" value="Cancelar" onclick="history.back()">
+                    <input type="submit" name="sign-in" id="button" value="Registrarse">
                 </div>
-                <label id="coinciden" style="display: none;">¡Las contraseñas no coinciden!</label>
-                <br>
-                <input type="submit" name="sign-in" value="Guardar">
                 {# Mostrar mensajes / errores si es que existen #}
                 {% with mensajes_flash = get_flashed_messages() %}
                 {% if mensajes_flash %}
@@ -80,8 +142,8 @@
         </div>
     </div>
 </body>
-
-<script>
+<script src={{ url_for('static', filename='js/scriptSelectSexo.js' ) }}></script>
+<!-- <script>
     var password = document.getElementById("newpw");
     var confirm_password = document.getElementById("confirmpw");
 
@@ -99,6 +161,6 @@
     // password.onchange = validatePassword;
     confirm_password.onkeyup = validatePassword;
 
-</script>
+</script> -->
 
 </html>

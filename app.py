@@ -34,7 +34,36 @@ def iniciarSeccion():
 def registro():
     return render_template('Registrarse.html')
 
+@app.route('/registrar', methods=['GET', 'POST'])
+def registrar():
+    if request.method == 'POST':
+        username = request.form['username']
+        email = request.form['email']
+        nombre = request.form['nombre_user']
+        apellido = request.form['apellido_user']
+        # sexo= request.form['sexo_user']
+        sexo = request.form['selectedSexo']
+        edad= request.form['edad_user']
+        ciudad= request.form['ciudad_user']
+        teleono= request.form['telefono_user']
+        cedula= request.form['cedula_user']
 
+        # contrasena = request.form['newpw']
+        # contrasena2 = request.form['confirmpw']
+        # if contrasena != contrasena2:
+        #     flash("Las contraseñas no coinciden")
+        #     return redirect("/registro")
+        # contrasena = generate_password_hash(contrasena)
+        # if conn.registrar(nombre, apellido, email, contrasena):
+        #     flash("Registro exitoso")
+        #     return redirect("/iniciarSeccion")
+        # else:
+        #     flash("Error al registrarse")
+        #     return redirect("/registro")
+
+        return redirect("/iniciarSeccion")
+    else:
+        return redirect("/registro")
 
 
 
@@ -385,7 +414,12 @@ def ConfirmacionNewPass():
     if request.method == 'POST':
         if request.form['sign-in'] == 'Guardar':
             contrasenaActual = request.form['actualpw']
+            contrasenaNueva = request.form['newpw']
             nuevaContrasena = request.form['confirmpw']
+            if contrasenaNueva != nuevaContrasena:
+                flash("Las contraseñas no coinciden")
+                return redirect('/CambiarContrasena')
+
             if conn.validarContrasena(request.form['email'], contrasenaActual) is not False:
                 print("Ingresé al if de cambiar la clave: ----------------------------------------******************")
                 datos=conn.obtenerDatosUsuario(request.form['email'])

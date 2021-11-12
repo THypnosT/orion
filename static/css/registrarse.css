@@ -18,13 +18,12 @@ body{
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 40%;
-    height: 79vh;
+    width: 50%;
+    /* height: 79vh; */
     box-sizing: border-box;
     border-radius: var(--radio-contenedor-grande);
     background: var(--color-blanco-fondo);
 }
-
 
 @media screen and (min-width: 1000px) and (max-width:1500px) {
     .login{
@@ -56,15 +55,17 @@ body{
 }
 
 .box p {
-    margin-bottom: 5px;
+    margin-bottom: 10px;
     font: var(--fuente-texto);
     color: var(--color-gris);
+    text-align: center;
 }
 
 .box .inputBox {
     position: relative;
     font: var(--fuente-texto);
-    margin:0px 40px
+    margin:0px 40px;
+    width: 35%;
 }
 
 .box .inputBox input{
@@ -104,7 +105,13 @@ body{
     outline: none;
 }
 
-.box input[type="submit"] {
+.botones{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    align-content: stretch;
+}
+.box input[type="submit"],.btn {
     border: none;
     outline: none;
     color: var(--color-blanco);
@@ -113,13 +120,99 @@ body{
     cursor: pointer;
     border-radius: 0.312rem;
     font: var(--fuente-texto);
-    float: right;
+    /* float: right; */
+    margin-bottom: 3%;
 }
 
-.box input[type="submit"]:hover {
+.box input[type="submit"]:hover, .btn:hover {
     background-color: #287ae6;
     box-shadow: 0 1px 1px 0 rgba(66, 133, 244, 0.45), 0 1px 3px 1px rgba(66, 133, 244, 0.3);
 }
 #coinciden{
     color: var(--color-superadmin);
 }
+
+
+/* CONFIGURACION DEL SELECT SEXO */
+.container-sexo label{
+    justify-self: end;
+}
+
+.select-box-sexo{
+    display: flex;
+    flex-direction: column;
+}
+
+.select-box-sexo .options-container-sexo {
+    background: var(--color-superadmin);
+    color: var(--color-blanco) !important;
+    max-height: 0;
+    width: 100%;
+    opacity: 0;
+    transition: all 0.4s;
+    border-radius: 8px;
+    overflow: hidden;
+    /* order: 1; */
+}
+
+.selected-sexo{
+    background: var(--color-superadmin);
+    border-radius: var(--radio-input);
+    margin-bottom: 8px;
+    color: var(--color-blanco);
+    position: relative;
+    order: 0;
+}
+
+.selected-sexo::after {
+    content: "";
+    background: url("../images/arrow-down.svg");
+    background-size: contain;
+    background-repeat: no-repeat;
+    position: absolute;
+    height: 100%;
+    width: 32px;
+    right: 5px;
+    top: 8px;
+    transition: all 0.4s;
+}
+
+.select-box-sexo .options-container-sexo.active {
+    max-height: 240px;
+    opacity: 1;
+    overflow-y: scroll;
+}
+
+.select-box-sexo .options-container-sexo.active+.selected-sexo::after {
+    transform: rotateX(180deg);
+    top: -6px;
+}
+
+.select-box-sexo .options-container-sexo::-webkit-scrollbar {
+    display: none;
+}
+
+.select-box-sexo .options-container-sexo::-webkit-scrollbar-thumb {
+    background: var(--color-gris);
+    border-radius: 0 8px 8px 0;
+}
+
+.select-box-sexo .option-sexo, .selected-sexo {
+    padding: 12px 24px;
+    cursor: pointer;
+}
+
+.select-box-sexo .option-sexo:hover {
+    background: var(--color-blanco);
+    color: var(--color-superadmin);
+}
+
+.select-box-sexo label {
+    cursor: pointer;
+}
+
+.select-box-sexo .option-sexo .radio {
+    display: none;
+}
+
+/* FIN CONFIGURACION DE LA CALIFICACION */
