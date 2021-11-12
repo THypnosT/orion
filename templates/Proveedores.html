@@ -1,0 +1,76 @@
+{% extends 'MasterPage.html' %}
+
+{% block content %}
+
+<link rel="stylesheet" href={{ url_for('static', filename="css/proveedores.css" ) }}>
+
+<header class="header-paginas">
+    <div class="encabezado-proveedores">
+        <div class="title">
+            <h1>{% block title %}Proveedores{% endblock %}</h1>
+        </div>
+
+        <form class="boton-anadir" action="/EditarProveedores" method="POST">
+            <input type="submit" name="submit_button" id="anadir" class="anadir" value="Añadir proveedor +"
+                style="display: inline;">
+
+        </form>
+    </div>
+</header>
+
+<section class="proveedores">
+    <div class="block">
+        {% for fila in range(lista|length) %}
+        <article>
+            <form class="contenedor" action="/EditarProveedores" method="POST">
+
+                <input type="hidden" name="id" value="{{ lista[fila]['id_proveedor'] }}">
+
+                <div class="container-proveedor">
+                    <div class="supplier_img">
+                        <img src="{{ lista[fila]['src_imagen'] }}" alt="">
+                    </div>
+                    <div class="description">
+                        <div class="text">
+                            <h3>{{ lista[fila]['nombre_proveedor'] }}</h3>
+                            <p>
+                                {{ lista[fila]['descripcion_proveedor'] }}
+                            </p>
+                        </div>
+                        <div class="buttons">
+
+                            <label class="remove"><input type="submit" name="submit_button" id="eliminar" class="remove"
+                                    value="eliminar" style="display: none;"></label>
+                            <label class="edit"><input type="submit" name="submit_button" id="editar" class="edit"
+                                    value="editar" style="display: none;"></label>
+                        </div>
+                    </div>
+            </form>
+        </article>
+        {% endfor %}
+    </div>
+
+    {# Mostrar mensajes / errores si es que existen #}
+    {% with mensajes_flash = get_flashed_messages() %}
+        {% if mensajes_flash %}
+        <script>
+            alert('{{ mensajes_flash[0] }}');
+        </script>
+            
+        {% endif %}
+    {% endwith %}
+    
+</section>
+<script>
+
+    if (sessionStorage.getItem('userType') == "usuario") {
+        document.getElementById("anadir").style.display = "none";
+
+    }
+    else {
+        document.getElementById("anadir").style.display = "";
+    }
+
+</script>
+
+{% endblock %}

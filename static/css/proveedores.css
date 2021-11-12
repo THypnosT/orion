@@ -1,0 +1,195 @@
+@import url(variables.css);
+body{
+    background: var(--color-fondo);
+}
+
+/* CONFIGURACION ENCABEZADO PROVEEDORES */
+
+.encabezado-proveedores{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font: var(--fuente-sub-titulo);
+    color: var(--color-usuario);
+    padding: 0 50px;
+}
+
+
+.anadir{
+    background: var(--color-usuario);
+    color: var(--color-blanco);
+    border: none;
+    padding: 0 15px;
+    height: 58px;
+    min-width: 156px;
+    border-radius: var(--radio-boton);
+    font: var(--fuente-sub-titulo); 
+}
+
+.anadir:hover{
+    background: var(--color-gris);
+    color: var(--color-usuario);
+    border: var(--border-boton-cancelar-usuario);
+    cursor: pointer;
+}
+
+/* FIN ENCABEZADO */
+
+
+.encabezado-proveedores .btn button{
+    background-color: var(--color-usuario);
+    border-radius: 10px;
+    color: var(--color-blanco-fondo);
+    height: 40px;
+    border: 1px;
+    font-family: 'Roboto';
+    font-weight: bold;
+} 
+
+section .proveedores{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content:space-between;
+    margin: 30px 30px;
+    gap: 50px 20px;
+}
+
+.container-proveedor{
+    display: flex;
+}
+.block{
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    gap:30px;
+}
+section article{
+    background-color: var(--color-blanco);
+    border-radius: var(--radio-contenedor);
+    max-width: 400px;
+    display: inline-flex;
+    margin-top: 50px;
+    padding: 30px; 
+    box-shadow: var(--sombra-contenedores);
+    font: var(--fuente-texto);
+}
+section article .supplier_img img{
+    width:190px;
+    height:140px;
+    border-radius: 15px;
+}
+section article .supplier_img, section article .description{
+    display: grid;
+    align-content: center;
+    vertical-align: top;
+    position: relative;
+}
+section article .description h3{
+    margin-top: 0px;
+    margin-bottom: 15px;
+    margin-left: 20px;
+    color: var(--color-gris);
+    font-size: 0.9em;
+}   
+
+section article .description .text p{
+    margin-top: 0px;
+    justify-content: left;
+    text-align: left;
+    flex-wrap: wrap;
+    color:var(--color-gris);
+    margin-left: 20px;
+    font-size: 0.8em;
+    height: 100px;
+    overflow-y: auto;
+}
+
+section article .description .text p::-webkit-scrollbar {
+    width: 10px;
+    color: var(--color-usuario);
+    /* background: var(--color-usuario); */
+    border: 1px solid var(--color-usuario);
+}
+
+section article .description .text p::-webkit-scrollbar-thumb {
+    background: var(--color-usuario);
+}
+/* .buttons a{
+    font-size: 20px;
+    margin-left: 10px;
+} */
+
+.buttons{
+    display: flex;
+    font-family: "icomoon";
+    justify-content: end;
+}
+
+
+.edit::after{
+    content:"\e905";
+    color:white;
+}
+
+.remove::after{
+    content:"\e9ac";
+    color: var(--color-usuario)
+}
+
+.description .edit{
+    background: var(--color-usuario);
+    border-radius: var(--radio-input);
+    padding: 10px;
+    margin-left: 10px;
+    border: var(--border-boton-cancelar-usuario);
+    cursor: pointer;
+}
+
+.description .edit:hover{
+    background: var(--color-gris);
+}
+
+.description .remove{
+    background: var(--color-blanco);
+    border-radius: var(--radio-input);
+    padding: 10px;
+    border: var(--border-boton-cancelar-usuario);
+    cursor: pointer;    
+}
+
+.description .remove:hover{
+    background: var(--color-gris);
+}
+
+
+.description .edit {
+    background: var(--color-usuario);
+    border-radius: var(--radio-input);
+    padding: 10px;
+    margin-left: 10px;
+    border: var(--border-boton-cancelar-usuario);
+}
+.description .remove {
+    background: var(--color-blanco);
+    border-radius: var(--radio-input);
+    padding: 10px;
+    border: var(--border-boton-cancelar-usuario);
+}
+.description .remove a{
+    color: var(--color-usuario);
+    padding:5px 10px 5px 10px;
+    margin:0px;
+}
+.description .edit a{
+    color: white;
+    padding:5px 8px 5px 10px;
+    margin:0px;
+}
+
+.description .remove a{
+    color: var(--color-usuario);
+}
+.buttons, .supplier_img .img img{
+    vertical-align: bottom;
+} 

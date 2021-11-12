@@ -1,12 +1,94 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Orion</title>
+    <title>SAIC Motor</title>
+    <link rel="stylesheet" href={{ url_for( 'static' , filename='css/login.css' ) }}>
+    <link rel="stylesheet" href={{ url_for( 'static' , filename='css/normalize.css' ) }}>
 </head>
+
 <body>
-    
+    <div class="box">
+        <div class="logo">
+            <img src={{ url_for( 'static' , filename='images/LogoSM.png' ) }}>
+        </div>
+        <div class="login">
+            <h2>Bienvenido</h2>
+            <p>Por favor ingrese sus credenciales para ingresar a su cuenta</p>
+            <form action="{{ url_for('Index') }}" method="POST" id="login-form">
+                <div class="inputBox">
+                    <input type="email" name="email" value="" required
+                        onkeyup="this.setAttribute('value', this.value);">
+                    <label>Usuario</label>
+                </div>
+                <br>
+                <div class="inputBox">
+                    <input type="password" name="password" value="" required onkeyup="this.setAttribute('value', this.value);">
+                    <label>Contraseña</label>
+                </div>
+
+
+                <div class="recordar-pass">
+                    {# Mostrar mensajes / errores si es que existen #}
+                    {% with mensajes_flash = get_flashed_messages() %}
+                    {% if mensajes_flash %}
+                        {% if mensajes_flash[0] == 'Correo o contraseña incorrectos' %}
+                            <p style="margin-top: 0%;">
+                                {{ mensajes_flash[0] }}
+                            </p>
+                        {% elif mensajes_flash[0] == 'Contraseña cambiada correctamente' %}
+                            <script>
+                                alert('{{ mensajes_flash[0] }}');
+                            </script>
+                        {% elif mensajes_flash[0] != ' ' %}
+                            <script>
+                                alert('{{ mensajes_flash[0] }}');
+                            </script>
+                        
+                        {% endif %}
+
+
+                    {% endif %}
+                    {% endwith %}
+                    <button type="button" class="show-modal">
+                        ¿Olvidó su contraseña?
+                    </button>
+
+                </div>
+                <input type="submit" name="sign-in" value="Ingresar">
+            </form>
+
+            <!-- MODAL -->
+            <div class="modal hidden">
+                <!-- botón para cerrar el modal -->
+                <button class="close-modal">&times;</button>
+
+                <h2>Recuperar contraseña</h2>
+                <p>Ingrese su correo para restablecer su contraseña</p>
+                <form action="{{url_for('RecuperarPass')}}" method="POST" class="form-modal">
+                    <div class="inputBox">
+                        <input type="email" name="recuperarEmail" value="" required
+                            onkeyup="this.setAttribute('value', this.value);">
+                        <label class="lblrecuperar">Correo</label>
+                    </div>
+                    <input type="submit" class="enviar" value="Recuperar">
+
+                </form>
+            </div>
+            <div class="overlay hidden"></div>
+
+        </div>
+    </div>
 </body>
+<script src={{ url_for( 'static' , filename='js/scriptModal.js' ) }}></script>
+<script>
+    function enviado() {
+        alert("Correo enviado")
+    }
+    sessionStorage.clear();
+</script>
+
 </html>

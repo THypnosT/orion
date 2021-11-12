@@ -1,0 +1,239 @@
+@import url(variables.css);
+body {
+    background: var(--color-fondo);
+}
+
+.contenedor-editar-listas {
+    font: var(--fuente-texto);
+    background: var(--color-blanco-fondo);
+    box-shadow: var(--sombra-contenedores);
+    border-radius: var(--radio-contenedor-grande);
+    width: 80%;
+    display: grid;
+    grid-template-columns: 1fr;
+    margin: 55px auto;
+    align-content: center;
+}
+
+.titulo-editar-listas {
+    display: grid;
+    grid-template-columns: 1.5fr 5fr;
+    gap: 20px;
+    align-items: center;
+    font: var(--fuente-sub-titulo);
+    color: var(--color-usuario);
+    padding: 30px 70px;
+    border-bottom: 1px solid var(--color-usuario);
+}
+
+.agrega-productos {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font: var(--fuente-sub-titulo);
+    color: var(--color-usuario);
+    background: var(--color-fondo);
+    padding: 0 70px;
+    border-bottom: 1px solid var(--color-usuario);
+}
+
+.subtitulos-listas {
+    display: grid;
+    grid-template-columns: 1.5fr 0.7fr 1fr 0.5fr;
+    margin: 0px 70px;
+    padding: 5px 0px;
+    align-items: center;
+    justify-items: stretch;
+    border-bottom: 1px solid var(--color-gris);
+}
+
+.subtitulos-listas h4 {
+    font: var(--fuente-sub-titulo);
+    color: var(--color-gris);
+}
+
+.subtitulos-listas .product{
+    margin-left: 15px;
+}
+
+.contenedor-detallado{
+    margin: 0px 25px;
+}
+
+.boton-anadir .anadir {
+    background: var(--color-usuario);
+    color: var(--color-blanco);
+    border: none;
+    padding: 0 15px;
+    height: 58px;
+    min-width: 140px;
+    border-radius: var(--radio-boton);
+    font: var(--fuente-sub-titulo);
+}
+
+.anadir:hover {
+    background: var(--color-gris);
+    color: var(--color-usuario);
+    border: var(--border-boton-cancelar-usuario);
+    cursor: pointer;
+}
+
+.nombre-lista {
+    height: 40px;
+    color: var(--color-gris);
+    background: var(--color-fondo);
+    border: var(--boder-inputs);
+    border-radius: var(--radio-input);
+    padding-left: 10px;
+}
+
+.detallado {
+    display: grid;
+    grid-template-columns: 1.5fr 0.7fr 1fr 0.5fr;
+    border-radius: var(--radio-input);
+    margin: 0px 50px;
+    padding: 5px 0px;
+    align-items: center;
+}
+
+.detallado p {
+    font: var(--fuente-texto);
+    color: var(--color-gris);
+}
+
+.detallado .producto{
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    font: var(--fuente-texto);
+    margin-left: 10px;
+}
+
+.detallado .producto .point {
+    height: 20px;
+    width: 20px;
+    background-color: var(--color-usuario);
+    border-radius: 50%;
+    margin: 0;
+}
+
+.detallado .producto p{
+    margin-left: 10px;
+}
+
+.detallado .cant{
+    /* margin-left: 20px; */
+    font: var(--fuente-sub-titulo);
+    /* display: flex; */
+    display: grid;
+    grid-template-columns: 0.4fr 1fr 1fr;
+    align-items: center;
+    justify-content: stretch;
+    gap: 20px;
+}
+
+.detallado .cant .menos{
+    justify-self: end;
+    font: var(--fuente-titulo);
+    color: var(--color-usuario);
+}
+.detallado .cant .mas{
+    justify-self: start;
+    font: var(--fuente-sub-titulo);
+    color: var(--color-usuario);
+}
+
+.detallado .cant p{
+    justify-self: center;
+}
+
+.opciones {
+    display: flex;
+    font-family: "icomoon";
+    justify-content: end;
+}
+
+.boton-eliminar{
+    background: var(--color-blanco);
+    border-radius: var(--radio-input);
+    padding: 10px;
+    border: var(--border-boton-cancelar-usuario);
+}
+
+.boton-eliminar::after {
+    content: "\e9ac";
+    color: var(--color-usuario)
+}
+
+.boton-eliminar:hover{
+    background: var(--color-gris);
+}
+
+/* CONFIGURACION DE LOS BOTONES CAMBIAR CANCELAR Y GUARDAR */
+
+.guardar-cancelar {
+    display: flex;
+    justify-content: end;
+    gap: 20px;
+    margin: 25px 50px;
+}
+
+.cambiar-imagen,
+.cancelar,
+.guardar {
+    padding: 0 15px;
+    height: 58px;
+    border-radius: var(--radio-boton);
+    font: var(--fuente-sub-titulo);
+}
+
+.cambiar-imagen,
+.guardar {
+    background: var(--color-usuario);
+    color: var(--color-blanco);
+    border: none;
+}
+
+.cambiar-imagen:hover,
+.guardar:hover {
+    background: var(--color-gris);
+    color: var(--color-usuario);
+    border: var(--border-boton-cancelar-usuario);
+    cursor: pointer;
+}
+
+.cancelar {
+    background: var(--color-blanco-fondo);
+    color: var(--color-usuario);
+    border: var(--border-boton-cancelar-usuario);
+}
+
+.cancelar:hover {
+    background: var(--color-gris);
+    color: var(--color-blanco);
+    border: none;
+    cursor: pointer;
+}
+
+.guardar,
+.cancelar {
+    width: 156px;
+}
+
+
+/* FIN CONFI
+
+
+/* COLORES PARA ADMIN Y SUPERADMIN */
+
+.sidebar,
+.container-tipo-de-busqueda .select-box .options-container,
+.container-tipo-de-busqueda .selected {
+    background-color: var(--color-usuario);
+    /* TEMPORAL, SOLO ADMIN */
+}
+
+.abrir-cerrar,
+.container-tipo-de-busqueda .select-box .option:hover {
+    color: var(--color-usuario);
+}

@@ -1,0 +1,102 @@
+{% extends 'MasterPage.html' %}
+{% block title %} Inicio {% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href={{ url_for('static', filename='css/index.css' ) }}>
+
+<header class="header-paginas">
+    <div class="encabezado-inicio">
+        <div class="titulo">
+            <h1>Bienvenido </h1><span>{{ usuario[1] }} </span>
+            <h1>a SAIC Motor</h1>
+        </div>
+    </div>
+</header>
+<section class="section-index">
+
+    <div class="ultimos-productos-titulo">
+        <h2>Ultimos productos agregados</h2>
+    </div>
+    <div class="ultimos-productos">
+        <div class="contenedor">
+            {% set rango = 0 %}
+            {% if (consultaProductos|length) > 6%}
+                {% set rango=6%}
+            {%else%}
+                {% set rango=consultaProductos|length %}
+            {%endif%}
+
+            {% for fila in range(rango) %}
+            <div class="contenedor-ultimos">
+                <div class="imagen">
+                    <img src="{{ consultaProductos[fila]['src_imagen'] }}" alt="">
+                </div>
+                <div class="informacion">
+                    <div class="nombre-producto" id="name">
+                        {{ consultaProductos[fila]['nombre_producto'] }}
+                    </div>
+                    <div class="nombre-proveedor">
+                        {{ consultaProductos[fila]['nombre_proveedor'] }}
+                    </div>
+                    <div class="disponible">
+                        <p>Disponible</p><span>: {{ consultaProductos[fila]['cantidad_disponible'] }}</span>
+                    </div>
+
+                </div>
+            </div>
+            {% endfor %}
+            
+        </div>
+
+    </div>
+
+    <div class="ultimos-proveedores-titulo">
+        <h2>Ultimos proveedores agregados</h2>
+    </div>
+    <div class="ultimos-proveedores">
+
+        <div class="contenedor">
+            {% set rango1 = 0 %}
+            {% if (consultaProveedor|length) > 6%}
+                {% set rango1=6%}
+            {%else%}
+                {% set rango1=consultaProveedor|length %}
+            {%endif%}
+
+            {% for fila in range(rango1) %}
+            
+            <div class="contenedor-ultimos">
+                <div class="imagen">
+                    <img src="{{ consultaProveedor[fila]['src_imagen'] }}" alt="">
+                </div>
+                <div class="informacion">
+                    <div class="nombre-proveedor" id="name">
+                        {{ consultaProveedor[fila]['nombre_proveedor'] }}
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+            
+        </div>
+
+    </div>
+    {# Mostrar mensajes / errores si es que existen #}
+    {% with mensajes_flash = get_flashed_messages() %}
+        {% if mensajes_flash %}
+        <script>
+            alert('{{ mensajes_flash[0] }}');
+        </script>
+            
+        {% endif %}
+    {% endwith %} 
+</section>
+    <script>
+        sessionStorage.setItem('userType', "{{ userType }}")
+        sessionStorage.setItem('id',"{{ usuario[0] }}")
+        sessionStorage.setItem('usuario',"{{ usuario[1] }} {{ usuario[2] }}")
+        sessionStorage.setItem('imagen',"{{ usuario[3] }}")
+        sessionStorage.setItem('autocompletarProductos', "{{ autocompletarProductos }}")
+        sessionStorage.setItem('autoCompletarProveedores', "{{ autoCompletarProveedores }}")
+    </script>
+
+{% endblock %}

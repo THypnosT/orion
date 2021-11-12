@@ -1,0 +1,106 @@
+{% extends 'MasterPage.html' %} {% block content %}
+<link rel="stylesheet" href={{ url_for( 'static', filename='css/EditarListas.css' ) }}>
+
+<div class="contenedor-editar-listas">
+
+    <div class="titulo-editar-listas">
+        <h2> Nombre Listas </h2>
+        <input class="nombre-lista" type="text" id="nombre-lista">
+    </div>
+    <div class="agrega-productos">
+        <div class="titulo-agrega-productos">
+            <h2>Productos</h2>
+        </div>
+
+        <div class="boton-anadir">
+            <a href="#"><button class="anadir"> Añadir Productos + </button></a>
+        </div>
+    </div>
+
+    <div class="subtitulos-listas">
+        <div class="product">
+            <h4>NOMBRE DEL PRODUCTO</h4>
+        </div>
+        <div class="cantidad">
+            <h4>CANTIDAD</h4>
+        </div>
+        <div class="proveed">
+            <h4>NOMBRE PROVEEDOR</h4>
+        </div>
+
+    </div>
+
+    <div class="contenedor-detallado">
+        <div class="detallado">
+
+            <div class="producto">
+                <div class="point"></div>
+                <p>Nombre del producto</p>
+            </div>
+            <div class="cant">
+                <span class="menos">-</span> <p> 10 </p> <span class="mas">+</span> 
+            </div>
+            <div class="proveedor">
+                <p> proveedor </p>
+            </div>
+            <div class="opciones">
+                <a href="#">
+                    <div class="boton-eliminar" onclick="eliminar()"></div>
+                </a>
+            </div>
+        </div>
+
+        <div class="detallado">
+            <div class="producto">
+                <div class="point"></div>
+                <p>Nombre del producto</p>
+            </div>
+            <div class="cant">
+                <span class="menos">-</span> <p> 10 </p> <span class="mas">+</span>
+            </div>
+            <div class="proveedor">
+                <p> proveedor </p>
+            </div>
+            <div class="opciones">
+                <a href="#">
+                    <div class="boton-eliminar" onclick="eliminar()"></div>
+                </a>
+            </div>
+        </div>
+
+        <div class="detallado">
+
+            <div class="producto">
+                <div class="point"></div>
+                <p>Nombre del producto</p>
+            </div>
+            <div class="cant">
+                <span class="menos">-</span> <p> 10 </p> <span class="mas">+</span>
+            </div>
+            <div class="proveedor">
+                <p> proveedor </p>
+            </div>
+            <div class="opciones">
+                <a href="#">
+                    <div class="boton-eliminar" onclick="eliminar()"></div>
+                </a>
+            </div>
+        </div>
+        <div class="guardar-cancelar">
+            <a href="{{url_for('Listas')}}"><button class="cancelar">
+                Cancelar
+            </button></a>
+            <a href="{{url_for('Listas')}}"><button class="guardar" onclick="guardar()">
+                Guardar
+            </button></a>
+        </div>
+
+
+
+    </div>
+
+</div>
+
+
+
+{% endblock %}

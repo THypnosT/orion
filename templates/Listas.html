@@ -1,0 +1,79 @@
+{% extends 'MasterPage.html' %} {% block content %}
+
+<link rel="stylesheet" href={{ url_for( 'static' , filename='css/listas.css' ) }}>
+<header class="header-paginas">
+    <div class="encabezado-listas">
+        <div class="titulo">
+            <h1 style="font-size: 2rem;">{% block title %} Listas de productos por debajo de cantidad minima en bodega{% endblock %}</h1>
+        </div>
+
+    </div>
+</header>
+
+<section class="envioLista">
+    <h2>Correo al que desea enviar la lista</h2>
+    <form action="/EnviarCorreo" method="POST">
+        <div class="envioLista-busqueda">
+            <input type="email" name="correo" placeholder="Correo" class="search" onkeyup="this.setAttribute('value', this.value);">
+        </div>
+        <input type="submit" name="enviarcorreo" id="enviarcorreo" value="Enviar">
+    </form>
+</section>
+
+<section class="listas">
+    
+    <div class="contenedor-listas">
+
+
+        <div class="contenedor-subtitulos">
+            <div class="subtitulos">
+                <div class="product">
+                    <h2>NOMBRE DEL PRODUCTO</h2>
+                </div>
+                <div class="cantidad">
+                    <h2>DISPONIBLE</h2>
+                </div>
+                <div class="cantidad">
+                    <h2>CANTIDAD MINIMA</h2>
+                </div>
+                <div class="proveed">
+                    <h2>NOMBRE PROVEEDOR</h2>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="contenedor-detallado">
+
+            <div class="detallado">
+                {% for fila in range(lista|length) %}
+                <span class="point"></span>
+                <div class="producto">
+                    <p>{{ lista[fila]['nombre_producto'] }}</p>
+                </div>
+                <div class="cant">
+                    <p>{{ lista[fila]['cantidad_disponible'] }}</p>
+                </div>
+                <div class="cant">
+                    <p>{{ lista[fila]['cantidad_minima'] }}</p>
+                </div>
+                <div class="proveedor">
+                    <p>{{ lista[fila]['nombre_proveedor'] }}</p>
+                </div>
+                {% endfor %}
+
+     
+            </div>
+        </div>
+    </div>
+    {# Mostrar mensajes / errores si es que existen #}
+    {% with mensajes_flash = get_flashed_messages() %}
+        {% if mensajes_flash %}
+        <script>
+            alert('{{ mensajes_flash[0] }}');
+        </script>
+            
+        {% endif %}
+    {% endwith %}  
+</section>
+{% endblock %}

@@ -1,0 +1,118 @@
+@import url(variables.css);
+/* CONIGURACION DEL LOGIN */
+body{
+    background-image: url(../images/Fondo-login.png);
+    background-size: 100%;
+}
+
+.box {
+    position: absolute;
+    display: grid;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 40%;
+    height: 79vh;
+    box-sizing: border-box;
+    border-radius: var(--radio-contenedor-grande);
+    background: var(--color-blanco-fondo);
+}
+
+
+@media screen and (min-width: 1000px) and (max-width:1500px) {
+    .login{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        margin: 0 4vh;
+    }
+}
+@media screen and (min-width: 1501px){
+    .login{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        margin: 0 20%;
+    }
+}
+
+
+.box h2 {
+    display: grid;
+    justify-content: center;
+    margin: 0px 0 -0.125rem;
+    padding: 0;
+    color: var(--color-superadmin);
+    font: var(--fuente-super-titulo);
+    font-variant: small-caps;
+    font-size: 32px;
+}
+
+.box p {
+    margin-bottom: 5px;
+    font: var(--fuente-texto);
+    color: var(--color-gris);
+}
+
+.box .inputBox {
+    position: relative;
+    font: var(--fuente-texto);
+    margin:0px 40px
+}
+
+.box .inputBox input{
+    width: 100%;
+    margin: 15px 0px;
+    padding: 4px 0px;
+    font-size: 1rem;
+    letter-spacing: 0.062rem;
+    margin-bottom: 1.875rem; 
+    border: none;
+    border-bottom: 3px solid var(--color-superadmin);
+    background: transparent;
+}
+
+.box .inputBox label {
+    position: absolute;
+    top: 0;
+    left: 10px;
+    padding: 0.625rem 0;
+    font-size: 1rem;
+    color: var(--color-gris);
+    pointer-events: none;
+    transition: 0.5s;
+}
+
+.inputBox input:focus~label, .inputBox input:valid~label, .inputBox input:not([value=""])~label{
+    top: -1.125rem;
+    left: 10px;
+    color: var(--color-superadmin);
+    font-size: 0.85rem;
+    height: 10px;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.box .inputBox input:focus {
+    outline: none;
+}
+
+.box input[type="submit"] {
+    border: none;
+    outline: none;
+    color: var(--color-blanco);
+    background-color: var(--color-superadmin);
+    padding: 0.625rem 1.25rem;
+    cursor: pointer;
+    border-radius: 0.312rem;
+    font: var(--fuente-texto);
+    float: right;
+}
+
+.box input[type="submit"]:hover {
+    background-color: #287ae6;
+    box-shadow: 0 1px 1px 0 rgba(66, 133, 244, 0.45), 0 1px 3px 1px rgba(66, 133, 244, 0.3);
+}
+#coinciden{
+    color: var(--color-superadmin);
+}
