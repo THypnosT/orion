@@ -471,7 +471,7 @@ def GuardarUser():
                     elif(tipoUser=="Super administrador"):
                         tipoUser="superAdmin"
                     else:
-                        tipoUser="usuario"; 
+                        tipoUser="usuario"
 
                     email=request.form['email']
                     telefono=request.form['telefono']
