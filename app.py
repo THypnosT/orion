@@ -191,7 +191,7 @@ def Configuracion():
             elif(datosusuarios['descripcion_rol']=="superAdmin"):
                 datosusuarios['descripcion_rol']="Super administrador"
             else:
-                datosusuarios['descripcion_rol']="Usuario";
+                datosusuarios['descripcion_rol']="Usuario"
                     
             return render_template('User.html',datosusuarios=datosusuarios)
 

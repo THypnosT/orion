@@ -48,7 +48,7 @@ body.dark{
     --color-fondo:#333747;
 }
 
-body.admin{
+body.empleado{
     --color-usuario: var(--color-admin);
     --border-boton-cancelar-usuario: var(--border-boton-cancelar-admin);
 }

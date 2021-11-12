@@ -32,7 +32,7 @@ if (sessionStorage.getItem('userType') === "usuario") {
 } else {
     document.getElementById("usuarios").style.display = "";
 }
-if (sessionStorage.getItem('userType') === "admin") {
+if (sessionStorage.getItem('userType') === "empleado") {
     document.getElementById("listas").style.display = "none";
 }
 
