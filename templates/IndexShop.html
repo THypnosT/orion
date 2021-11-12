@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/font-awesome.css">
+    <link rel="stylesheet" href="css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/Styleindex.css">
+</head>
+<body>
+    <section class="shop">
+        <div class="filter">
+            <h2> Flitros</h2>
+            <div class="price">
+                <div class="filter-price">
+                <h3 class="price-title">PRICE</h3> 
+                <div class="price-range"><p>$</p>
+                    <span id="price-range1"></span><p>&nbsp; - &nbsp; $</p>
+                    <span id="price-range2"></span>
+                </div>                
+                </div>
+                <div class="priceContainer">
+                    <div class="priceContainer-sliderTrack"></div>
+                    <input type="range" min="1" max="50000" value="0" id="slider" oninput="sliderUno()">
+                    <input type="range" min="1" max="50000" value="50000" id="slider2" oninput="sliderDos()">
+                </div> 
+            </div>
+        </div>
+        <div class="products">
+            <div class="products-items">
+                <div class="item-top">
+                    <img src="images/upload/218i_Gran_Coupe.png" alt="">
+                    <button class="favorite"></button>
+                </div>
+                <div class="products-info">
+                    <h3>Nombre del producto</h3>
+                    <div class="puntuacion">
+                        <div class="estrellas-outer">
+                            <div class="estrellas-inner"></div>
+                        </div>
+                        <div class="valor">4.5</div>
+                    </div>
+                    <p>$480000</p>
+                    <div class="products-buy">
+                        <input type="number" min="1" max="20">
+                        <button> Comprar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+<script src="index.js"></script>
+</html>

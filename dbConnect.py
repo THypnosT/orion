@@ -290,7 +290,7 @@ def obtenerListaDeUsuarios():
 
     queryDatosUsuarios = cursor.execute(
         """
-            SELECT per.id_persona, per.nombre_persona, per.apellido_persona, Rol.descripcion_rol, per.email, per.imagen_src
+            SELECT per.id_persona, per.nombre_persona, per.apellido_persona, Rol.descripcion_rol, usr.email, per.imagen_src
             FROM Persona per,
                 Rol,
                 Usuario usr
@@ -410,7 +410,7 @@ def listaEmailUsuarios():
 
     queryDatosUsuarios = cursor.execute(
         """
-            SELECT per.email
+            SELECT usr.email
             FROM Persona per,
                 Usuario usr
             WHERE usr.id_persona = per.id_persona
@@ -493,7 +493,7 @@ def obtenerDatosUsuarioById(id):
 
     queryDatosUsuario = cursor.execute(
         """
-            SELECT per.id_persona, per.nombre_persona, per.apellido_persona, per.telefono_persona, per.email, per.imagen_src,
+            SELECT per.id_persona, per.nombre_persona, per.apellido_persona, usr.telefono, usr.email, per.imagen_src,
                     usr.id_usuario, usr.estatus_usuario, rol.descripcion_rol, sede.nombre_sede, ciudad.nombre_ciudad, pais.nombre_pais
             
             FROM Persona per, Usuario usr, Rol rol, Sede sede, Ciudad ciudad, Pais pais
@@ -898,13 +898,13 @@ def obtnerProductosMinimosDiponible():
     queryDatosProductos=cursor.execute(
         """
             SELECT  pro.nombre_producto,
-                        pro.id_producto,
+                        pro.codigo_producto,
                         prov.id_proveedor,
-                        pro.cantidad_minima,
+                        pro.cantidad_disponible,
                         prov.nombre_proveedor,
                         alm.cantidad_disponible
                     FROM Producto pro, Almacen alm, Proveedor prov
-                    WHERE pro.cantidad_minima > alm.cantidad_disponible AND alm.id_producto=pro.id_producto AND alm.id_proveedor=prov.id_proveedor
+                    WHERE pro.cantidad_disponible > alm.cantidad_disponible AND alm.codigo_producto=pro.codigo_producto AND alm.id_proveedor=prov.id_proveedor
         """
     )
 
