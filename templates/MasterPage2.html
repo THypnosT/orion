@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href={{ url_for( 'static', filename='css/font-awesome.min.css' ) }}>
     <link rel="stylesheet" href={{ url_for( 'static', filename='css/awesomplete.css' ) }}>
+    <link rel="stylesheet" href={{ url_for( 'static', filename='css/StyleMaster2.css' ) }}>
     <title>{% block title %} {% endblock %}</title>
 </head>
 <body>
@@ -19,10 +20,14 @@
             </form>
 
             <div class="seccion-login">
-                <span>Login</span>
                 <a href="{{url_for('iniciarSeccion')}}">
+                    <div class="login">
+                        Login
+                    </div>
+                </a>
+                <a href="{{url_for('registro')}}">
                     <div class="btn-login" id="btn-login">
-                        Sign in
+                        Sign up
                     </div>
                 </a>
             </div>
