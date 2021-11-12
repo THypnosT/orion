@@ -22,9 +22,9 @@ conn = dbConnect
 
 # SECCION PARA LOS COMPRADORES
 
-@app.route('/')
-def Index2():
-    return render_template('Index2.html')
+# @app.route('/')
+# def Index2():
+#     return render_template('Index2.html')
 
 
 
@@ -36,12 +36,12 @@ def Index2():
 
 # SECCION PARA LOS SUPERAMINISTRADORES Y USUARIOS INTERNOS
 
-# @app.route('/')
-# def login():
-#     if not session.get("username"):
-#         return render_template('Login.html')
-#     else:
-#         return redirect("/Home")
+@app.route('/')
+def login():
+    if not session.get("username"):
+        return render_template('Login.html')
+    else:
+        return redirect("/Home")
 
 @app.route('/Index', methods=['GET', 'POST'])
 def Index():
@@ -382,8 +382,11 @@ def ConfirmacionNewPass():
             contrasenaActual = request.form['actualpw']
             nuevaContrasena = request.form['confirmpw']
             if conn.validarContrasena(request.form['email'], contrasenaActual) is not False:
+                print("Ingresé al if de cambiar la clave: ----------------------------------------******************")
                 datos=conn.obtenerDatosUsuario(request.form['email'])
+                print("Obtuve datos del usuario ----------------------------------------******************")
                 conn.cambiarContrasena(datos['id_persona'], generate_password_hash(nuevaContrasena))
+                print("Logré cambiar la clave ----------------------------------------******************")
                 conn.cambiarEstatusUsuario(1, datos['id_persona'])
                 flash("Contraseña cambiada correctamente")
                 return redirect('/')
