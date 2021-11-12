@@ -20,19 +20,34 @@ Session(app)
 # Instanciar módulo de conexión a la base de datos
 conn = dbConnect
 
-@app.route('/')
-def login():
-    if not session.get("username"):
-        return render_template('Login.html')
-    else:
-        return redirect("/Home")
+# SECCION PARA LOS COMPRADORES
 
+@app.route('/')
+def Index2():
+    return render_template('Index2.html')
+
+
+
+
+
+
+
+
+
+# SECCION PARA LOS SUPERAMINISTRADORES Y USUARIOS INTERNOS
+
+# @app.route('/')
+# def login():
+#     if not session.get("username"):
+#         return render_template('Login.html')
+#     else:
+#         return redirect("/Home")
 
 @app.route('/Index', methods=['GET', 'POST'])
 def Index():
     if request.method == 'POST':
         if conn.validarContrasena(request.form["email"], request.form["password"]) is not False:
-
+            
             # Verificar si el usuario solicitó recuperación de contraseña o es primera vez que inicia sesión
             if conn.comprobarEstatusUsuario(conn.obtenerIDUsuario(request.form["email"])) == 0:
                 flash("Bienvenido a la aplicación, por favor cambia tu contraseña", "success")
