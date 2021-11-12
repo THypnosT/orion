@@ -9,10 +9,32 @@
     <title>{% block title %} {% endblock %}</title>
 </head>
 <body>
-    
-    <script src={{ url_for( 'static', filename='js/awesomplete.js' ) }}></script>
+    <header class="principal">
+        <div class="encabezado">
 
-    <script src={{ url_for( 'static', filename='js/script.js' ) }}></script>
+            <form class="buscar" action="/Search" method="POST">
+                
+                <input class="search" type="search" id="search" placeholder="Buscar" name="txtsearch">
+                <i class="fa fa-search" id="lupa"></i>
+            </form>
+
+            <div class="seccion-login">
+                <span>Login</span>
+                <a href="{{url_for('iniciarSeccion')}}">
+                    <div class="btn-login" id="btn-login">
+                        Sign in
+                    </div>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <section class="contenido" id="contenido">
+        {% block content %} {% endblock %}
+
+    </section>
+
+    <script src={{ url_for( 'static', filename='js/awesomplete.js' ) }}></script>
     <script src={{ url_for( 'static', filename='js/jquery-3.3.1.js' ) }}></script>
   
     <script type="text/javascript">

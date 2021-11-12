@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registrese</title>
+    <link rel="stylesheet" href={{ url_for( 'static' , filename='css/normalize.css' ) }}>
+    <link rel="stylesheet" href={{ url_for( 'static' , filename='css/registrarse.css' ) }}>
+</head>
+
+<body>
+    <div class="box">
+        <div class="login">
+            <h2>Registrarse</h2>
+            <p>Registrarse</p>
+            <form action="/ConfirmacionNewPass" method="POST" id="login-form">
+
+                <div class="input-grup">
+                    <div class="inputBox">
+                        <input type="text" name="username" value="" required
+                            onkeyup="this.setAttribute('value', this.value);">
+                        <label>Usuario</label>
+                    </div>
+                    <div class="inputBox">
+                        <input type="email" name="email" value="" required
+                            onkeyup="this.setAttribute('value', this.value);">
+                        <label>Email</label>
+                    </div>
+                </div>
+
+                <div class="input-grup">
+                    <div class="inputBox">
+                        <input type="text" name="nombre_user" value="" required
+                            onkeyup="this.setAttribute('value', this.value);">
+                        <label>Nombres</label>
+                    </div>
+                    <div class="inputBox">
+                        <input type="text" name="apellido_user" value="" required
+                            onkeyup="this.setAttribute('value', this.value);">
+                        <label>Apellidos</label>
+                    </div>
+
+                </div>
+
+                <div class="input-grup">
+                    <div class="inputBox">
+                        <input type="password" name="newpw" value="" id="newpw"
+                            pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+                            title="El campo es de tipo alfanumerico, Minimo 8 Caracteres" required
+                            onkeyup="this.setAttribute('value', this.value);"
+                            pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+                            title="Debe contener al menos un número y una letra mayúscula y minúscula, y al menos 8 caracteres o más">
+                        <label>Contraseña</label>
+                    </div>
+                    <div class="inputBox">
+                        <input type="password" name="confirmpw" value="" id="confirmpw"
+                            pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+                            title="El campo es de tipo alfanumerico, Minimo 8 Caracteres" required
+                            onkeyup="this.setAttribute('value', this.value);"
+                            pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+                            title="Debe contener al menos un número y una letra mayúscula y minúscula, y al menos 8 caracteres o más">
+                        <label>Repetir Contraseña</label>
+                    </div>
+                </div>
+                <label id="coinciden" style="display: none;">¡Las contraseñas no coinciden!</label>
+                <br>
+                <input type="submit" name="sign-in" value="Guardar">
+                {# Mostrar mensajes / errores si es que existen #}
+                {% with mensajes_flash = get_flashed_messages() %}
+                {% if mensajes_flash %}
+                <script>
+                    alert('{{ mensajes_flash[0] }}');
+                </script>
+
+                {% endif %}
+                {% endwith %}
+            </form>
+        </div>
+    </div>
+</body>
+
+<script>
+    var password = document.getElementById("newpw");
+    var confirm_password = document.getElementById("confirmpw");
+
+    function validatePassword() {
+        if (password.value != confirm_password.value) {
+
+            document.getElementById("coinciden").style.display = "inline";
+            // confirm_password.setCustomValidity("Las contraseñas no coinciden");
+        } else {
+            confirm_password.setCustomValidity('');
+            document.getElementById("coinciden").style.display = "none";
+        }
+    }
+
+    // password.onchange = validatePassword;
+    confirm_password.onkeyup = validatePassword;
+
+</script>
+
+</html>

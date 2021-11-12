@@ -26,7 +26,8 @@
                 </div>
                 <br>
                 <div class="inputBox">
-                    <input type="password" name="password" value="" required onkeyup="this.setAttribute('value', this.value);">
+                    <input type="password" name="password" value="" required
+                        onkeyup="this.setAttribute('value', this.value);">
                     <label>Contraseña</label>
                 </div>
 
@@ -35,30 +36,40 @@
                     {# Mostrar mensajes / errores si es que existen #}
                     {% with mensajes_flash = get_flashed_messages() %}
                     {% if mensajes_flash %}
-                        {% if mensajes_flash[0] == 'Correo o contraseña incorrectos' %}
-                            <p style="margin-top: 0%;">
-                                {{ mensajes_flash[0] }}
-                            </p>
-                        {% elif mensajes_flash[0] == 'Contraseña cambiada correctamente' %}
-                            <script>
-                                alert('{{ mensajes_flash[0] }}');
-                            </script>
-                        {% elif mensajes_flash[0] != ' ' %}
-                            <script>
-                                alert('{{ mensajes_flash[0] }}');
-                            </script>
-                        
-                        {% endif %}
+                    {% if mensajes_flash[0] == 'Correo o contraseña incorrectos' %}
+                    <p style="margin-top: 0%;">
+                        {{ mensajes_flash[0] }}
+                    </p>
+                    {% elif mensajes_flash[0] == 'Contraseña cambiada correctamente' %}
+                    <script>
+                        alert('{{ mensajes_flash[0] }}');
+                    </script>
+                    {% elif mensajes_flash[0] != ' ' %}
+                    <script>
+                        alert('{{ mensajes_flash[0] }}');
+                    </script>
+
+                    {% endif %}
 
 
                     {% endif %}
                     {% endwith %}
+
                     <button type="button" class="show-modal">
                         ¿Olvidó su contraseña?
                     </button>
 
                 </div>
-                <input type="submit" name="sign-in" value="Ingresar">
+                <div class="botones">
+
+                    <a href="{{url_for('registro')}}">
+                        <div class="registro" style="width: 90px;"> 
+                            Registrarse
+                        </div>
+                    </a>
+
+                    <input type="submit" name="sign-in" value="Ingresar">
+                </div>
             </form>
 
             <!-- MODAL -->
