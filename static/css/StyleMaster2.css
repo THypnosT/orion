@@ -23,7 +23,7 @@
     z-index: 1;
 }
 
-input[type=number]::-webkit-inner-spin-button,
+/* input[type=number]::-webkit-inner-spin-button,
 input[type=number]::-webkit-outer-spin-button {
     -webkit-appearance: none;
     margin: 0;
@@ -31,7 +31,7 @@ input[type=number]::-webkit-outer-spin-button {
 
 input[type=number] {
     -moz-appearance: textfield;
-}
+} */
 
 a {
     text-decoration: none;
@@ -59,6 +59,12 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+header .encabezado .logo img {
+    width: 50px;
+    width: 50px;
+    object-fit: contain;
 }
 /* CONIGURACION DE CUADRO DE BUSQUEDA */
 

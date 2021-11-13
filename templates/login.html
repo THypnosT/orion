@@ -13,7 +13,7 @@
 <body>
     <div class="box">
         <div class="logo">
-            <img src={{ url_for( 'static' , filename='images/LogoSM.png' ) }}>
+            <img src={{ url_for( 'static' , filename='images/logo-02.png' ) }}>
         </div>
         <div class="login">
             <h2>Bienvenido</h2>
@@ -60,12 +60,13 @@
 
                 </div>
                 <div class="botones">
-
+                    <input type="button" name="submit_button" class="cancelar" value="Cancelar" onclick="location.href='/'">
                     <a href="{{url_for('registro')}}">
                         <div class="registro" style="width: 90px;"> 
                             Registrarse
                         </div>
                     </a>
+
 
                     <input type="submit" name="sign-in" value="Ingresar">
                 </div>

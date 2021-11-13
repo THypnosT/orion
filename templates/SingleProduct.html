@@ -21,10 +21,11 @@
                 <h4>Numero de calificaciones</h4>
                 
                 <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quas, hic molestiae? Assumenda aliquid quis quam odit, nisi dolorem odio maiores laboriosam aspernatur! Consequuntur iure amet provident possimus tempora assumenda ea.</p>
-                <p>Cantidad: <input type="number" min="1" max="20"></p>
+                <p>Cantidad: <input type="number" min="1" max="20" step="1" value="1"></p>
                 <button>Añadir al carrito de compra</button>
             </div>
         </div>
+        {% for fila in range(6) %}
         <div class="product-review">
             <div class="review-One">
                 <div class="review-user">
@@ -35,12 +36,13 @@
                     <div class="estrellas-outer">
                         <div class="estrellas-inner" style="width:{{ fila }}rem;"></div>
                     </div>
-                    <div class="valor">5</div>
+                    <div class="valor">{{ fila }}</div>
                 </div>
                 <p class="fecha">23/10/2021</p>
                 <p class="comment">Lorem ipsum dolor sit amet consectetur adipisicing elit. In minima quod, aperiam quo provident vel quas rem dolores labore saepe officiis explicabo reiciendis nobis nostrum? Excepturi quasi ipsum pariatur expedita?</p>
             </div>
         </div>
+        {% endfor %}
         
     </section>
 </body>

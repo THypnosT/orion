@@ -9,7 +9,7 @@
 }
 
 
-input[type=number]::-webkit-inner-spin-button,
+/* input[type=number]::-webkit-inner-spin-button,
 input[type=number]::-webkit-outer-spin-button {
     -webkit-appearance: none;
     margin: 0;
@@ -17,7 +17,7 @@ input[type=number]::-webkit-outer-spin-button {
 
 input[type=number] {
     -moz-appearance: textfield;
-}
+} */
 
 a {
     text-decoration: none;
@@ -333,11 +333,13 @@ body {
 }
 
 header .encabezado .logo {
-    margin-top: 25px;
+    margin-top: 15px;
 }
 
 header .encabezado .logo img {
-    width: 150px;
+    width: 50px;
+    width: 50px;
+    object-fit: contain;
 }
 
 
