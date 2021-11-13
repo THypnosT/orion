@@ -12,7 +12,9 @@
 <body>
     <header class="principal">
         <div class="encabezado">
-            <a href="{{url_for('Index2')}}" class="logo">ORIÓN</a>
+            <a href="{{url_for('Index2')}}" class="logo">
+                <img src={{ url_for( 'static', filename='images/LogoSM.png' ) }} alt="">
+            </a>
             <form class="buscar" action="/Search" method="POST">
                 
                 <input class="search" type="search" id="search" placeholder="Buscar" name="txtsearch">

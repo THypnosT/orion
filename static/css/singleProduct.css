@@ -10,7 +10,10 @@
 }
 
 .product{
-    margin: 50px;
+    margin: auto;
+    max-width: 1024px;
+    padding: 50px;
+    padding-top: 0;
 
 }
 
@@ -29,15 +32,77 @@
 .product-info{
     margin: 25px;
     font: var(--fuente-texto);
+    display: flex;
+    flex-direction: column;
+}
+
+.product-info button{
+    height: 50px;
+    color: var(--color-blanco);
+    background-color: var(--color-usuario);
+    border-radius: var(--radio-boton);
+    border: none;
+    align-self: flex-end;
+    padding-right: 15px;
+}
+
+.product-info button::before {
+    font-family: "icomoon";
+    content: "\e93a";
+    color: var(--color-blanco);
+    padding: 0 10px;
+}
+
+.product-info button:hover{
+    background-color: var(--color-gris);
+    cursor: pointer;
+}
+
+.product-info p input{
+    min-width: 100px;
+    height: 30px;
+    text-align: center;
 }
 
 /* product-info fin */
+
+.product-review{
+    border-top: 1px solid var(--color-gris);
+}
+
+
+/* review user inicio */
+.review-One{
+    border-bottom: 1px solid var(--color-gris);
+    padding: 0 30px;
+}
+
+.review-user{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    margin: 25px 0;
+    font: var(--fuente-texto);
+}
+
+.review-user img{
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+/* review user fin */
+
+/* product-info inicio*/
 .puntuacion{
     display: flex;
     gap: 10px;
     align-items: center;
     justify-content: start;
 }
+/* product-info fin */
+
 /*estrellas inicio*/
 .puntuacion .valor{
     font-size: 1.1em;
@@ -70,3 +135,9 @@
     /* width: 90%;  */                     /* Para cambiar el relleno de las estrellas */
 }
 /*estrellas fin*/
+
+/* comentarios inicio */
+.comment{
+    margin-bottom: 40px;
+}
+/* comentarios fin */

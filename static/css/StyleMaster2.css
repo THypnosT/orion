@@ -60,6 +60,12 @@ body {
     align-items: center;
     justify-content: center;
 }
+
+header .encabezado .logo img {
+    width: 50px;
+    width: 50px;
+    object-fit: contain;
+}
 /* CONIGURACION DE CUADRO DE BUSQUEDA */
 
 #lupa {

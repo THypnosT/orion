@@ -493,13 +493,13 @@ def obtenerDatosUsuarioById(id):
 
     queryDatosUsuario = cursor.execute(
         """
-            SELECT per.id_persona, per.nombre_persona, per.apellido_persona, usr.telefono, usr.email, per.imagen_src,
-                    usr.id_usuario, usr.estatus_usuario, rol.descripcion_rol, sede.nombre_sede, ciudad.nombre_ciudad, pais.nombre_pais
+            SELECT per.id_persona, per.nombre_persona, per.apellido_persona, per.direccion_persona, per.sexo_persona, per.fnacimiento_persona, usr.telefono, usr.email, per.imagen_src,
+                    usr.id_usuario, usr.estatus_usuario, rol.descripcion_rol, sede.nombre_sede, ciudad.nombre_ciudad, pais.nombre_pais, emp.cedula_persona, carg.descripcion_cargo
             
-            FROM Persona per, Usuario usr, Rol rol, Sede sede, Ciudad ciudad, Pais pais
+            FROM Persona per, Usuario usr, Rol rol, Sede sede, Ciudad ciudad, Pais pais, Empleado emp, Cargo carg
             
             WHERE usr.id_persona = per.id_persona AND rol.id_rol = usr.id_rol AND usr.id_sede = sede.id_sede
-            AND sede.id_ciudad = ciudad.id_ciudad AND ciudad.id_pais = pais.id_pais
+            AND sede.id_ciudad = ciudad.id_ciudad AND ciudad.id_pais = pais.id_pais AND usr.id_persona = emp.id_persona AND emp.id_cargo = carg.id_cargo
             AND per.id_persona =  '%s'
         """ % id)
 

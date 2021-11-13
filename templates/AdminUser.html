@@ -32,6 +32,10 @@
                 <label for="lastname">Apellido</label>
                 <input type="text" name="apellido" id="lastname" required value="{{ datosusuarios['apellido_persona'] }}">
             </div>
+            <div class="cedula">
+                <label for="cedula">Cedula</label>
+                <input type="text" name="cedula" id="cedula" required value="{{ datosusuarios['cedula_persona'] }}">
+            </div>
             <div class="tipo-de-usuario">
                 <label for="rol">Tipo de usuario</label>
                 <div class="contenedor-tipo-de-usuario">
@@ -58,15 +62,82 @@
                     </div>
                 </div>
             </div>
+
+            <div class="sc-usuario">
+                <label for="rol">Sexo</label>
+                <div class="contenedor-sc-usuario">
+                    <div class="select-box-sc">
+                        <div class="options-container-sc">
+                            <div class="option-sc">
+                                <input type="radio" class="radio" id="femenino" name="category" value="femenino"/>
+                                <label for="sexo" id="femenino">Femenino</label>
+                            </div>
+                            <div class="option-sc">
+                                <input type="radio" class="radio" id="masculino" name="category" value="masculino"/>
+                                <label for="sexo" id="masculino">Masculino</label>
+                            </div>
+                        </div>
+                        <div class="selected-sc">
+                            {{ datosusuarios['sexo_persona'] }}       
+                        </div>
+                        <input type="hidden" id="inputSelectedSexo" name="selectedSexo"  value="{{ datosusuarios['sexo_persona'] }}">
+                    </div>
+                </div>
+            </div>
+
+            <div class="cargo-usuario">
+                <label for="rol">Cargo</label>
+                <div class="contenedor-cargo-usuario">
+                    <div class="select-box-cargo">
+                        <div class="options-container-cargo">
+                            <div class="option-cargo">
+                                <input type="radio" class="radio" id="comercial" name="category" value="comercial"/>
+                                <label for="comercial" id="primer-cargo">Comercial</label>
+                            </div>
+                            <div class="option-cargo">
+                                <input type="radio" class="radio" id="ejecutivo_comercial" name="category" value="ejecutivo_comercial"/>
+                                <label for="ejecutivo_comercial" id="segundo-cargo">Ejectivo Comercial</label>
+                            </div>
+                            <div class="option-cargo">
+                                <input type="radio" class="radio" id="asistente_presidencia" name="category" value="asistente_presidencial"/>
+                                <label for="asistente_presidencia" id="tercer-cargo">Asistente Presidencia</label>
+                            </div>
+                            <div class="option-cargo">
+                                <input type="radio" class="radio" id="asistente_cartera" name="category" value="asistente_cartera"/>
+                                <label for="asistente_cartera" id="cuarto-cargo">Asistente Cartera</label>
+                            </div>
+                        </div>
+                        <div class="selected-cargo">
+                            {{ datosusuarios['descripcion_cargo'] }}     
+                        </div>
+                        <input type="hidden" id="inputSelectedCargo" name="selectedCargo"  value="{{ datosusuarios['descripcion_cargo'] }}">
+                    </div>
+                </div>
+            </div>
+
             
+            
+            <div class="direccion">
+                <label for="direccion">Direccion</label>
+                <input type="text" name="direccion" id="direccion" required value="{{ datosusuarios['direccion_persona'] }}">
+            </div>
+            <div class="ciudad">
+                <label for="name">Ciudad</label>
+                <input type="text" name="ciudad" id="ciudad" required value="{{ datosusuarios['nombre_ciudad'] }}">
+            </div>
+            <div class="fnacimiento">
+                <label for="fnacimiento">Fecha de Nacimiento</label>
+                <input type="date" name="fnacimiento" format="DD-MM-YYYY" id="fnacimiento" required value="{{datosusuarios['fnacimiento_persona']}}">
+            </div>
             <div class="correo">
                 <label for="email">Email</label>
                 <input type="email" name="email" id="email" required value="{{ datosusuarios['email'] }}">
             </div>
             <div class="telefono">
                 <label for="phone">Telefono</label>
-                <input type="number" name="telefono" id="phone" required value="{{ datosusuarios['telefono_persona'] }}">
+                <input type="number" name="telefono" id="phone" required value="{{ datosusuarios['telefono'] }}">
             </div>
+            
             <!-- <div class="contrasena">
                 <label for="password">Contraseña</label>
                 <input type="submit" class="resetPass" name="submit_button" id="resetPass" value="Restablecer contraseña usuario">
@@ -90,6 +161,5 @@
         {% endif %}
     {% endwith %}
 </form>
-
 <script src={{ url_for('static', filename='js/scriptSelectUser.js' ) }}></script>
 {% endblock %}
