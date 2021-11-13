@@ -25,6 +25,7 @@
                 <button>Añadir al carrito de compra</button>
             </div>
         </div>
+        {% for fila in range(6) %}
         <div class="product-review">
             <div class="review-One">
                 <div class="review-user">
@@ -35,12 +36,13 @@
                     <div class="estrellas-outer">
                         <div class="estrellas-inner" style="width:{{ fila }}rem;"></div>
                     </div>
-                    <div class="valor">5</div>
+                    <div class="valor">{{ fila }}</div>
                 </div>
                 <p class="fecha">23/10/2021</p>
                 <p class="comment">Lorem ipsum dolor sit amet consectetur adipisicing elit. In minima quod, aperiam quo provident vel quas rem dolores labore saepe officiis explicabo reiciendis nobis nostrum? Excepturi quasi ipsum pariatur expedita?</p>
             </div>
         </div>
+        {% endfor %}
         
     </section>
 </body>
