@@ -6,13 +6,41 @@
 
 <link rel="stylesheet" href={{ url_for( 'static', filename='css/font-awesome.min.css' ) }}>
 <link rel="stylesheet" href={{ url_for( 'static', filename='css/font-awesome.css' ) }}>
-<link rel="stylesheet" href={{ url_for( 'static', filename='css/Styleindex.css' ) }}>
+<link rel="stylesheet" href={{ url_for( 'static', filename='css/singleProduct.css' ) }}>
 
 
 <body>
-    <sect ion class="shop">
-        
-        
+    <section class="product">
+        <div class="product-item">
+            <div class="product-image">
+                <img src={{ url_for( 'static', filename='images/upload/enlatados.jpg') }} alt="product" class="product-image">
+            </div>
+            <div class="product-info">
+                <h2>Nombre del producto</h2>
+                <h3>Proveedor</h3>
+                <h4>Numero de calificaciones</h4>
+                
+                <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quas, hic molestiae? Assumenda aliquid quis quam odit, nisi dolorem odio maiores laboriosam aspernatur! Consequuntur iure amet provident possimus tempora assumenda ea.</p>
+                <p>Cantidad: <input type="number" min="1" max="20"></p>
+                <button>Añadir al carrito de compra</button>
+            </div>
+        </div>
+        <div class="product-review">
+            <div class="review-One">
+                <div class="review-user">
+                    <img src={{ url_for( 'static', filename='images/upload/admin.jpg') }} alt="">
+                    <h3>Nombre usuario</h3>
+                </div>
+                <div class="puntuacion">
+                    <div class="estrellas-outer">
+                        <div class="estrellas-inner" style="width:{{ fila }}rem;"></div>
+                    </div>
+                    <div class="valor">5</div>
+                </div>
+                <p class="fecha">23/10/2021</p>
+                <p class="comment">Lorem ipsum dolor sit amet consectetur adipisicing elit. In minima quod, aperiam quo provident vel quas rem dolores labore saepe officiis explicabo reiciendis nobis nostrum? Excepturi quasi ipsum pariatur expedita?</p>
+            </div>
+        </div>
         
     </section>
 </body>
