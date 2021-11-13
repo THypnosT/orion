@@ -15,3 +15,21 @@ optionsListCalificacion.forEach(o => {
         document.getElementById("inputSelectedCalificacion").value=nombre;
     });
 });
+
+// DESPLIEGE DE LA OPCION DE LA UNIDAD
+const selectedUnidad = document.querySelector(".selected-unidad");
+const optionsContainerUnidad = document.querySelector(".options-container-unidad");
+const optionsListUnidad = document.querySelectorAll(".option-unidad");
+
+selectedUnidad.addEventListener("click", () => {
+    optionsContainerUnidad.classList.toggle("active");
+});
+
+optionsListUnidad.forEach(o => {
+    o.addEventListener("click", () => {
+        selectedUnidad.innerHTML = o.querySelector("label").innerHTML;
+        optionsContainerUnidad.classList.remove("active");
+        var nombre = document.querySelector(".selected-Unidad").textContent;
+        document.getElementById("inputSelectedUnidad").value=nombre;
+    });
+});

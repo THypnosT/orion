@@ -215,16 +215,19 @@ textarea:focus{
 /* FIN CONFIGURACION DEL TIPO DE PROVEDOR */
 
 /* CONFIGURACION DE LA CALIFICACION */
-.container-calificacion label{
+.container-calificacion label,
+.container-unidad label{
     justify-self: end;
 }
 
-.select-box-calificacion {
+.select-box-calificacion,
+.select-box-unidad {
     display: flex;
     flex-direction: column;
 }
 
-.select-box-calificacion .options-container-calificacion {
+.select-box-calificacion .options-container-calificacion,
+.select-box-unidad .options-container-unidad {
     background: var(--color-usuario);
     color: var(--color-blanco) !important;
     max-height: 0;
@@ -236,7 +239,7 @@ textarea:focus{
     /* order: 1; */
 }
 
-.selected-calificacion {
+.selected-calificacion,.selected-unidad {
     background: var(--color-usuario);
     border-radius: var(--radio-input);
     margin-bottom: 8px;
@@ -245,7 +248,7 @@ textarea:focus{
     order: 0;
 }
 
-.selected-calificacion::after {
+.selected-calificacion::after,.selected-unidad::after {
     content: "";
     background: url("../images/arrow-down.svg");
     background-size: contain;
@@ -258,41 +261,49 @@ textarea:focus{
     transition: all 0.4s;
 }
 
-.select-box-calificacion .options-container-calificacion.active {
+.select-box-calificacion .options-container-calificacion.active,
+.select-box-unidad .options-container-unidad.active {
     max-height: 240px;
     opacity: 1;
     overflow-y: scroll;
 }
 
-.select-box-calificacion .options-container-calificacion.active+.selected-calificacion::after {
+.select-box-calificacion .options-container-calificacion.active+.selected-calificacion::after,
+.select-box-unidad .options-container-unidad.active+.selected-unidad::after {
     transform: rotateX(180deg);
     top: -6px;
 }
 
-.select-box-calificacion .options-container-calificacion::-webkit-scrollbar {
+.select-box-calificacion .options-container-calificacion::-webkit-scrollbar,
+.select-box-unidad .options-container-unidad::-webkit-scrollbar {
     display: none;
 }
 
-.select-box-calificacion .options-container-calificacion::-webkit-scrollbar-thumb {
+.select-box-calificacion .options-container-calificacion::-webkit-scrollbar-thumb,
+.select-box-unidad .options-container-unidad::-webkit-scrollbar-thumb {
     background: var(--color-gris);
     border-radius: 0 8px 8px 0;
 }
 
-.select-box-calificacion .option-calificacion, .selected-calificacion {
+.select-box-calificacion .option-calificacion, .selected-calificacion,
+.select-box-unidad .option-unidad, .selected-unidad {
     padding: 12px 24px;
     cursor: pointer;
 }
 
-.select-box-calificacion .option-calificacion:hover {
+.select-box-calificacion .option-calificacion:hover,
+.select-box-unidad .option-unidad:hover {
     background: var(--color-blanco);
     color: var(--color-usuario);
 }
 
-.select-box-calificacion label {
+.select-box-calificacion label,
+.select-box-unidad label {
     cursor: pointer;
 }
 
-.select-box-calificacion .option-calificacion .radio {
+.select-box-calificacion .option-calificacion .radio,
+.select-box-unidad .option-unidad .radio {
     display: none;
 }
 

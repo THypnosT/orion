@@ -24,22 +24,37 @@ conn = dbConnect
 
 @app.route('/')
 def Index2():
-    return render_template('IndexShop.html')
+    if not session.get("username"):
+        return render_template('IndexShop.html')
+    elif session["userType"] == "empleado" or session["userType"] == "superAdmin":
+        return redirect("/Home")
+    else:
+        return render_template('IndexShop.html')
+        
+
 
 @app.route('/singleProduct')
 def singleProduct():
-    return render_template('SingleProduct.html')
+    if not session.get("username"):
+        return redirect("/")
+    elif session["userType"] == "usuario":
+        return render_template('singleProduct.html')
+    else:
+        return redirect("/Home")
 
 @app.route('/iniciarSeccion', methods=['GET', 'POST'])
 def iniciarSeccion():
-    return render_template('Login.html')
+    if not session.get("username"):
+        return render_template('Login.html')
+    else:
+        return redirect("/")
 
 @app.route('/registro', methods=['GET'])
 def registro():
     if not session.get("username"):
         return render_template('Registrarse.html')
     else:
-        return redirect("/Home")
+        return redirect("/")
 
 @app.route('/registrar', methods=['GET', 'POST'])
 def registrar():
@@ -611,7 +626,11 @@ def GuardarProducto():
                 descripcion =request.form["descripcion"]
                 disponible=request.form["cantidad_disponible"]
                 cantidad_minima=request.form["cantidad_minima"]
-                calificacion=request.form["selectedCalificacion"]
+                bono=request.form["selectedCalificacion"]
+                tipoUnidad=request.form["selectedUnidad"]
+                precio=request.form["precio_producto"]
+                descuento=request.form["descuento_producto"]
+                lote=request.form["lote_producto"]
                 image_src=request.files['archivo']
                 if id=="0":
                     
@@ -623,7 +642,7 @@ def GuardarProducto():
                             image_src="/static/images/Producto.png"   # Si no se selecciona ninguna imagen, establece la imagen por defecto
                         
                     #Consulta para insert en la base de datos
-                    conn.insertarProducto(nombreProducto, descripcion, calificacion, image_src, cantidad_minima, disponible, proveedor)
+                    conn.insertarProducto(nombreProducto, descripcion, bono, image_src, cantidad_minima, disponible, proveedor)
                     flash("Producto guardado correctamente")
                 else:
                     if image_src.filename !="":
@@ -632,12 +651,12 @@ def GuardarProducto():
                         image_src="/static/images/upload/"+image_src
                     
                         #Consulta para update en la base de datos cambiando la imagen por la seleccionada en el momento
-                        conn.actualizarProducto(id, nombreProducto, descripcion, calificacion, image_src, cantidad_minima, disponible, proveedor)
+                        conn.actualizarProducto(id, nombreProducto, descripcion, bono, image_src, cantidad_minima, disponible, proveedor)
                         flash("Producto guardado correctamente")
                     else:
                         image_src = conn.obtenerImagenProducto(id)
                         #Consulta para update en la base de datos sin incluir imagen, permanece la actual
-                        conn.actualizarProducto(id, nombreProducto, descripcion, calificacion, image_src, cantidad_minima, disponible, proveedor)
+                        conn.actualizarProducto(id, nombreProducto, descripcion, bono, image_src, cantidad_minima, disponible, proveedor)
                         flash("Producto guardado correctamente","success")
                             
                 return redirect('/Productos')

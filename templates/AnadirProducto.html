@@ -122,7 +122,34 @@
                     <input type="number" name="lote_producto" required id="lote" value="">
                 </div>
             </div>
+            <div class="container-unidad">
+                <label for="unidad">Tipo unidad</label>
+                <div class="select-box-unidad">
+                    <div class="options-container-unidad">
+                        <div class="option-unidad">
+                            <input type="radio" class="radio" id="num1" name="category-cal" value="Caja" checked />
+                            <label for="num1" id="lblnum1">Caja</label>
+                        </div>
+                        <div class="option-unidad">
+                            <input type="radio" class="radio" id="num2" name="category-cal" value="Pares" />
+                            <label for="num2" id="lblnum2">Pares</label>
+                        </div>
+                        <div class="option-unidad">
+                            <input type="radio" class="radio" id="num2" name="category-cal" value="Bolsa" />
+                            <label for="num2" id="lblnum2">Bolsa</label>
+                        </div>
+                        <div class="option-unidad">
+                            <input type="radio" class="radio" id="num2" name="category-cal" value="Bolsa" />
+                            <label for="num2" id="lblnum2">Unidad</label>
+                        </div>
+                    </div>
 
+                    <div class="selected-unidad" id="selected-unidad">
+                        Caja
+                    </div>
+                </div>
+                <input type="hidden" id="inputSelectedUnidad" name="selectedUnidad" value="">
+            </div>
             <div class="guardar-cancelar">
                 <input type="button" class="cancelar" name="submit_button" value="Cancelar" onclick="history.back()">
                 <input type="submit" class="guardar" name="submit_button" value="Guardar">
