@@ -8,14 +8,6 @@
     font-display: block;
 }
 
-@font-face {
-    font-family: 'icomoon';
-    src: url('../fonts/icomoon.eot?2wkt35');
-    src: url('../fonts/icomoon.eot?2wkt35#iefix') format('embedded-opentype'), url('../fonts/icomoon.ttf?2wkt35') format('truetype'), url('../fonts/icomoon.woff?2wkt35') format('woff'), url('../fonts/icomoon.svg?2wkt35#icomoon') format('svg');
-    font-weight: normal;
-    font-style: normal;
-    font-display: block;
-}
 
 input[type=number]::-webkit-inner-spin-button,
 input[type=number]::-webkit-outer-spin-button {

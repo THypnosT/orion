@@ -1,0 +1,93 @@
+@import url(variables.css);
+@font-face {
+    font-family: 'icomoon';
+    src: url('../fonts/icomoon.eot?2wkt35');
+    src: url('../fonts/icomoon.eot?2wkt35#iefix') format('embedded-opentype'), url('../fonts/icomoon.ttf?2wkt35') format('truetype'), url('../fonts/icomoon.woff?2wkt35') format('woff'), url('../fonts/icomoon.svg?2wkt35#icomoon') format('svg');
+    font-weight: normal;
+    font-style: normal;
+    font-display: block;
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input[type=number] {
+    -moz-appearance: textfield;
+}
+
+a {
+    text-decoration: none;
+}
+
+body {
+    background: var(--color-fondo);
+}
+
+.encabezado {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    background: var(--color-fondo);
+    overflow: hidden;
+    align-items: top;
+    padding: 0;
+    font: var(--fuente-texto);
+}
+
+/* CONIGURACION DE CUADRO DE BUSQUEDA */
+
+#lupa {
+    padding: 10px 13px 0px 15px;
+    border: var(--boder-inputs);
+    height: 33px;
+    border-radius: 8px 0px 0px 8px;
+    border-right: none;
+    color: var(--color-gris);
+}
+
+
+.buscar {
+    display: flex;
+    flex-direction: row-reverse;
+    margin-top: 20px;
+}
+
+.buscar .search {
+    height: 45px;
+    color: var(--color-gris);
+    background: var(--color-fondo);
+    border: var(--boder-inputs);
+    border-left: none;
+    padding-left: 10px;
+    border-radius: 0px 8px 8px 0px;
+}
+
+.encabezado .buscar #search:focus~i {
+    border-color: var(--color-gris);
+}
+
+.encabezado .buscar #search:focus {
+    border-color: var(--color-gris);
+    outline: none;
+}
+/* FIN CUADRO BUSCAR */
+
+.seccion-login{
+    display: flex;
+    align-items: center;
+}
+
+.login{
+    margin-right: 10px;
+}
+
+.btn-login{
+    color: var(--color-blanco);
+    background: var(--color-usuario);
+    border: none;
+    border-radius: 8px;
+    padding: 10px;
+}

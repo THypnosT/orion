@@ -22,9 +22,9 @@ conn = dbConnect
 
 # SECCION PARA LOS COMPRADORES
 
-# @app.route('/')
-# def Index2():
-#     return render_template('Index2.html')
+@app.route('/')
+def Index2():
+    return render_template('IndexShop.html')
 
 @app.route('/iniciarSeccion', methods=['GET', 'POST'])
 def iniciarSeccion():
@@ -32,7 +32,7 @@ def iniciarSeccion():
 
 @app.route('/registro', methods=['GET', 'POST'])
 def registro():
-    return render_template('Registrarse.html')
+    return render_template('IndexShop.html')
 
 @app.route('/registrar', methods=['GET', 'POST'])
 def registrar():
@@ -70,12 +70,12 @@ def registrar():
 
 # SECCION PARA LOS SUPERAMINISTRADORES Y USUARIOS INTERNOS
 
-@app.route('/')
-def login():
-    if not session.get("username"):
-        return render_template('Login.html')
-    else:
-        return redirect("/Home")
+# @app.route('/')
+# def login():
+#     if not session.get("username"):
+#         return render_template('Login.html')
+#     else:
+#         return redirect("/Home")
 
 @app.route('/Index', methods=['GET', 'POST'])
 def Index():
@@ -115,7 +115,6 @@ def CambiarContrasena():
         return render_template('CambiarContrasena.html')
     session["cambiarPass"]=False
     return redirect("/")
-    
     
 
 @app.route('/Home')
@@ -186,8 +185,8 @@ def Configuracion():
         if request.method == 'POST':
             
             datosusuarios=conn.obtenerDatosUsuarioById(request.form["id-user"])
-            if(datosusuarios['descripcion_rol']=="admin"):
-                datosusuarios['descripcion_rol']="Administrador"
+            if(datosusuarios['descripcion_rol']=="empleado"):
+                datosusuarios['descripcion_rol']="Empleado"
             elif(datosusuarios['descripcion_rol']=="superAdmin"):
                 datosusuarios['descripcion_rol']="Super administrador"
             else:
@@ -214,12 +213,12 @@ def Usuarios():
         return redirect("/")
     else:
         
-        if session.get("userType")=='admin' or session.get("userType")=='superAdmin':
+        if session.get("userType")=='empleado' or session.get("userType")=='superAdmin':
             ListaUsuarios = conn.obtenerListaDeUsuarios()
             
             for x in range(len(ListaUsuarios)):
-                if(ListaUsuarios[x]['descripcion_rol']=="admin"):
-                    ListaUsuarios[x]['descripcion_rol']="Administrador"
+                if(ListaUsuarios[x]['descripcion_rol']=="empleado"):
+                    ListaUsuarios[x]['descripcion_rol']="Empleado"
                 elif(ListaUsuarios[x]['descripcion_rol']=="superAdmin"):
                     ListaUsuarios[x]['descripcion_rol']="Super administrador"
                 else:
@@ -313,8 +312,8 @@ def AdminUser():
                 # del usuario
                 datosusuarios=conn.obtenerDatosUsuarioById(request.form["id"])
                 
-                if(datosusuarios['descripcion_rol']=="admin"):
-                    datosusuarios['descripcion_rol']="Administrador"
+                if(datosusuarios['descripcion_rol']=="empleado"):
+                    datosusuarios['descripcion_rol']="Empleado"
                 elif(datosusuarios['descripcion_rol']=="superAdmin"):
                     datosusuarios['descripcion_rol']="Super administrador"
                 else:
@@ -328,7 +327,7 @@ def AdminUser():
                 # consulta para obtner el tipo de usuario del que se quiere borrar
                 datosusuarios=conn.obtenerDatosUsuarioById(request.form["id"])
                 tipoUSuario=datosusuarios['descripcion_rol']
-                if session['userType']=='admin':
+                if session['userType']=='empleado':
                    
                     if tipoUSuario=="usuario":
                         conn.eliminarUsuario(conn.obtenerIDUsuarioDesdePersona(request.form["id"]), request.form["id"])        
@@ -337,8 +336,8 @@ def AdminUser():
                         flash("No posees los permisos para borrar un usuario de tipo administrador y super administrador")
                 else:
                     if session['userType']=='superAdmin':
-                        if tipoUSuario=="usuario" or tipoUSuario=="admin":
-                            # Puede borrar un usuario de tipo usuario y administrador, pero no super administrador
+                        if tipoUSuario=="usuario" or tipoUSuario=="empleado":
+                            # Puede borrar un usuario de tipo usuario y empleado, pero no super administrador
                             conn.eliminarUsuario(conn.obtenerIDUsuarioDesdePersona(request.form["id"]), request.form["id"])
                             flash("Usuario eliminado correctamente")
                         else:
@@ -458,7 +457,7 @@ def GuardarUser():
     if not session.get("username"):
         return redirect("/")
     else:
-        if session.get("userType")=='admin' or session.get("userType")=='superAdmin':
+        if session.get("userType")=='empleado' or session.get("userType")=='superAdmin':
             if request.method == 'POST':
                 if request.form['submit_button'] == 'Guardar':
                     
@@ -466,8 +465,8 @@ def GuardarUser():
                     nombre=request.form['nombre']
                     apellido=request.form['apellido']
                     tipoUser=request.form['selectedUsuario']    
-                    if(tipoUser=="Administrador"):
-                        tipoUser="admin"
+                    if(tipoUser=="Empleado"):
+                        tipoUser="empleado"
                     elif(tipoUser=="Super administrador"):
                         tipoUser="superAdmin"
                     else:

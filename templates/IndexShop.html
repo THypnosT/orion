@@ -1,14 +1,14 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="css/font-awesome.css">
-    <link rel="stylesheet" href="css/font-awesome.min.css">
-    <link rel="stylesheet" href="css/Styleindex.css">
-</head>
+{% extends 'MasterPage2.html' %}
+{% block title %} Inicio {% endblock %}
+
+
+{% block content %}
+
+<link rel="stylesheet" href={{ url_for( 'static', filename='css/font-awesome.min.css' ) }}>
+<link rel="stylesheet" href={{ url_for( 'static', filename='css/font-awesome.css' ) }}>
+<link rel="stylesheet" href={{ url_for( 'static', filename='css/Styleindex.css' ) }}>
+
+
 <body>
     <section class="shop">
         <div class="filter">
@@ -28,10 +28,11 @@
                 </div> 
             </div>
         </div>
+        {% for fila in range(3) %}
         <div class="products">
             <div class="products-items">
                 <div class="item-top">
-                    <img src="images/upload/218i_Gran_Coupe.png" alt="">
+                    <img src={{ url_for( 'static', filename='images/upload/218i_Gran_Coupe.png' ) }} alt="">
                     <button class="favorite"></button>
                 </div>
                 <div class="products-info">
@@ -50,7 +51,10 @@
                 </div>
             </div>
         </div>
+        {% endfor %}
     </section>
 </body>
-<script src="index.js"></script>
-</html>
+<script src={{ url_for( 'static', filename='js/index.js' ) }}></script>
+
+    
+    {% endblock %}
