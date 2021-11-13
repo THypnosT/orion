@@ -604,6 +604,7 @@ def GuardarProducto():
     elif session["userType"] != "usuario":
         if request.method == 'POST':
             if request.form['submit_button'] == 'Guardar':
+                id_usuario = conn.obtenerIDUsuario(session.get("username"))
                 id=request.form['id_producto']
                 nombreProducto = request.form["nombre_producto"]
                 proveedor = request.form['selectedProveedor']
@@ -613,8 +614,12 @@ def GuardarProducto():
                 cantidad_minima=request.form["cantidad_minima"]
                 precio = request.form["precio_producto"]
                 bono=request.form["selectedCalificacion"]
+                if bono == "Si":
+                    bono = 1
+                else:
+                    bono = 0
                 porcentaje = request.form["descuento_producto"]
-                unidad = request.form["fecha_entradas"]
+                unidad = "Litro"
                 image_src=request.files['archivo']
                 if id=="0":
                     
@@ -626,7 +631,19 @@ def GuardarProducto():
                             image_src="/static/images/Producto.png"   # Si no se selecciona ninguna imagen, establece la imagen por defecto
                         
                     #Consulta para insert en la base de datos
-                    conn.insertarProducto(nombreProducto, descripcion, precio, image_src, bono, porcentaje, proveedor, cantidad_minima, disponible, descripcion, unidad)
+                    # print(type(nombreProducto))
+                    # print(type(descripcion))
+                    # print(type(precio))
+                    # print(type(image_src))
+                    # print(type(bono))
+                    # print(type(porcentaje))
+                    # print(type(proveedor))
+                    # print(type(cantidad_minima))
+                    # print(type(disponible))
+                    # print(type(descripcion))
+                    # print(type(unidad))
+                    conn.insertarProducto(nombreProducto, descripcion, precio, image_src, bono, porcentaje, proveedor,
+                                          cantidad_minima, disponible, descripcion, unidad, id_usuario)
                     flash("Producto guardado correctamente")
                 else:
                     if image_src.filename !="":
@@ -635,12 +652,12 @@ def GuardarProducto():
                         image_src="/static/images/upload/"+image_src
                     
                         #Consulta para update en la base de datos cambiando la imagen por la seleccionada en el momento
-                        conn.actualizarProducto(id, nombreProducto, descripcion, calificacion, image_src, cantidad_minima, disponible, proveedor)
+                        conn.actualizarProducto(id, nombreProducto, descripcion, precio, image_src, bono, porcentaje, proveedor, cantidad_minima, disponible, descripcion, unidad)
                         flash("Producto guardado correctamente")
                     else:
                         image_src = conn.obtenerImagenProducto(id)
                         #Consulta para update en la base de datos sin incluir imagen, permanece la actual
-                        conn.actualizarProducto(id, nombreProducto, descripcion, calificacion, image_src, cantidad_minima, disponible, proveedor)
+                        conn.actualizarProducto(id, nombreProducto, descripcion, image_src, cantidad_minima, disponible, proveedor)
                         flash("Producto guardado correctamente","success")
                             
                 return redirect('/Productos')

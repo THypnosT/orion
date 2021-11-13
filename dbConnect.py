@@ -349,7 +349,8 @@ def listaProductos():
                 pro.src_imagen,
                 alm.cantidad_disponible
             FROM Producto pro, Almacen alm, Proveedor prove, Calificacion_Comentario calComent
-            WHERE alm.codigo_producto = pro.codigo_producto AND alm.id_proveedor = prove.id_proveedor AND calComent.codigo_producto = pro.codigo_producto
+            WHERE alm.codigo_producto = pro.codigo_producto AND alm.id_proveedor = prove.id_proveedor
+                AND calComent.codigo_producto = pro.codigo_producto
             ORDER BY pro.fecha_creado DESC;
         """)
 
@@ -627,10 +628,21 @@ def editarConfiguracionUsuario(srcImagen, idPersona, telefonoPersona):
         cursor.execute(
             """
                 UPDATE Persona
-                SET imagen_src = '%s', telefono_persona = '%s'
+                SET imagen_src = '%s'
                 WHERE id_persona = '%s'
-            """ % (srcImagen, telefonoPersona, idPersona))
+            """ % (srcImagen, idPersona))
 
+        conn.commit()
+        conn.close()
+
+        conn = crearConexion()
+        cursor = conn.cursor()
+        cursor.execute(
+            """
+                UPDATE Usuario
+                SET telefono = '%s'
+                WHERE id_persona = '%s'
+            """ % (telefonoPersona, idPersona))
         conn.commit()
         conn.close()
 
@@ -837,7 +849,7 @@ def insertarProveedor(nombreProveedor, descripcionProveedor, srcImagen):
 
 
 def insertarProducto(nombreProducto, descripcionProducto, precio, srcImagen, bonoDescuento, porcentajeDescuento,
-                     nombreProveedor,fechaEntradaLote, cantidadMinima, cantidadDisponible, descripcionLote, tipoUnidad):
+                     nombreProveedor, cantidadMinima, cantidadDisponible, descripcionLote, tipoUnidad, idUsuario):
     """ Insertar un producto y su respectivo lote en la base de datos.
 
     Este método recibe los datos de un producto y su lote para insertarlo en la base de datos.
@@ -849,22 +861,49 @@ def insertarProducto(nombreProducto, descripcionProducto, precio, srcImagen, bon
     cursor = conn.cursor()
 
     fechaHora = datetime.datetime.now()
+    porcentajeDescuento = float(porcentajeDescuento) / 100
 
     cursor.execute(
         """
             INSERT INTO Producto (nombre_producto, descripcion_producto, precio_unitario, src_imagen,
                         fecha_creado, id_empresa, id_categoria, bono_descuento, porcentaje_descuento)
             VALUES ('%s', '%s', %s, '%s', '%s', %s, %s, %s, %s)
-        """ % (nombreProducto, descripcionProducto, precio, srcImagen, fechaHora, 1, 1, bonoDescuento, porcentajeDescuento))
+        """ % (nombreProducto, descripcionProducto, precio, srcImagen, fechaHora,
+               1, 1, bonoDescuento, porcentajeDescuento))
 
     conn.commit()
     conn.close()
 
     idProducto = cursor.lastrowid
     idProveedor = buscarIdProveedor(nombreProveedor)
-    insertarLoteProducto(fechaEntradaLote, cantidadMinima, cantidadDisponible, idProducto, descripcionLote, tipoUnidad)
+    insertarLoteProducto(fechaHora, cantidadMinima, cantidadDisponible, idProducto, descripcionLote, tipoUnidad)
     cantidadTotalProducto = obtenerCantidadProductosEnLotes(idProducto)
     insertarRegistroAlmacen(idProducto, idProveedor, cantidadTotalProducto)
+    insertarComentarioCalificacionProducto("Initial Release", 0, idProducto, idUsuario)
+
+
+def insertarComentarioCalificacionProducto(comentario, calificacion, codigoProducto, idUsuario):
+    """ Insertar un comentario y su calificación en la base de datos.
+
+    Este método recibe los datos de un comentario y su calificación para insertarlo en la base de datos.
+    """
+
+    # Crear nuevamente la conexión a la base de datos. Por buenas prácticas, se debe cerrar
+    # la conexión después de cada ejecución de un método/proceso.
+    conn = crearConexion()
+    cursor = conn.cursor()
+
+    fechaHora = datetime.datetime.now()
+
+    cursor.execute(
+        """
+            INSERT INTO Calificacion_Comentario (comentario, calificacion, fecha_calcomentario,
+                        codigo_producto, id_usuario)
+            VALUES ('%s', %s, '%s', '%s', '%s')
+        """ % (comentario, calificacion, fechaHora, codigoProducto, idUsuario))
+
+    conn.commit()
+    conn.close()
 
 
 
@@ -905,7 +944,7 @@ def insertarRegistroAlmacen(idProducto, idProveedor, cantidadDisponible):
 
     cursor.execute(
         """
-            INSERT INTO Almacen (id_bodega, id_producto, id_proveedor, cantidad_disponible)
+            INSERT INTO Almacen (id_bodega, codigo_producto, id_proveedor, cantidad_disponible)
             VALUES (%s, %s, %s, %s)
         """ % (1, idProducto, idProveedor, cantidadDisponible))
 
@@ -926,8 +965,8 @@ def obtenerCantidadProductosEnLotes(codigoProducto):
     cursor.execute(
         """
             SELECT cantidad_disponible
-            FROM Almacen
-            WHERE id_producto = %s
+            FROM Lote
+            WHERE codigo_producto = %s
         """ % (codigoProducto))
 
     result = cursor.fetchall()
@@ -977,7 +1016,8 @@ def obtnerProductosMinimosDiponible():
     conn.close()
     return jsonProductos
 
-def actualizarProducto(idProducto, nombreProducto, descripcionProducto, calificacion, srcImagen, cantidadMinima, cantidadDisponible, nombreProveedor):
+def actualizarProducto(idProducto, nombreProducto, descripcionProducto, precio, srcImagen, bonoDescuento, porcentajeDescuento,
+                        nombreProveedor, cantidadMinima, cantidadDisponible, descripcionLote, tipoUnidad):
     """ Actualizar un producto en la base de datos.
 
     Este método recibe una imagen, un id y un telefono y los cambia en la base de datos.
