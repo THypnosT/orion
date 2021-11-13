@@ -1,0 +1,88 @@
+@import url(variables.css);
+
+body{
+    background: var(--color-fondo);
+}
+
+.contenedor-carrito{
+    font: var(--fuente-texto);
+    background: var(--color-blanco-fondo);
+    box-shadow: var(--sombra-contenedores);
+    border-radius: var(--radio-contenedor-grande);
+    width: 85%;
+    max-width: 1170px;
+    min-height: 85vh;
+    /* max-height: 600px; */
+    display: grid;
+    /* grid-template-columns: 1fr 2fr; */
+    margin: 60px auto;
+    align-content: center;
+    height: auto;
+}
+
+
+/* BOTONES */
+.contenedor-carrito-boton{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 10px;
+    justify-items: center;
+    align-items: center;
+    margin: 20px 0;
+}
+.comprar, .seguir-comprando{
+    padding: 0 15px;
+    height: 58px;
+    border-radius: var(--radio-boton);
+    font: var(--fuente-sub-titulo);
+}
+.seguir-comprando{
+    background: var(--color-blanco-fondo);
+    color: var(--color-usuario);
+    border: var(--border-boton-cancelar-usuario);
+}
+.comprar{
+    background: var(--color-usuario);
+    color: var(--color-blanco);
+    border: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.comprar:hover, .seguir-comprando:hover{
+    background: var(--color-gris);
+    color: var(--color-usuario);
+    border: var(--border-boton-cancelar-usuario);
+    cursor: pointer;
+}
+/* FIN BOTONES */
+
+img{
+    width: 100%;
+    height: auto;
+}
+
+.contenedor-carrito-productos-productos-producto{
+    display: grid;
+    grid-template-columns: 2fr 2fr 1fr 1fr 1fr;
+    grid-gap: 10px;
+    align-items: center;
+    justify-items: center;
+    margin: 20px;
+    padding: 20px;
+    box-shadow: var(--sombra-contenedores);
+    border-radius: var(--radio-boton);
+}
+
+.contenedor-carrito-total{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-gap: 10px;
+    align-items: center;
+    justify-items: center;
+    margin: 20px;
+    padding: 20px;
+    box-shadow: var(--sombra-contenedores);
+    border-radius: var(--radio-boton);
+}

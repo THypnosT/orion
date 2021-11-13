@@ -73,7 +73,15 @@ def registrar():
     else:
         return redirect("/registro")
 
-
+@app.route('/Carrito', methods=['GET', 'POST'])
+def Carrito():
+    return render_template('Carrito.html')
+    # if not session.get("username"):
+    #     return redirect("/")
+    # elif session["userType"] == "usuario":
+    #     return render_template('Carrito.html')
+    # else:
+    #     return render_template('AccessDenied.html')
 
 
 # SECCION PARA LOS SUPERAMINISTRADORES Y USUARIOS INTERNOS
