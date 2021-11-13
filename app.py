@@ -619,7 +619,7 @@ def GuardarProducto():
     elif session["userType"] != "usuario":
         if request.method == 'POST':
             if request.form['submit_button'] == 'Guardar':
-                id=request.form['codigo_producto']
+                id=request.form['id_producto']
                 nombreProducto = request.form["nombre_producto"]
                 proveedor = request.form['selectedProveedor']
                 proveedor= proveedor.strip()
