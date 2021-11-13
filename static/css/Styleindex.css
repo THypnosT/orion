@@ -15,17 +15,22 @@
     height: 100%;
     display: flex;
     flex-direction: row;
+    padding-top: 50px;
 }
 
 .filter{
     min-width:200px;
+    min-height: 80vh;
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
     gap: 20px;
-    justify-content: center;
     align-items: center;
     border-right: 1px solid var(--color-gris);
+}
+
+.filter h2{
+    margin: 0;
 }
 
 /* Price filter*/
@@ -115,6 +120,25 @@ input[type="range"]:active::-webkit-slider-thumb{
 
 /* end price filter*/
 
+/* start sexo filter*/
+.filter-sex{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.sex-type{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 20px;
+}
+
+.sex-type p input{
+    margin: 0 5px;
+}
+
+/* end sexo filter*/
 
 .puntuacion{
     display: flex;
@@ -171,6 +195,7 @@ input[type="range"]:active::-webkit-slider-thumb{
     border: 1px solid var(--color-gris);
     max-width: 400px;
     min-width: 210px;
+    max-height: 350px;
     border-radius: 15px;
     padding: 10px;
     background: var(--color-blanco);
@@ -198,9 +223,14 @@ input[type="range"]:active::-webkit-slider-thumb{
 }
 .products-items .favorite::after{
     font-family: "icomoon";
-    content: "\e9d7";
+    content: "\e9da";
     color: var(--color-blanco);  
     padding:7px;
+}
+
+.products-items .favorite:hover{
+    background: var(--color-gris);
+    cursor: pointer;
 }
 
 .products-info{
@@ -218,15 +248,16 @@ input[type="range"]:active::-webkit-slider-thumb{
     height: 33px;
     border-radius: 8px;
     border: 1px solid var(--color-usuario);
-}
-
-.products-buy input[type=number]{
-    padding: 0 0px 0px 13px;
+    text-align: center;
 }
 
 .products-buy input[type=number]:focus {
     border: none;
-  }
+}
+
+.products-buy input::-webkit-input-placeholder {
+    text-align: center;
+ }
 
 .products-buy button{
     width: 100%;
@@ -236,8 +267,15 @@ input[type="range"]:active::-webkit-slider-thumb{
     border: none;
     border-radius: 8px;
 }
-/* .products-buy button::after{
+
+.products-buy button::before{
     font-family: "icomoon";
-    content: "\efe7";
-    color: var(--color-blanco);
-} */
+    content: "\e93a";
+    color: var(--color-blanco); 
+    margin-right: 5px;
+}
+
+.products-buy button:hover{
+    background-color: var(--color-gris);
+    cursor: pointer;
+}
