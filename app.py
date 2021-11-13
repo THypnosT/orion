@@ -36,11 +36,11 @@ def Index2():
 @app.route('/singleProduct')
 def singleProduct():
     if not session.get("username"):
-        return redirect("/")
-    elif session["userType"] == "usuario":
         return render_template('singleProduct.html')
-    else:
+    elif session["userType"] == "empleado" or session["userType"] == "superAdmin":
         return redirect("/Home")
+    else:
+        return render_template('singleProduct.html')
 
 @app.route('/iniciarSeccion', methods=['GET', 'POST'])
 def iniciarSeccion():
