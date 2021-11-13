@@ -42,7 +42,7 @@ body {
 .imagen-producto img {
     width: 255px;
     height: 215px;   
-    object-fit: cover;
+    object-fit: contain;
     align-content: center;
     border-radius: 30px;
 }

@@ -3,6 +3,15 @@
 body{
     background: var(--color-fondo);
 }
+
+.contenedor{
+    margin: 25px 50px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 3vh;
+}
+
 .form-lote{
     font: var(--fuente-texto);
     background: var(--color-blanco-fondo);
@@ -27,27 +36,42 @@ body{
 }
 
 .botones{
-    display: grid;
-    grid-gap: 10px;
-    align-items: center;
-    margin: 50px;
+    width: 100%;
+    display: flex;
     justify-content: end;
+    gap: 20px;
+
 }
 
-.agregar{
+.cancelar, .agregar{
     padding: 0 15px;
-    height: 50px;
+    height: 58px;
     border-radius: var(--radio-boton);
     font: var(--fuente-sub-titulo);
+}
+.agregar{
     background: var(--color-usuario);
     color: var(--color-blanco);
     border: none;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 130px;
 }
+
 .agregar:hover{
+    background: var(--color-gris);
+    color: var(--color-usuario);
+    border: var(--border-boton-cancelar-usuario);
+    cursor: pointer;
+}
+
+.cancelar{
+    background: var(--color-blanco-fondo);
+    color: var(--color-usuario);
+    border: var(--border-boton-cancelar-usuario);
+}
+
+.cancelar:hover{
     background: var(--color-gris);
     color: var(--color-usuario);
     border: var(--border-boton-cancelar-usuario);

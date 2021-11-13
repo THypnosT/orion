@@ -7,130 +7,140 @@
 <link rel="stylesheet" href={{ url_for('static', filename='css/editProductos.css' ) }}>
 
 <!-- <form class="info-imagen-producto" action="/upload" method="POST" enctype="multipart/form-data"></form> -->
-<form id="editprod-form" class="contenedor-producto" action="/GuardarProducto" method="POST" enctype="multipart/form-data">
+<form id="editprod-form" class="contenedor-producto1" action="/GuardarProducto" method="POST"
+    enctype="multipart/form-data">
     
-    <input type="hidden" name="id_producto" id="id" style="display: none;" value="{{ datosProducto['codigo_producto'] }}">
+    <div class="contenedor-producto">
+        <input type="hidden" name="id_producto" id="id" style="display: none;"
+            value="{{ datosProducto['codigo_producto'] }}">
 
-    <div class="info-imagen-producto">
+        <div class="info-imagen-producto">
 
-        <div class="producto">
-            <div class="imagen-producto">
-                <img src="{{ datosProducto['src_imagen'] }}" alt="" id="img-producto">
+            <div class="producto">
+                <div class="imagen-producto">
+                    <img src="{{ datosProducto['src_imagen'] }}" alt="" id="img-producto">
+                </div>
+
+                <label class="cambiar-imagen" style="display: inline-flex;">
+                    <input type="file" name="archivo" style="display: none;" accept="image/png, image/jpeg"
+                        onchange="document.getElementById('img-producto').src = window.URL.createObjectURL(this.files[0])">
+                    Cambiar imagen
+                </label>
             </div>
-            
-            <label class="cambiar-imagen" style="display: inline-flex;">
-                <input type="file" name="archivo" style="display: none;" accept="image/png, image/jpeg" 
-                onchange="document.getElementById('img-producto').src = window.URL.createObjectURL(this.files[0])" >
-                Cambiar imagen
-            </label>
         </div>
-    </div>
 
-    <div class="info-producto">
+        <div class="info-producto">
 
-        <div class="nombre">
-            <label for="name">Nombre producto</label>
-            <input type="text" name="nombre_producto" id="name" required value="{{ datosProducto['nombre_producto'] }}">
-        </div>
-        <div class="container-proveedor">
-            <label for="proveedor">Proveedor</label>
-            <div class="select-box-proveedor">
-                <div class="options-container-proveedor">
-                    {% for fila in range(proveedores|length) %}
-                    <div class="option-proveedor">
-                        <input type="radio" class="radio" id="num1" name="category" value="Proveedor" checked />
-                        <label for="prov1" id="lblnum1">{{proveedores[fila]['nombre_proveedor']}} </label>
-                    </div>
-                    {% endfor %}
-                    <!-- <div class="option-proveedor">
+            <div class="nombre">
+                <label for="name">Nombre producto</label>
+                <input type="text" name="nombre_producto" id="name" required
+                    value="{{ datosProducto['nombre_producto'] }}">
+            </div>
+            <div class="container-proveedor">
+                <label for="proveedor">Proveedor</label>
+                <div class="select-box-proveedor">
+                    <div class="options-container-proveedor">
+                        {% for fila in range(proveedores|length) %}
+                        <div class="option-proveedor">
+                            <input type="radio" class="radio" id="num1" name="category" value="Proveedor" checked />
+                            <label for="prov1" id="lblnum1">{{proveedores[fila]['nombre_proveedor']}} </label>
+                        </div>
+                        {% endfor %}
+                        <!-- <div class="option-proveedor">
                         <input type="radio" class="radio" id="num2" name="category" value="Provedor 2" />
                         <label for="prov2" id="lblnum2">Proveedor 2</label>
                     </div> -->
-                </div>
-                
-                <div class="selected-proveedor">
-                    {% if datosProducto['nombre_proveedor']=='Proveedor' %}
+                    </div>
+
+                    <div class="selected-proveedor">
+                        {% if datosProducto['nombre_proveedor']=='Proveedor' %}
                         {{ proveedores[0]['nombre_proveedor'] }}
-                    {% else %}
+                        {% else %}
                         {{ datosProducto['nombre_proveedor'] }}
-                    {% endif %}
-                </div>
-            </div>
-            {% if datosProducto['nombre_proveedor']=='Proveedor' %}
-                <input type="hidden" id="inputSelectedProveedor" name="selectedProveedor"  value="{{ proveedores[0]['nombre_proveedor'] }}">
-            {% else %}
-                <input type="hidden" id="inputSelectedProveedor" name="selectedProveedor"  value="{{datosProducto['nombre_proveedor']}}">
-            {% endif %}
-            
-        </div>
-        <div class="descripcion-producto">
-            <label for="descripcion">Descripción del producto</label>
-            <textarea name="descripcion" required id="descripcion">{{ datosProducto['descripcion_producto'] }}</textarea>
-        </div>
-
-        <div class="cantidad-calificacion">
-            <div class="cantidad">
-                <label for="cantidad">Diponible</label>
-                <input type="number" name="cantidad_disponible" required id="cantidad" value="{{ datosProducto['cantidad_disponible'] }}">
-            </div>
-            <div class="cantidad">
-                <label for="cantidad-minima">Cantidad minima</label>
-                <input type="number" name="cantidad_minima" required id="cantidad" value="{{ datosProducto['cantidad_minima'] }}">
-            </div>
-            <div class="container-calificacion">
-                <label for="calificacion">¿Aplica bono?</label>
-                <div class="select-box-calificacion">
-                    <div class="options-container-calificacion">
-                        <div class="option-calificacion">
-                            <input type="radio" class="radio" id="num1" name="category-cal" value="Si" checked/>
-                            <label for="num1" id="lblnum1">Si</label>
-                        </div>
-                        <div class="option-calificacion">
-                            <input type="radio" class="radio" id="num2" name="category-cal" value="No" />
-                            <label for="num2" id="lblnum2">No</label>
-                        </div>
-                        
-                    </div>
-
-                    <div class="selected-calificacion" id="selected-calificacion">
-                        Si
+                        {% endif %}
                     </div>
                 </div>
-                <input type="hidden" id="inputSelectedCalificacion" name="selectedCalificacion"  value="">
-            </div>
-        </div>
-        <div class="cantidad-calificacion">
-            <div class="cantidad">
-                <label for="precio">Precio</label>
-                <input type="number" name="precio_producto" required id="precio" value="">
-            </div>
-            <div class="cantidad">
-                <label for="lote">% Descuento</label>
-                <input type="number" name="descuento_producto" required id="descuento" value="">
-            </div>
-            <div class="cantidad">
-                <label for="lote">Lote</label>
-                <input type="number" name="lote_producto" required id="lote" value="">
-            </div>
-        </div>
+                {% if datosProducto['nombre_proveedor']=='Proveedor' %}
+                <input type="hidden" id="inputSelectedProveedor" name="selectedProveedor"
+                    value="{{ proveedores[0]['nombre_proveedor'] }}">
+                {% else %}
+                <input type="hidden" id="inputSelectedProveedor" name="selectedProveedor"
+                    value="{{datosProducto['nombre_proveedor']}}">
+                {% endif %}
 
-        <div class="guardar-cancelar">
-            <input type="button" class="cancelar" name="submit_button" value="Cancelar" onclick="history.back()">
-            <input type="submit" class="guardar" name="submit_button" value="Guardar">
-            
+            </div>
+            <div class="descripcion-producto">
+                <label for="descripcion">Descripción del producto</label>
+                <textarea name="descripcion" required
+                    id="descripcion">{{ datosProducto['descripcion_producto'] }}</textarea>
+            </div>
+
+            <div class="cantidad-calificacion">
+                <div class="cantidad">
+                    <label for="cantidad">Diponible</label>
+                    <input type="number" name="cantidad_disponible" required id="cantidad"
+                        value="{{ datosProducto['cantidad_disponible'] }}">
+                </div>
+                <div class="cantidad">
+                    <label for="cantidad-minima">Cantidad minima</label>
+                    <input type="number" name="cantidad_minima" required id="cantidad"
+                        value="{{ datosProducto['cantidad_minima'] }}">
+                </div>
+                <div class="container-calificacion">
+                    <label for="calificacion">¿Aplica bono?</label>
+                    <div class="select-box-calificacion">
+                        <div class="options-container-calificacion">
+                            <div class="option-calificacion">
+                                <input type="radio" class="radio" id="num1" name="category-cal" value="Si" checked />
+                                <label for="num1" id="lblnum1">Si</label>
+                            </div>
+                            <div class="option-calificacion">
+                                <input type="radio" class="radio" id="num2" name="category-cal" value="No" />
+                                <label for="num2" id="lblnum2">No</label>
+                            </div>
+
+                        </div>
+
+                        <div class="selected-calificacion" id="selected-calificacion">
+                            Si
+                        </div>
+                    </div>
+                    <input type="hidden" id="inputSelectedCalificacion" name="selectedCalificacion" value="">
+                </div>
+            </div>
+            <div class="cantidad-calificacion">
+                <div class="cantidad">
+                    <label for="precio">Precio</label>
+                    <input type="number" name="precio_producto" required id="precio" value="">
+                </div>
+                <div class="cantidad">
+                    <label for="lote">% Descuento</label>
+                    <input type="number" name="descuento_producto" required id="descuento" value="">
+                </div>
+                <div class="cantidad">
+                    <label for="lote">Lote</label>
+                    <input type="number" name="lote_producto" required id="lote" value="">
+                </div>
+            </div>
+
+            <div class="guardar-cancelar">
+                <input type="button" class="cancelar" name="submit_button" value="Cancelar" onclick="history.back()">
+                <input type="submit" class="guardar" name="submit_button" value="Guardar">
+
+            </div>
         </div>
-    </div>
-    {# Mostrar mensajes / errores si es que existen #}
-    {% with mensajes_flash = get_flashed_messages() %}
+        {# Mostrar mensajes / errores si es que existen #}
+        {% with mensajes_flash = get_flashed_messages() %}
         {% if mensajes_flash %}
         <script>
             alert('{{ mensajes_flash[0] }}');
         </script>
-            
+
         {% endif %}
-    {% endwith %}
+        {% endwith %}
+    </div>
 </form>
-<script src={{ url_for('static', filename='js/awesomplete.js') }}></script>
+<script src={{ url_for('static', filename='js/awesomplete.js' ) }}></script>
 <script src={{ url_for('static', filename='js/scriptSelectProveedor.js' ) }}></script>
 <script src={{ url_for('static', filename='js/scriptSelectCalificacion.js' ) }}></script>
 

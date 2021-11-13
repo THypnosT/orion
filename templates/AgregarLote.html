@@ -5,22 +5,26 @@
 <link rel="stylesheet" href={{ url_for('static', filename='css/loteAdd.css' ) }}>
 
 <form class="form-lote" action="/Lote.add" method="POST">
-    <p>
+    <div class="contenedor">
+        <p>
         <h2>Agregar información del lote</h2>
-    </p>
-        
-        
-    <div class="form-group">
-        <label for="nombre">Nombre Lote</label>
-        <input type="text" class="form-control" id="nombre_lote" name="nombre_lote" placeholder="Nombre del lote">
-        <label for="nombre">Cantidad Diponible</label>
-        <input type="text" class="form-control" id="cantidad" name="cantidad_disponible" placeholder="Cantidad disponibe">
-        <label for="fecha">Fecha de entrada</label>
-        <input type="date" class="form-control" id="fecha_entrada" name="fecha_entrada" placeholder="Fecha de entrada">
-    </div>
-    <div class="botones">
-        <input type= "button" class="cancelar" value="Cancelar" onclick="location.href='/Lotes'">
-        <input type="submit" class="agregar" value="Agregar">
+        </p>
+
+
+        <div class="form-group">
+            <label for="nombre">Nombre Lote</label>
+            <input type="text" class="form-control" id="nombre_lote" name="nombre_lote" placeholder="Nombre del lote">
+            <label for="nombre">Cantidad Diponible</label>
+            <input type="text" class="form-control" id="cantidad" name="cantidad_disponible"
+                placeholder="Cantidad disponibe">
+            <label for="fecha">Fecha de entrada</label>
+            <input type="date" class="form-control" id="fecha_entrada" name="fecha_entrada"
+                placeholder="Fecha de entrada">
+        </div>
+        <div class="botones">
+            <input type="button" class="cancelar" value="Cancelar" onclick="location.href='/Lotes'">
+            <input type="submit" class="agregar" value="Agregar">
+        </div>
     </div>
 </form>
 {% endblock %}
