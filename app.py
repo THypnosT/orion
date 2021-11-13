@@ -32,7 +32,7 @@ def iniciarSeccion():
 
 @app.route('/registro', methods=['GET', 'POST'])
 def registro():
-    return render_template('IndexShop.html')
+    return render_template('Registrarse.html')
 
 @app.route('/registrar', methods=['GET', 'POST'])
 def registrar():
