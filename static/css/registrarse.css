@@ -7,6 +7,7 @@ body{
 .input-grup{
     display: flex;
     flex-direction: row;
+    /* flex-wrap: wrap; */
     align-items: center;
     justify-content: center;
     
@@ -19,7 +20,8 @@ body{
     left: 50%;
     transform: translate(-50%, -50%);
     width: 50%;
-    /* height: 79vh; */
+    min-height: 600px;
+    max-height: 850px;
     box-sizing: border-box;
     border-radius: var(--radio-contenedor-grande);
     background: var(--color-blanco-fondo);
@@ -61,11 +63,12 @@ body{
     text-align: center;
 }
 
-.box .inputBox {
+.box .input-grup .inputBox {
     position: relative;
     font: var(--fuente-texto);
     margin:0px 40px;
-    width: 35%;
+    /* min-width: 147px; */
+    max-width: 1fr;
 }
 
 .box .inputBox input{
@@ -134,37 +137,44 @@ body{
 
 
 /* CONFIGURACION DEL SELECT SEXO */
+
+.inputBoxS{
+    margin: 0 40px;
+}
+
 .container-sexo label{
     justify-self: end;
 }
 
-.select-box-sexo{
+.select-box {
     display: flex;
+    width: 100%;
     flex-direction: column;
+    font:var(--fuente-texto);
 }
 
-.select-box-sexo .options-container-sexo {
+.select-box .options-container {
     background: var(--color-superadmin);
-    color: var(--color-blanco) !important;
+    color: #f5f6fa;
     max-height: 0;
     width: 100%;
     opacity: 0;
     transition: all 0.4s;
     border-radius: 8px;
     overflow: hidden;
-    /* order: 1; */
+    order: 1;
 }
 
-.selected-sexo{
+.selected {
     background: var(--color-superadmin);
-    border-radius: var(--radio-input);
+    border-radius: 8px;
     margin-bottom: 8px;
     color: var(--color-blanco);
     position: relative;
     order: 0;
 }
 
-.selected-sexo::after {
+.selected::after {
     content: "";
     background: url("../images/arrow-down.svg");
     background-size: contain;
@@ -177,41 +187,42 @@ body{
     transition: all 0.4s;
 }
 
-.select-box-sexo .options-container-sexo.active {
+.select-box .options-container.active {
     max-height: 240px;
     opacity: 1;
     overflow-y: scroll;
 }
 
-.select-box-sexo .options-container-sexo.active+.selected-sexo::after {
+.select-box .options-container.active+.selected::after {
     transform: rotateX(180deg);
     top: -6px;
 }
 
-.select-box-sexo .options-container-sexo::-webkit-scrollbar {
+.select-box .options-container::-webkit-scrollbar {
     display: none;
 }
 
-.select-box-sexo .options-container-sexo::-webkit-scrollbar-thumb {
+.select-box .options-container::-webkit-scrollbar-thumb {
     background: var(--color-gris);
     border-radius: 0 8px 8px 0;
 }
 
-.select-box-sexo .option-sexo, .selected-sexo {
+.select-box .option,
+.selected {
     padding: 12px 24px;
     cursor: pointer;
 }
 
-.select-box-sexo .option-sexo:hover {
+.select-box .option:hover {
     background: var(--color-blanco);
-    color: var(--color-superadmin);
+    color: var(--color-usuario);
 }
 
-.select-box-sexo label {
+.select-box label {
     cursor: pointer;
 }
 
-.select-box-sexo .option-sexo .radio {
+.select-box .option .radio {
     display: none;
 }
 

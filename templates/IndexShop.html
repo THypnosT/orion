@@ -28,8 +28,9 @@
                 </div> 
             </div>
         </div>
-        {% for fila in range(3) %}
+        
         <div class="products">
+            {% for fila in range(3) %}
             <div class="products-items">
                 <div class="item-top">
                     <img src={{ url_for( 'static', filename='images/upload/218i_Gran_Coupe.png' ) }} alt="">
@@ -50,8 +51,8 @@
                     </div>
                 </div>
             </div>
+            {% endfor %}
         </div>
-        {% endfor %}
     </section>
 </body>
 <script src={{ url_for( 'static', filename='js/index.js' ) }}></script>

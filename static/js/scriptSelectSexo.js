@@ -1,7 +1,7 @@
 // DESPLIEGE DE LA OPCION DEL TIPO DE USUARIO
-const selectedSexo = document.querySelector(".selected-sexo");
-const optionsContainerSexo = document.querySelector(".options-container-sexo");
-const optionsListSexo = document.querySelectorAll(".option-sexo");
+const selectedSexo = document.querySelector(".selected");
+const optionsContainerSexo = document.querySelector(".options-container");
+const optionsListSexo = document.querySelectorAll(".option");
 
 
 selectedSexo.addEventListener("click", () => {
@@ -13,8 +13,8 @@ optionsListSexo.forEach(o => {
     o.addEventListener("click", () => {
         selectedSexo.innerHTML = o.querySelector("label").innerHTML;
         optionsContainerSexo.classList.remove("active");
-        var nombre = document.querySelector(".selected-sexo").textContent;
-        document.getElementById("inputSelectedSexo").value=nombre;
+        var nombre = document.querySelector(".selected").textContent;
+        document.getElementById("inputSelectedSearch").value=nombre;
         
     });
 });
