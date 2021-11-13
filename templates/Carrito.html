@@ -17,7 +17,7 @@
         <form action="" method="POST">
             {% for fila in range(3) %}
             <div class="contenedor-carrito-productos">
-                static\images\upload\enlatados.jpg
+
                 <div class="contenedor-carrito-productos-productos">
                     <div class="contenedor-carrito-productos-productos-producto">
                         <div class="contenedor-carrito-productos-productos-producto-imagen">
@@ -37,7 +37,7 @@
                         </div>
                         <div class="cupon">
                             <h3>Cupon</h3>
-                            <input type="number" class="cantidad" value="0" min="0" max="200" step="1" autofocus="autofocus">
+                            <input type="number" id="cupon" class="cantidad" value="0" min="0" step="1" >
                             <input type="hidden" id="inputSelectedCupon" name="selectedCupon" value="">
                         </div>
                         <div class="contenedor-carrito-productos-productos-producto-total">
@@ -67,5 +67,9 @@
         </form>
     </div>
 </section>
+<script src={{ url_for('static', filename='js/scriptSelectCupon.js' ) }}></script>
+
+
+
 
 {% endblock %}
