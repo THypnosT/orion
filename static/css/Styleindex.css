@@ -18,7 +18,7 @@
 }
 
 .filter{
-    width:200px;
+    min-width:200px;
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
@@ -115,6 +115,19 @@ input[type="range"]:active::-webkit-slider-thumb{
 
 /* end price filter*/
 
+
+.puntuacion{
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    justify-content: start;
+}
+
+.puntuacion .valor{
+    font-size: 1.1em;
+    font-weight: bold;
+}
+
 .estrellas-outer{
     display: inline-block;
     position: relative;
@@ -148,13 +161,19 @@ input[type="range"]:active::-webkit-slider-thumb{
 
 .products{
     margin: 40px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    
 }
 
 .products-items{
     border: 1px solid var(--color-gris);
     max-width: 400px;
+    min-width: 210px;
     border-radius: 15px;
     padding: 10px;
+    background: var(--color-blanco);
 }
 
 .products-items .item-top{

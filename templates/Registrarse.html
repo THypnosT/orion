@@ -44,37 +44,25 @@
                     </div>
 
                 </div>
-                <div class="input-grup">
-                    <div class="inputBox">
-                        <label for="sexo">Sexo</label>
-                        <div class="select-box-sexo">
-                            <div class="options-container-sexo">
-                                <div class="option-sexo">
-                                    <input type="radio" class="radio" id="sexM" name="category-sexo" value="M" />
-                                    <label for="sexM" id="lblsexM">M</label>
-                                </div>
-                                <div class="option-sexo">
-                                    <input type="radio" class="radio" id="sexF" name="category-sexo" value="F" />
-                                    <label for="sexF" id="lblsexF">F</label>
-                                </div>
-                                
+                <div class="inputBoxS">
+                    <div class="select-box">
+                        <div class="options-container">
+                            <div class="option">
+                                <input type="radio" class="radio" id="search-proveedores" name="category" value="M" />
+                                <label for="search-proveedores">Masculino</label>
                             </div>
-
+                            <div class="option">
+                                <input type="radio" class="radio" id="search-productos" name="category" value="F"/>
+                                <label for="search-productos">Femenino</label>
+                            </div>
                         </div>
-                        <div class="selected-sexo" id="selected-sexo">
-                            M
+                        <div class="selected">
+                            Sexo
                         </div>
-                        <input type="hidden" id="inputSelectedSexo" name="selectedSexo"  value="M">
-
-
                     </div>
-                    <div class="inputBox">
-                        <input type="number" name="edad_user" value="" required
-                            onkeyup="this.setAttribute('value', this.value);">
-                        <label>Edad</label>
-                    </div>
-
+                    <input type="hidden" id="inputSelectedSearch" name="selectedSearch" value="Proveedores">
                 </div>
+
                 <div class="input-grup">
                     <div class="inputBox">
                         <input type="text" name="cedula_user" value="" required
