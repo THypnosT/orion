@@ -14,8 +14,10 @@
 </header>
 <section class="contenido-paginas">
     <div class="contenedor-carrito">
+
+        {% for fila in range(3) %}
         <form action="" method="POST">
-            {% for fila in range(3) %}
+            <input type="hidden" name="id" value="{{fila}}">
             <div class="contenedor-carrito-productos">
                 <div class="contenedor-carrito-productos-productos">
                     <div class="contenedor-carrito-productos-productos-producto">
@@ -32,38 +34,42 @@
                         </div>
                         <div class="contenedor-carrito-productos-productos-producto-cantidad">
                             <h3>Cantidad</h3>
-                            <input class="cantidad" type="number" name="cantidad" value="1">
+                            <input class="cantidad" type="number" name="cantidad" value="1" min="1">
                         </div>
                         <div class="cupon">
                             <h3>Cupon</h3>
-                            <input type="number" id="cupon" class="cantidad" value="0" min="0" step="1" >
-                            <input type="hidden" id="inputSelectedCupon" name="selectedCupon" value="">
+                            <input type="number" id="cupon" class="cantidad" value="0" min="0" step="1">
+
                         </div>
                         <div class="contenedor-carrito-productos-productos-producto-total">
                             <h3>Total</h3>
-                            <p>$100</p>
+                            <p class="subtotal">$100</p>
                         </div>
                         <label class="boton-eliminar"><input type="submit" name="submit_button" id="eliminar"
-                            class="boton-eliminar" value="eliminar" style="display: none;"></label>
+                                class="boton-eliminar" value="eliminar" style="display: none;"></label>
                     </div>
                 </div>
             </div>
-            {% endfor %}
-            
-            <div class="contenedor-carrito-total">
-                <div class="contenedor-carrito-total-titulo">
-                    <h2>Total</h2>
-                </div>
-                <div class="contenedor-carrito-total-total">
-                    <p>$100</p>
-                </div>
-            </div>
-            <div class="contenedor-carrito-boton">
-                <input type="button" class="seguir-comprando" value="Seguir comprando" onclick="history.back()">
-                <!-- <input type="submit" class="comprar" value="Comprar"> -->
-                <button type="submit" class="comprar" value="Comprar">Comprar</button>
-            </div>
         </form>
+        {% endfor %}
+
+        <div class="contenedor-carrito-total">
+            <div class="contenedor-carrito-total-titulo">
+                <h2>Total</h2>
+            </div>
+            <div class="contenedor-carrito-total-total">
+                <p>$100</p>
+            </div>
+        </div>
+        <div class="contenedor-carrito-boton">
+            <input type="button" class="seguir-comprando" value="Seguir comprando" onclick="history.back()">
+            <!-- <input type="submit" class="comprar" value="Comprar"> -->
+            <form action="" method="POST">
+                <input type="hidden" name="valor_compra" value="">
+                <button type="submit" class="comprar" value="Comprar">Comprar</button>
+            </form>
+        </div>
+        
     </div>
 </section>
 <script src={{ url_for('static', filename='js/scriptSelectCupon.js' ) }}></script>

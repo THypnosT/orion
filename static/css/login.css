@@ -198,5 +198,27 @@ form{
     display: none;
   }
   
+/* BOTON CANCELAR */
+
+  .cancelar{
+    padding: 0.625rem  1.25rem;
+    cursor: pointer;
+    /* height: 40px; */
+    border-radius: 0.312rem;
+    font: var(--fuente-texto);
+    margin-top: 10px;
+    background: var(--color-blanco-fondo);
+    color: var(--color-superadmin);
+    border: var(--border-boton-cancelar-superadmin);
+    /* width: 156px; */
+    
+}
+
+.cancelar:hover{
+    background: var(--color-gris);
+    color: var(--color-superadmin);
+    border: var(--border-boton-cancelar-superadmin);
+    cursor: pointer;
+}
 
 /* FIN CONFIGURACION DEL LOGIN */
