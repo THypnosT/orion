@@ -3,6 +3,22 @@
 body{
     background: var(--color-fondo);
 }
+
+.contenedor{
+    margin: 25px 50px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    /* gap: 3vh; */
+}
+
+.contenedor h2{
+    color: var(--color-usuario);
+    margin-top: 0;
+}
+
 .form-lote{
     font: var(--fuente-texto);
     background: var(--color-blanco-fondo);
@@ -23,31 +39,55 @@ body{
     grid-template-columns: 1fr 1fr;
     grid-gap: 10px;
     align-items: center;
-    margin: 50px;
+    margin-bottom: 50px;
+}
+
+.form-control{
+    width: 100%;
+    height: 40px;
+    border-radius: var(--radio-input);
+    color: var(--color-texto-gris);
+    padding-left: 20px;
+    border: 1px solid var(--color-gris);
 }
 
 .botones{
-    display: grid;
-    grid-gap: 10px;
-    align-items: center;
-    margin: 50px;
+    width: 100%;
+    display: flex;
     justify-content: end;
+    gap: 20px;
+
 }
 
-.agregar{
+.cancelar, .agregar{
     padding: 0 15px;
-    height: 50px;
+    height: 58px;
     border-radius: var(--radio-boton);
     font: var(--fuente-sub-titulo);
+}
+.agregar{
     background: var(--color-usuario);
     color: var(--color-blanco);
     border: none;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 130px;
 }
+
 .agregar:hover{
+    background: var(--color-gris);
+    color: var(--color-usuario);
+    border: var(--border-boton-cancelar-usuario);
+    cursor: pointer;
+}
+
+.cancelar{
+    background: var(--color-blanco-fondo);
+    color: var(--color-usuario);
+    border: var(--border-boton-cancelar-usuario);
+}
+
+.cancelar:hover{
     background: var(--color-gris);
     color: var(--color-usuario);
     border: var(--border-boton-cancelar-usuario);

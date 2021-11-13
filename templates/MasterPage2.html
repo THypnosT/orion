@@ -12,13 +12,15 @@
 <body>
     <header class="principal">
         <div class="encabezado">
-
+            <a href="{{url_for('Index2')}}" class="logo">ORIÓN</a>
             <form class="buscar" action="/Search" method="POST">
                 
                 <input class="search" type="search" id="search" placeholder="Buscar" name="txtsearch">
                 <i class="fa fa-search" id="lupa"></i>
             </form>
-
+            <div class="carrito">
+                <a href="/Carrito"><div class="logo-carrito"></div></a>
+            </div>
             <div class="seccion-login">
                 <a href="{{url_for('iniciarSeccion')}}">
                     <div class="login">

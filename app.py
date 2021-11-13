@@ -26,6 +26,10 @@ conn = dbConnect
 def Index2():
     return render_template('IndexShop.html')
 
+@app.route('/singleProduct')
+def singleProduct():
+    return render_template('SingleProduct.html')
+
 @app.route('/iniciarSeccion', methods=['GET', 'POST'])
 def iniciarSeccion():
     return render_template('Login.html')
@@ -69,7 +73,15 @@ def registrar():
     else:
         return redirect("/registro")
 
-
+@app.route('/Carrito', methods=['GET', 'POST'])
+def Carrito():
+    return render_template('Carrito.html')
+    # if not session.get("username"):
+    #     return redirect("/")
+    # elif session["userType"] == "usuario":
+    #     return render_template('Carrito.html')
+    # else:
+    #     return render_template('AccessDenied.html')
 
 
 # SECCION PARA LOS SUPERAMINISTRADORES Y USUARIOS INTERNOS

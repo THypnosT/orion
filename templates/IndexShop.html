@@ -10,7 +10,7 @@
 
 
 <body>
-    <section class="shop">
+    <sect ion class="shop">
         <div class="filter">
             <h2> Flitros</h2>
             <div class="price">
@@ -33,7 +33,8 @@
             {% for fila in range(3) %}
             <div class="products-items">
                 <div class="item-top">
-                    <img src={{ url_for( 'static', filename='images/upload/218i_Gran_Coupe.png' ) }} alt="">
+                    <a href="{{url_for('singleProduct')}}"><img src={{ url_for( 'static', filename='images/upload/enlatados.jpg' ) }} alt="">
+                    </a>
                     <button class="favorite"></button>
                 </div>
                 <div class="products-info">
@@ -46,7 +47,7 @@
                     </div>
                     <p>$480000</p>
                     <div class="products-buy">
-                        <input type="number" min="1" max="20">
+                        <input type="number" min="1" max="20" placeholder="1">
                         <button> Comprar</button>
                     </div>
                 </div>

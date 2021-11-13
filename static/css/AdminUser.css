@@ -47,8 +47,8 @@ body{
 }
 
 .info-user .avatar .imagen-usuario{
-    /* width: 215px;
-    height: 215px; */
+    width: 215px;
+    height: 215px;
 } 
 
 .info-user .avatar .imagen-usuario img{
@@ -59,6 +59,7 @@ body{
     border-radius: 100px;
 }
 /* FIN CONFIGURACION DEL LADO DE LA IMAGEN */
+
 /* CONFIGURACION DE DATOS */
 .info-cuenta{
     margin: 25px 50px;

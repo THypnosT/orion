@@ -42,7 +42,7 @@ body {
 .imagen-producto img {
     width: 255px;
     height: 215px;   
-    object-fit: cover;
+    object-fit: contain;
     align-content: center;
     border-radius: 30px;
 }
@@ -283,7 +283,7 @@ textarea:focus{
     cursor: pointer;
 }
 
-.select-box-calificacionr .option-calificacion:hover {
+.select-box-calificacion .option-calificacion:hover {
     background: var(--color-blanco);
     color: var(--color-usuario);
 }

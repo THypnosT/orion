@@ -7,6 +7,21 @@
     font-style: normal;
     font-display: block;
 }
+.principal {
+    box-shadow: var(--sombra-contenedor-titulo);
+    position: sticky;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 1;
+}
+.header-paginas {
+    box-shadow: var(--sombra-contenedor-titulo);
+    position: initial;
+    width: 100%;
+    /* background: var(--color-blanco-fondo); */
+    z-index: 1;
+}
 
 input[type=number]::-webkit-inner-spin-button,
 input[type=number]::-webkit-outer-spin-button {
@@ -27,16 +42,24 @@ body {
 }
 
 .encabezado {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
+    height: 100px;
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr 1fr;
+    /* flex-direction: row; */
+    /* justify-content: space-around; */
     background: var(--color-fondo);
     overflow: hidden;
     align-items: top;
     padding: 0;
     font: var(--fuente-texto);
+    /* border-bottom: 1px solid var(--color-gris); */
+    box-shadow: var(--sombra-contenedor-titulo);
 }
-
+.logo{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 /* CONIGURACION DE CUADRO DE BUSQUEDA */
 
 #lupa {
@@ -52,10 +75,13 @@ body {
 .buscar {
     display: flex;
     flex-direction: row-reverse;
-    margin-top: 20px;
+    align-items: center;
+    justify-content: center;
+    /* margin-top: 20px; */
 }
 
 .buscar .search {
+    width: 400px;
     height: 45px;
     color: var(--color-gris);
     background: var(--color-fondo);
@@ -90,4 +116,16 @@ body {
     border: none;
     border-radius: 8px;
     padding: 10px;
+}
+.carrito{
+    display: grid;
+    align-items: center;
+    justify-content: end;
+    margin-right: 20px;
+}
+.logo-carrito::before {
+    font-family: "icomoon";
+    content: "\e93a";
+    font-size: 30px;
+    color: var(--color-usuario);
 }
