@@ -64,8 +64,8 @@ body {
     color: var(--color-gris);
 }
 
-#name, #proveedor,#cantidad  {
-    width: auto;
+#name, #proveedor,#cantidad, #precio, #lote, #descuento  {
+    width: 100px;
     height: 41px;
     border-radius: var(--radio-input);
     border: var(--boder-inputs);

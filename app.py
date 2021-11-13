@@ -159,6 +159,42 @@ def Productos():
     else:
         return render_template('AccessDenied.html')
 
+@app.route('/Lotes', methods=['POST', 'GET'])
+def Lotes():
+    if not session.get("username"):
+        return redirect("/")
+    elif session["userType"] != "usuario":
+        # Consulta para lotes retorna:(id,nombre_lote,producto,disponibles,fecha_creado)
+        # lista=conn.listaLotes()
+        lista=""    #Borrar luego de crear la consulta
+        return render_template('Lotes.html',lista=lista)
+    else:
+        return render_template('AccessDenied.html')
+
+@app.route('/Lote.add', methods=['POST', 'GET'])
+def LoteAdd():
+    if not session.get("username"):
+        return redirect("/")
+    elif session["userType"] != "usuario":
+        if request.method == 'POST':
+            if request.form.get('submit_button') == 'editar':
+                # Consulta para lotes retorna:(id,nombre_lote,producto,disponibles,fecha_creado)
+                # lista=conn.listaLotes()
+                lista=""    #Borrar luego de crear la consulta
+                return render_template('AgregarLote.html',lista=lista)
+            elif request.form.get('submit_button') == 'eliminar':
+                flash("Eliminado")
+                lista=""    #Borrar luego de crear la consulta
+                return render_template('Lotes.html',lista=lista)
+            elif request.form.get('submit_button') == 'Añadir lote +':
+
+                lista=""
+                return render_template('AgregarLote.html',lista=lista)
+        
+
+    else:
+        return render_template('AccessDenied.html')
+
 @app.route('/Listas', methods=['POST', 'GET'])
 def Listas():
     if not session.get("username"):
@@ -321,7 +357,7 @@ def AnadirProductos():
         return redirect("/")
     elif session["userType"] != "usuario":
         proveedores=conn.listaProveedores()               
-        datosProducto={'id_producto':'0','id_proveedor':'','nombre_proveedor': 'Proveedor','calificacion':1,'src_imagen':'/static/images/Producto.jpg'}
+        datosProducto={'codigo_producto':'0','id_proveedor':'','nombre_proveedor': 'Proveedor','calificacion':1,'src_imagen':'/static/images/Producto.png'}
         return render_template('AnadirProducto.html',datosProducto=datosProducto,proveedores=proveedores)
     else:
         return render_template('AccessDenied.html')
@@ -556,7 +592,7 @@ def GuardarProducto():
     elif session["userType"] != "usuario":
         if request.method == 'POST':
             if request.form['submit_button'] == 'Guardar':
-                id=request.form['id_producto']
+                id=request.form['codigo_producto']
                 nombreProducto = request.form["nombre_producto"]
                 proveedor = request.form['selectedProveedor']
                 proveedor= proveedor.strip()
@@ -572,7 +608,7 @@ def GuardarProducto():
                         image_src="/static/images/upload/"+image_src
                         
                     else:
-                            image_src="/static/images/Prodcuto.jpg"   # Si no se selecciona ninguna imagen, establece la imagen por defecto
+                            image_src="/static/images/Producto.png"   # Si no se selecciona ninguna imagen, establece la imagen por defecto
                         
                     #Consulta para insert en la base de datos
                     conn.insertarProducto(nombreProducto, descripcion, calificacion, image_src, cantidad_minima, disponible, proveedor)

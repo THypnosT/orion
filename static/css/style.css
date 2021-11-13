@@ -148,7 +148,7 @@ body {
 
 .sidebar .region-funciones .lote::before {
     font-family: "icomoon";
-    content: "\e9ba";
+    content: "\e937";
     margin-right: var(--separacion-icono-texto);
 }
 

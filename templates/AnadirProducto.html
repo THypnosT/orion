@@ -9,7 +9,7 @@
 <!-- <form class="info-imagen-producto" action="/upload" method="POST" enctype="multipart/form-data"></form> -->
 <form id="editprod-form" class="contenedor-producto" action="/GuardarProducto" method="POST" enctype="multipart/form-data">
     
-    <input type="hidden" name="id_producto" id="id" style="display: none;" value="{{ datosProducto['id_producto'] }}">
+    <input type="hidden" name="id_producto" id="id" style="display: none;" value="{{ datosProducto['codigo_producto'] }}">
 
     <div class="info-imagen-producto">
 
@@ -38,7 +38,7 @@
                 <div class="options-container-proveedor">
                     {% for fila in range(proveedores|length) %}
                     <div class="option-proveedor">
-                        <input type="radio" class="radio" id="num1" name="category" value="Provedor" checked />
+                        <input type="radio" class="radio" id="num1" name="category" value="Proveedor" checked />
                         <label for="prov1" id="lblnum1">{{proveedores[fila]['nombre_proveedor']}} </label>
                     </div>
                     {% endfor %}
@@ -78,37 +78,39 @@
                 <input type="number" name="cantidad_minima" required id="cantidad" value="{{ datosProducto['cantidad_minima'] }}">
             </div>
             <div class="container-calificacion">
-                <label for="calificacion">Calificación</label>
+                <label for="calificacion">¿Aplica bono?</label>
                 <div class="select-box-calificacion">
                     <div class="options-container-calificacion">
                         <div class="option-calificacion">
-                            <input type="radio" class="radio" id="num1" name="category-cal" value="1" checked/>
-                            <label for="num1" id="lblnum1">1</label>
+                            <input type="radio" class="radio" id="num1" name="category-cal" value="Si" checked/>
+                            <label for="num1" id="lblnum1">Si</label>
                         </div>
                         <div class="option-calificacion">
-                            <input type="radio" class="radio" id="num2" name="category-cal" value="2" />
-                            <label for="num2" id="lblnum2">2</label>
+                            <input type="radio" class="radio" id="num2" name="category-cal" value="No" />
+                            <label for="num2" id="lblnum2">No</label>
                         </div>
-                        <div class="option-calificacion">
-                            <input type="radio" class="radio" id="num3" name="category-cal" value="3" />
-                            <label for="num3" id="lblnum3">3</label>
-                        </div>
-                        <div class="option-calificacion">
-                            <input type="radio" class="radio" id="num4" name="category-cal" value="4" />
-                            <label for="num4" id="lblnum4">4</label>
-                        </div>
-                        <div class="option-calificacion">
-                            <input type="radio" class="radio" id="num5" name="category-cal" value="5" />
-                            <label for="num5" id="lblnum5">5</label>
-                        </div>
-
+                        
                     </div>
 
                     <div class="selected-calificacion" id="selected-calificacion">
-                        {{ datosProducto['calificacion'] }}
+                        Si
                     </div>
                 </div>
-                <input type="hidden" id="inputSelectedCalificacion" name="selectedCalificacion"  value="{{ datosProducto['calificacion'] }}">
+                <input type="hidden" id="inputSelectedCalificacion" name="selectedCalificacion"  value="">
+            </div>
+        </div>
+        <div class="cantidad-calificacion">
+            <div class="cantidad">
+                <label for="precio">Precio</label>
+                <input type="number" name="precio_producto" required id="precio" value="">
+            </div>
+            <div class="cantidad">
+                <label for="lote">% Descuento</label>
+                <input type="number" name="descuento_producto" required id="descuento" value="">
+            </div>
+            <div class="cantidad">
+                <label for="lote">Lote</label>
+                <input type="number" name="lote_producto" required id="lote" value="">
             </div>
         </div>
 
