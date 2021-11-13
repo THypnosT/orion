@@ -1,0 +1,64 @@
+{% extends 'MasterPage2.html' %}
+{% block title %} Inicio {% endblock %}
+
+
+{% block content %}
+<link rel="stylesheet" href="{{url_for('static', filename='css/carrito.css')}}">
+
+<header class="header-paginas">
+    <div class="encabezado-inicio">
+        <div class="titulo">
+            <h1>Carrito de compras </h1>
+        </div>
+    </div>
+</header>
+<section class="contenido-paginas">
+    <div class="contenedor-carrito">
+        <form action="" method="POST">
+            {% for fila in range(3) %}
+            <div class="contenedor-carrito-productos">
+
+                <div class="contenedor-carrito-productos-productos">
+                    <div class="contenedor-carrito-productos-productos-producto">
+                        <div class="contenedor-carrito-productos-productos-producto-imagen">
+                            <img src="{{url_for('static', filename='images/Producto.png')}}" alt="">
+                        </div>
+                        <div class="contenedor-carrito-productos-productos-producto-descripcion">
+                            <h3>Producto 1</h3>
+                            <p>Descripcion del producto</p>
+                        </div>
+                        <div class="contenedor-carrito-productos-productos-producto-precio">
+                            <p>$100</p>
+                        </div>
+                        <div class="contenedor-carrito-productos-productos-producto-cantidad">
+                            <p>Cantidad: 1</p>
+                        </div>
+                        <div class="contenedor-carrito-productos-productos-producto-total">
+                            <p>Total: $100</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+
+            <div class="contenedor-carrito-total">
+                <div class="contenedor-carrito-total-titulo">
+                    <h2>Total</h2>
+                </div>
+                <div class="contenedor-carrito-total-total">
+                    <p>$100</p>
+                </div>
+            </div>
+            <div class="contenedor-carrito-boton">
+                <input type="button" class="seguir-comprando" value="Seguir comprando" onclick="">
+                <input type="submit" class="comprar" value="Comprar">
+            </div>
+        </form>
+    </div>
+</section>
+
+
+
+
+
+{% endblock %}
