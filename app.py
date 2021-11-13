@@ -29,6 +29,7 @@ def Index2():
 @app.route('/singleProduct')
 def singleProduct():
     return render_template('SingleProduct.html')
+    
 
 @app.route('/iniciarSeccion', methods=['GET', 'POST'])
 def iniciarSeccion():

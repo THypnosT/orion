@@ -1,4 +1,5 @@
 @import url(variables.css);
+@import url(normalize.css);
 @font-face {
     font-family: 'icomoon';
     src: url('../fonts/icomoon.eot?2wkt35');

@@ -37,23 +37,7 @@
                         </div>
                         <div class="cupon">
                             <h3>Cupon</h3>
-                            <div class="select-box-cupon">
-                                <div class="options-container-cupon">
-                                    <div class="option-cupon">
-                                        <input type="radio" class="radio" id="num1" name="category-cal" value="Si" checked />
-                                        <label for="num1" id="lblnum1">Si</label>
-                                    </div>
-                                    <div class="option-cupon">
-                                        <input type="radio" class="radio" id="num2" name="category-cal" value="No" />
-                                        <label for="num2" id="lblnum2">No</label>
-                                    </div>
-        
-                                </div>
-        
-                                <div class="selected-cupon" id="selected-cupon">
-                                    Si
-                                </div>
-                            </div>
+                            <input type="number" class="cantidad" value="0" min="0" max="200" step="1" autofocus="autofocus">
                             <input type="hidden" id="inputSelectedCupon" name="selectedCupon" value="">
                         </div>
                         <div class="contenedor-carrito-productos-productos-producto-total">
@@ -83,9 +67,5 @@
         </form>
     </div>
 </section>
-<script src={{ url_for('static', filename='js/scriptSelectCupon.js' ) }}></script>
-
-
-
 
 {% endblock %}
