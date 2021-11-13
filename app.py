@@ -109,7 +109,7 @@ def Index():
         else:
             session["username"] = None
             flash("Correo o contraseña incorrectos")
-            return redirect('/')
+            return redirect('/iniciarSeccion')
     else:
         return redirect('/Home')
     

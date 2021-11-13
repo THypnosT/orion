@@ -37,7 +37,7 @@
                     {% with mensajes_flash = get_flashed_messages() %}
                     {% if mensajes_flash %}
                     {% if mensajes_flash[0] == 'Correo o contraseña incorrectos' %}
-                    <p style="margin-top: 0%;">
+                    <p style="margin-top: 0%; color: red;font-weight: bold;">
                         {{ mensajes_flash[0] }}
                     </p>
                     {% elif mensajes_flash[0] == 'Contraseña cambiada correctamente' %}
