@@ -21,7 +21,7 @@ body{
     width: 85%;
     max-width: 1170px;
     min-height: 85vh;
-    max-height: 600px;
+    /* max-height: 600px; */
     display: grid;
     grid-template-columns: 1fr 2fr;
     margin: 60px auto;
