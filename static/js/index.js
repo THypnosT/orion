@@ -1,6 +1,6 @@
 window.onload = function(){
-    sliderOne();
-    sliderTwo();
+    sliderUno();
+    sliderDos();
 }
 
 let sliderOne = document.getElementById("slider");

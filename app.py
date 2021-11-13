@@ -99,9 +99,13 @@ def Index():
                 session['autocompletarProductos'] = conn.autocompletarListaProductos()
                 session['autoCompletarProveedores'] = conn.autocompletarListaProveedores()
                 
-                return render_template('Index.html', userType=session["userType"],usuario=session["usuario"],consultaProductos=consultaProductos,
-                                    consultaProveedor=consultaProveedor,autocompletarProductos=session['autocompletarProductos'], 
-                                    autoCompletarProveedores=session['autoCompletarProveedores'])
+                if session["userType"] == "Usuario":
+                    return render_template('IndexShop.html',usuario=session["usuario"],consultaProductos=consultaProductos,
+                                        consultaProveedor=consultaProveedor,autocompletarProductos=session['autocompletarProductos'])
+                else:
+                    return render_template('Index.html', userType=session["userType"],usuario=session["usuario"],consultaProductos=consultaProductos,
+                                        consultaProveedor=consultaProveedor,autocompletarProductos=session['autocompletarProductos'], 
+                                        autoCompletarProveedores=session['autoCompletarProveedores'])
         else:
             session["username"] = None
             flash("Correo o contraseña incorrectos")
@@ -121,7 +125,7 @@ def CambiarContrasena():
 def Home():
     if not session.get("username"):
         return redirect("/")
-    else:
+    elif session["userType"] != "usuario":
         # Consulta para el index, aqui se realizaran dos consultas, Productos y proveedores.
         # La consulta productos retorna: 'nombre producto', 'Proveedor', 'disponibles', 'imagen_src','fecha_creado
         # La consulta proveedores retorna: 'nombre proveedor', 'imagen_src','fecha_creado'
@@ -134,34 +138,40 @@ def Home():
         return render_template('Index.html', userType=session["userType"],usuario=session["usuario"],consultaProductos=consultaProductos,
                                consultaProveedor=consultaProveedor, autocompletarProductos=session['autocompletarProductos'], 
                                autoCompletarProveedores=session['autoCompletarProveedores'])
+    else:
+        return render_template('AccessDenied.html')
 
 
 @app.route('/Productos', methods=['POST', 'GET'])
 def Productos():
     if not session.get("username"):
         return redirect("/")
-    else:
+    elif session["userType"] != "usuario":
         # Consulta para productos retorna:(id,nombre_producto,proveedor,disponibles,descripcion,calificacion,imagen_src)
         lista=conn.listaProductos()
         session['autocompletarProductos'] = conn.autocompletarListaProductos()
         session['autoCompletarProveedores'] = conn.autocompletarListaProveedores()
         return render_template('Productos.html',lista=lista)
+    else:
+        return render_template('AccessDenied.html')
 
 @app.route('/Listas', methods=['POST', 'GET'])
 def Listas():
     if not session.get("username"):
         return redirect("/")
-    else:
+    elif session["userType"] != "usuario":
         #session['autoCompletarProveedores'] = conn.autocompletarListaProveedores()
         session['autoCompletarEmail'] = conn.autocompletarListaEmail()
         lista=conn.obtnerProductosMinimosDiponible()
         return render_template('Listas.html',lista=lista, autoCompletarEmail=session['autoCompletarEmail'],)
+    else:
+        return render_template('AccessDenied.html')
 
 @app.route('/EnviarCorreo', methods=['POST', 'GET'])
 def EnviarCorreo():
     if not session.get("username"):
         return redirect("/")
-    else:
+    elif session["userType"] != "usuario":
         if request.method == 'POST':
             if request.form["correo"] == "":
                 flash("El campo email no puede estar vacío")
@@ -176,12 +186,14 @@ def EnviarCorreo():
                 create_pdf(usuario, correo)
                 flash("Se ha enviado un correo a: "+request.form["correo"])
         return redirect("/Listas")
+    else:
+        return render_template('AccessDenied.html')
 
 @app.route('/Configuracion', methods=['POST', 'GET'])
 def Configuracion():
     if not session.get("username"):
         return redirect("/")
-    else:
+    elif session["userType"] != "usuario":
         if request.method == 'POST':
             
             datosusuarios=conn.obtenerDatosUsuarioById(request.form["id-user"])
@@ -193,25 +205,27 @@ def Configuracion():
                 datosusuarios['descripcion_rol']="Usuario"
                     
             return render_template('User.html',datosusuarios=datosusuarios)
-
+        else:
+            return render_template('AccessDenied.html')
 
 @app.route('/Proveedores', methods=['POST', 'GET'])
 def Proveedores():
     if not session.get("username"):
         return redirect("/")
-    else:
+    elif session["userType"] != "usuario":
         # Consulta para productos retorna:(id,nombre_proveedor,descripcion,imagen_src)
         lista=conn.listaProveedores()
         session['autocompletarProductos'] = conn.autocompletarListaProductos()
         session['autoCompletarProveedores'] = conn.autocompletarListaProveedores()
         return render_template('Proveedores.html',lista=lista)
-
+    else:
+        return render_template('AccessDenied.html')
 
 @app.route('/Usuarios', methods=['POST', 'GET'])
 def Usuarios():
     if not session.get("username"):
         return redirect("/")
-    else:
+    elif session["userType"] != "usuario":
         
         if session.get("userType")=='empleado' or session.get("userType")=='superAdmin':
             ListaUsuarios = conn.obtenerListaDeUsuarios()
@@ -227,6 +241,8 @@ def Usuarios():
             return render_template('Usuarios.html',ListaUsuarios=ListaUsuarios)
         else:
             return render_template('AccessDenied.html')
+    else:
+        return render_template('AccessDenied.html')
 
 @app.route('/Logout', methods=['POST', 'GET'])
 def Logout():
@@ -245,7 +261,7 @@ def Logout():
 def Editarproducto():
     if not session.get("username"):
         return redirect("/")
-    else:
+    elif session["userType"] != "usuario":
         
         if request.method == 'POST':
             
@@ -292,18 +308,25 @@ def Editarproducto():
                                          
                 return render_template('Search.html',textoBuscar=textoBuscar,buscarPor=buscarPor,
                                        resultadobusqueda=resultadobusqueda)
+    else:
+        return render_template('AccessDenied.html')
 
 @app.route('/AnadirProductos', methods=['POST', 'GET'])
 def AnadirProductos():
-    proveedores=conn.listaProveedores()               
-    datosProducto={'id_producto':'0','id_proveedor':'','nombre_proveedor': 'Proveedor','calificacion':1,'src_imagen':'/static/images/Producto.jpg'}
-    return render_template('AnadirProducto.html',datosProducto=datosProducto,proveedores=proveedores)
- 
+    if not session.get("username"):
+        return redirect("/")
+    elif session["userType"] != "usuario":
+        proveedores=conn.listaProveedores()               
+        datosProducto={'id_producto':'0','id_proveedor':'','nombre_proveedor': 'Proveedor','calificacion':1,'src_imagen':'/static/images/Producto.jpg'}
+        return render_template('AnadirProducto.html',datosProducto=datosProducto,proveedores=proveedores)
+    else:
+        return render_template('AccessDenied.html')
+
 @app.route('/AdminUser', methods=['POST', 'GET'])
 def AdminUser():
     if not session.get("username"):
         return redirect("/")
-    else:
+    elif session["userType"] != "usuario":
         if request.method == 'POST':
             
             if request.form.get('submit_button') == 'editar':
@@ -354,21 +377,24 @@ def AdminUser():
                 
                 return render_template('AdminUser.html',datosusuarios=datosusuarios)
     # return render_template('AdminUser.html')
+    else:
+        return render_template('AccessDenied.html')
 
 
 @app.route('/EditarLista', methods=['POST', 'GET'])
 def EditarLista():
     if not session.get("username"):
         return redirect("/")
-    else:
+    elif session["userType"] != "usuario":
         return render_template('EditarListas.html')
-
+    else:
+        return render_template('AccessDenied.html')
 
 @app.route('/EditarProveedores', methods=['POST', 'GET'])
 def EditarProveedores():
     if not session.get("username"):
         return redirect("/")
-    else:
+    elif session["userType"] != "usuario":
         
         if request.method == 'POST':
             
@@ -393,7 +419,8 @@ def EditarProveedores():
  
                 datosProveedor={'id_proveedor': 0, 'nombre_proveedor': '', 'descripcion_proveedor': '', 'src_imagen': '/static/images/proveedores.png'}
                 return render_template('EditarProveedor.html',datosProveedor=datosProveedor)
-        
+    else:
+        return render_template('AccessDenied.html')    
 
 @app.route('/RecuperarPass', methods=['POST', 'GET'])
 def RecuperarPass():
@@ -522,7 +549,7 @@ def GuardarUser():
 def GuardarProducto():
     if not session.get("username"):
         return redirect("/")
-    else:
+    elif session["userType"] != "usuario":
         if request.method == 'POST':
             if request.form['submit_button'] == 'Guardar':
                 id=request.form['id_producto']
@@ -564,13 +591,15 @@ def GuardarProducto():
                 return redirect('/Productos')
             elif request.form['submit_button'] == 'Cancelar':
                 return redirect('/Productos')
+    else:
+        return render_template('AccessDenied.html')
 
 # Guardar datos del proveedor. Llega des la pagina Editar proveedor
 @app.route('/GuardarProveedor', methods=['POST', 'GET'])
 def GuardarProveedor():
     if not session.get("username"):
         return redirect("/")
-    else:
+    elif session["userType"] != "usuario":
         if request.method == 'POST':
             if request.form['submit_button'] == 'Guardar':
                 id=request.form['id_proveedor']
@@ -608,13 +637,15 @@ def GuardarProveedor():
             
             elif request.form['submit_button'] == 'Cancelar':
                 return redirect('/Proveedores')
-            
+    else:
+        return render_template('AccessDenied.html')
+
 # Guardar configuracion de usuario. Llega desde la pagina User
 @app.route('/Guardarconfiguracion', methods=['POST', 'GET'])
 def Guardarconfiguracion():
     if not session.get("username"):
         return redirect("/")
-    else:
+    elif session["userType"] != "usuario":
         if request.method == 'POST':
         
             
@@ -632,7 +663,10 @@ def Guardarconfiguracion():
                     #Consulta para update en la base de datos sin cambiar la imagen. Busqueda por id
                     conn.editarConfiguracionUsuarioSinImagen(id,telefono)
                         
+                datosusuarios=conn.obtenerDatosUsuario(request.form["email"])
                 
+                session["usuario"] = (datosusuarios['id_persona'],datosusuarios['nombre_persona'],datosusuarios['apellido_persona'],
+                                    datosusuarios['imagen_src'])
                 return redirect('/Home')
             elif request.form['submit_button'] == 'Cancelar':
                 
@@ -642,6 +676,8 @@ def Guardarconfiguracion():
                 return ('ok')
         else:
             return redirect('/Home')
+    else:
+        return render_template('AccessDenied.html')
 
 def uploader():
     """Funcion para subir la imagen en el servidor
@@ -649,7 +685,7 @@ def uploader():
     """
     if not session.get("username"):
         return redirect("/")
-    else:
+    elif session["userType"] != "usuario":
     # obtenemos el archivo del input "archivo"
         f = request.files['archivo']
         if f and allowed_file(f.filename):
@@ -659,6 +695,8 @@ def uploader():
             f.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
         # Retornamos una respuesta satisfactoria
         return (filename)
+    else:
+        return render_template('AccessDenied.html')
 
 def allowed_file(filename):
     return '.' in filename and \
