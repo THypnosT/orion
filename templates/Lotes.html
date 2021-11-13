@@ -1,0 +1,76 @@
+{% extends 'MasterPage.html' %}
+
+
+{% block content %}
+<link rel="stylesheet" href={{ url_for('static', filename='css/lotes.css' ) }}>
+
+<header class="header-paginas">
+    <div class="encabezado-lotes">
+        <div class="titulo">
+            <h1>{% block title %} Administrador de lotes {% endblock %}</h1>
+        </div>
+
+        <form class="boton-anadir" action="/Lote.add" method="POST">
+            <input type="submit" name="submit_button" id="anadir" class="anadir" value="Añadir lote +"
+                style="display: inline;">
+        </form>
+
+    </div>
+
+</header>
+
+<section class="lotes">
+    <div class="titulos">
+        <div class="col-nombre">
+            <h2>Nombre del lote</h2>
+        </div>
+        <div class="col-cantidad">
+            <h2>Cantidad</h2>
+        </div>
+        <div class="col-fecha">
+            <h2>Fecha</h2>
+        </div>
+        <div class="col-opciones">
+            <h2></h2>
+        </div>
+    </div>
+    
+    {% for fila in range(5) %}
+    <div class="contenedor-lotes">
+
+        <form class="contenedor" action="/Lote.add" method="POST">
+            <!-- Para pruebas, cambiar el valor de value segun el id del usuario -->
+            <input type="hidden" name="id" value="">
+            <div class="nombre">
+                
+                <p>Nombre lote</p>
+            </div>
+            <div class="cantidad">
+                <p>{{ fila }}</p>
+            </div>
+            <div class="fecha">
+                <p>13/11/2021</p>
+            </div>
+            <div class="opciones">
+
+                <label class="boton-eliminar"><input type="submit" name="submit_button" id="eliminar"
+                        class="boton-eliminar" value="eliminar" style="display: none;"></label>
+                <label class="boton-editar"><input type="submit" name="submit_button" id="editar" class="boton-editar"
+                        value="editar" style="display: none;"></label>
+
+            </div>
+        </form>
+    </div>
+    {% endfor %}
+
+    {# Mostrar mensajes / errores si es que existen #}
+    {% with mensajes_flash = get_flashed_messages() %}
+        {% if mensajes_flash %}
+        <script>
+            alert('{{ mensajes_flash[0] }}');
+        </script>
+            
+        {% endif %}
+    {% endwith %}
+</section>
+{% endblock %}

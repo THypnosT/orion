@@ -1,0 +1,55 @@
+@import url(variables.css);
+
+body{
+    background: var(--color-fondo);
+}
+.form-lote{
+    font: var(--fuente-texto);
+    background: var(--color-blanco-fondo);
+    box-shadow: var(--sombra-contenedores);
+    border-radius: var(--radio-contenedor-grande);
+    width: 85%;
+    max-width: 1170px;
+    min-height: 65vh;
+    max-height: 600px;
+    display: grid;
+    /* grid-template-columns: 1fr 2fr; */
+    margin: 60px auto;
+    align-content: center;
+}
+
+.form-group{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 10px;
+    align-items: center;
+    margin: 50px;
+}
+
+.botones{
+    display: grid;
+    grid-gap: 10px;
+    align-items: center;
+    margin: 50px;
+    justify-content: end;
+}
+
+.agregar{
+    padding: 0 15px;
+    height: 50px;
+    border-radius: var(--radio-boton);
+    font: var(--fuente-sub-titulo);
+    background: var(--color-usuario);
+    color: var(--color-blanco);
+    border: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 130px;
+}
+.agregar:hover{
+    background: var(--color-gris);
+    color: var(--color-usuario);
+    border: var(--border-boton-cancelar-usuario);
+    cursor: pointer;
+}
