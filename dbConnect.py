@@ -345,11 +345,11 @@ def listaProductos():
                 prove.id_proveedor,
                 prove.nombre_proveedor,
                 pro.descripcion_producto,
-                pro.calificacion,
+                calComent.calificacion,
                 pro.src_imagen,
                 alm.cantidad_disponible
-            FROM Producto pro, Almacen alm, Proveedor prove
-            WHERE alm.codigo_producto = pro.codigo_producto AND alm.id_proveedor = prove.id_proveedor
+            FROM Producto pro, Almacen alm, Proveedor prove, Calificacion_Comentario calComent
+            WHERE alm.codigo_producto = pro.codigo_producto AND alm.id_proveedor = prove.id_proveedor AND calComent.codigo_producto = pro.codigo_producto
             ORDER BY pro.fecha_creado DESC;
         """)
 
@@ -750,7 +750,7 @@ def crearContrasena():
     return ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(8))
 
 
-def insertarPersona(nombre, apellido, sexo, fnacimiento, direccion, ciudad, imagen_src, rolUsuario):
+def insertarPersona(nombre, apellido, sexo, fnacimiento, direccion, ciudad, imagen_src, rolUsuario, email):
     """ Insertar una persona en la base de datos.
 
     Este método recibe los datos de una persona y los inserta en la base de datos.
@@ -836,8 +836,40 @@ def insertarProveedor(nombreProveedor, descripcionProveedor, srcImagen):
     conn.close()
 
 
-def insertarProducto(nombreProducto, descripcionProducto, calificacion, srcImagen, cantidadMinima, cantidadDisponible, nombreProveedor):
-    """ Insertar un producto en la base de datos.
+def insertarProducto(nombreProducto, descripcionProducto, precio, srcImagen, bonoDescuento, porcentajeDescuento,
+                     nombreProveedor,fechaEntradaLote, cantidadMinima, cantidadDisponible, descripcionLote, tipoUnidad):
+    """ Insertar un producto y su respectivo lote en la base de datos.
+
+    Este método recibe los datos de un producto y su lote para insertarlo en la base de datos.
+    """
+
+    # Crear nuevamente la conexión a la base de datos. Por buenas prácticas, se debe cerrar
+    # la conexión después de cada ejecución de un método/proceso.
+    conn = crearConexion()
+    cursor = conn.cursor()
+
+    fechaHora = datetime.datetime.now()
+
+    cursor.execute(
+        """
+            INSERT INTO Producto (nombre_producto, descripcion_producto, precio_unitario, src_imagen,
+                        fecha_creado, id_empresa, id_categoria, bono_descuento, porcentaje_descuento)
+            VALUES ('%s', '%s', %s, '%s', '%s', %s, %s, %s, %s)
+        """ % (nombreProducto, descripcionProducto, precio, srcImagen, fechaHora, 1, 1, bonoDescuento, porcentajeDescuento))
+
+    conn.commit()
+    conn.close()
+
+    idProducto = cursor.lastrowid
+    idProveedor = buscarIdProveedor(nombreProveedor)
+    insertarLoteProducto(fechaEntradaLote, cantidadMinima, cantidadDisponible, idProducto, descripcionLote, tipoUnidad)
+    cantidadTotalProducto = obtenerCantidadProductosEnLotes(idProducto)
+    insertarRegistroAlmacen(idProducto, idProveedor, cantidadTotalProducto)
+
+
+
+def insertarLoteProducto(fechaEntrada, cantidadEstandar, cantidadDisponible, codigoProducto, descripcionLote, tipoUnidad):
+    """ Insertar un lote de producto en la base de datos.
 
     Este método recibe una imagen, un id y un telefono y los cambia en la base de datos.
     """
@@ -851,17 +883,13 @@ def insertarProducto(nombreProducto, descripcionProducto, calificacion, srcImage
 
     cursor.execute(
         """
-            INSERT INTO Producto (nombre_producto, descripcion_producto, calificacion, src_imagen, fecha_creado, id_empresa, cantidad_minima)
-            VALUES ('%s', '%s', %s, '%s', '%s', %s, %s)
-        """ % (nombreProducto, descripcionProducto, calificacion, srcImagen, fechaHora, 1, cantidadMinima))
+            INSERT INTO Lote (fecha_entrada, cantidad_estandar, cantidad_disponible, codigo_producto,
+                        descripcion_lote, tipo_unidad, fecha_creado)
+            VALUES ('%s', %s, %s, '%s', '%s', '%s', '%s')
+        """ % (fechaEntrada, cantidadEstandar, cantidadDisponible, codigoProducto, descripcionLote, tipoUnidad, fechaHora))
 
     conn.commit()
     conn.close()
-
-    idProducto = cursor.lastrowid
-    idProveedor = buscarIdProveedor(nombreProveedor)
-    insertarRegistroAlmacen(idProducto, idProveedor, cantidadDisponible)
-
 
 def insertarRegistroAlmacen(idProducto, idProveedor, cantidadDisponible):
     """ Insertar un registro de almacén en la base de datos.
@@ -883,7 +911,36 @@ def insertarRegistroAlmacen(idProducto, idProveedor, cantidadDisponible):
 
     conn.commit()
     conn.close()
-    
+
+def obtenerCantidadProductosEnLotes(codigoProducto):
+    """ Obtener la cantidad de productos en lotes.
+
+    Este método recibe un código de producto y devuelve la cantidad de productos en lotes.
+    """
+
+    # Crear nuevamente la conexión a la base de datos. Por buenas prácticas, se debe cerrar
+    # la conexión después de cada ejecución de un método/proceso.
+    conn = crearConexion()
+    cursor = conn.cursor()
+
+    cursor.execute(
+        """
+            SELECT cantidad_disponible
+            FROM Almacen
+            WHERE id_producto = %s
+        """ % (codigoProducto))
+
+    result = cursor.fetchall()
+    conn.close()
+
+    total = 0
+    for cantidad in result:
+        total += cantidad[0]
+
+    return total
+
+
+
 def obtnerProductosMinimosDiponible():
     """ Obtener los productos con cantidad mínima disponible.
 

@@ -592,14 +592,17 @@ def GuardarProducto():
     elif session["userType"] != "usuario":
         if request.method == 'POST':
             if request.form['submit_button'] == 'Guardar':
-                id=request.form['codigo_producto']
+                id=request.form['id_producto']
                 nombreProducto = request.form["nombre_producto"]
                 proveedor = request.form['selectedProveedor']
                 proveedor= proveedor.strip()
                 descripcion =request.form["descripcion"]
                 disponible=request.form["cantidad_disponible"]
                 cantidad_minima=request.form["cantidad_minima"]
-                calificacion=request.form["selectedCalificacion"]
+                precio = request.form["precio_producto"]
+                bono=request.form["selectedCalificacion"]
+                porcentaje = request.form["descuento_producto"]
+                unidad = request.form["fecha_entradas"]
                 image_src=request.files['archivo']
                 if id=="0":
                     
@@ -611,7 +614,7 @@ def GuardarProducto():
                             image_src="/static/images/Producto.png"   # Si no se selecciona ninguna imagen, establece la imagen por defecto
                         
                     #Consulta para insert en la base de datos
-                    conn.insertarProducto(nombreProducto, descripcion, calificacion, image_src, cantidad_minima, disponible, proveedor)
+                    conn.insertarProducto(nombreProducto, descripcion, precio, image_src, bono, porcentaje, proveedor, cantidad_minima, disponible, descripcion, unidad)
                     flash("Producto guardado correctamente")
                 else:
                     if image_src.filename !="":
