@@ -283,7 +283,7 @@ textarea:focus{
     cursor: pointer;
 }
 
-.select-box-calificacionr .option-calificacion:hover {
+.select-box-calificacion .option-calificacion:hover {
     background: var(--color-blanco);
     color: var(--color-usuario);
 }

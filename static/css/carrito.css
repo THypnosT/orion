@@ -1,4 +1,12 @@
 @import url(variables.css);
+@font-face {
+    font-family: 'icomoon';
+    src: url('../fonts/icomoon.eot?2wkt35');
+    src: url('../fonts/icomoon.eot?2wkt35#iefix') format('embedded-opentype'), url('../fonts/icomoon.ttf?2wkt35') format('truetype'), url('../fonts/icomoon.woff?2wkt35') format('woff'), url('../fonts/icomoon.svg?2wkt35#icomoon') format('svg');
+    font-weight: normal;
+    font-style: normal;
+    font-display: block;
+}
 
 body{
     background: var(--color-fondo);
@@ -20,6 +28,14 @@ body{
     height: auto;
 }
 
+.cantidad{
+    width: 40%;
+    height: 41px;
+    border-radius: var(--radio-input);
+    border: var(--boder-inputs);
+    background: var(--color-fondo);
+    padding: 0 20px;
+}
 
 /* BOTONES */
 .contenedor-carrito-boton{
@@ -48,13 +64,41 @@ body{
     display: inline-flex;
     align-items: center;
     justify-content: center;
-}
 
+}
+.comprar::before{
+    font-family: "icomoon";
+    content: "\e93f";
+    margin-right: 5px;
+}
+.icono::before{
+    font-family: "icomoon";
+    content: "\e93f";
+}
 .comprar:hover, .seguir-comprando:hover{
     background: var(--color-gris);
     color: var(--color-usuario);
     border: var(--border-boton-cancelar-usuario);
     cursor: pointer;
+}
+
+.boton-eliminar::after{
+    font-family: "icomoon";
+    content:"\e9ac";
+    color: var(--color-usuario)
+}
+
+.boton-eliminar{
+    background: var(--color-blanco);
+    border-radius: var(--radio-input);
+    padding: 10px;
+    border: var(--border-boton-cancelar-usuario);
+    cursor: pointer;
+    
+}
+
+.boton-eliminar:hover{
+    background: var(--color-gris);
 }
 /* FIN BOTONES */
 
@@ -65,7 +109,7 @@ img{
 
 .contenedor-carrito-productos-productos-producto{
     display: grid;
-    grid-template-columns: 2fr 2fr 1fr 1fr 1fr;
+    grid-template-columns: 1fr 2fr 1fr 1fr 1fr 1fr 0.5fr;
     grid-gap: 10px;
     align-items: center;
     justify-items: center;
@@ -86,3 +130,88 @@ img{
     box-shadow: var(--sombra-contenedores);
     border-radius: var(--radio-boton);
 }
+
+
+/* CONFIGURACION DEL CUPON */
+.container-cupon label{
+    justify-self: end;
+}
+
+.select-box-cupon {
+    display: flex;
+    flex-direction: column;
+}
+
+.select-box-cupon .options-container-cupon {
+    background: var(--color-usuario);
+    color: var(--color-blanco) !important;
+    max-height: 0;
+    width: 100%;
+    opacity: 0;
+    transition: all 0.4s;
+    border-radius: 8px;
+    overflow: hidden;
+    /* order: 1; */
+}
+
+.selected-cupon {
+    background: var(--color-usuario);
+    border-radius: var(--radio-input);
+    margin-bottom: 8px;
+    color: var(--color-blanco);
+    position: relative;
+    order: 0;
+}
+
+.selected-cupon::after {
+    content: "";
+    background: url("../images/arrow-down.svg");
+    background-size: contain;
+    background-repeat: no-repeat;
+    position: absolute;
+    height: 100%;
+    width: 32px;
+    right: 5px;
+    top: 8px;
+    transition: all 0.4s;
+}
+
+.select-box-cupon .options-container-cupon.active {
+    max-height: 240px;
+    opacity: 1;
+    overflow-y: scroll;
+}
+
+.select-box-cupon .options-container-cupon.active+.selected-cupon::after {
+    transform: rotateX(180deg);
+    top: -6px;
+}
+
+.select-box-cupon .options-container-cupon::-webkit-scrollbar {
+    display: none;
+}
+
+.select-box-cupon .options-container-cupon::-webkit-scrollbar-thumb {
+    background: var(--color-gris);
+    border-radius: 0 8px 8px 0;
+}
+
+.select-box-cupon .option-cupon, .selected-cupon {
+    padding: 12px 24px;
+    cursor: pointer;
+}
+
+.select-box-cupon .option-cupon:hover {
+    background: var(--color-blanco);
+    color: var(--color-usuario);
+}
+
+.select-box-cupon label {
+    cursor: pointer;
+}
+
+.select-box-cupon .option-cupon .radio {
+    display: none;
+}
+
+/* FIN CONFIGURACION DE LA cupon */
