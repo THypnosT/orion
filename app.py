@@ -26,6 +26,10 @@ conn = dbConnect
 def Index2():
     return render_template('IndexShop.html')
 
+@app.route('/singleProduct')
+def singleProduct():
+    return render_template('SingleProduct.html')
+
 @app.route('/iniciarSeccion', methods=['GET', 'POST'])
 def iniciarSeccion():
     return render_template('Login.html')

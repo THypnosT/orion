@@ -33,7 +33,8 @@
             {% for fila in range(3) %}
             <div class="products-items">
                 <div class="item-top">
-                    <img src={{ url_for( 'static', filename='images/upload/218i_Gran_Coupe.png' ) }} alt="">
+                    <a href="{{url_for('singleProduct')}}"><img src={{ url_for( 'static', filename='images/upload/enlatados.jpg' ) }} alt="">
+                    </a>
                     <button class="favorite"></button>
                 </div>
                 <div class="products-info">
