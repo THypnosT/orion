@@ -35,24 +35,23 @@
                 <div class="recordar-pass">
                     {# Mostrar mensajes / errores si es que existen #}
                     {% with mensajes_flash = get_flashed_messages() %}
-                    {% if mensajes_flash %}
-                    {% if mensajes_flash[0] == 'Correo o contraseña incorrectos' %}
-                    <p style="margin-top: 0%; color: red;font-weight: bold;">
-                        {{ mensajes_flash[0] }}
-                    </p>
-                    {% elif mensajes_flash[0] == 'Contraseña cambiada correctamente' %}
-                    <script>
-                        alert('{{ mensajes_flash[0] }}');
-                    </script>
-                    {% elif mensajes_flash[0] != ' ' %}
-                    <script>
-                        alert('{{ mensajes_flash[0] }}');
-                    </script>
+                        {% if mensajes_flash %}
+                            {% if mensajes_flash[0] == 'Correo o contraseña incorrectos' %}
+                                <p style="margin-top: 0%; color: red;font-weight: bold;">
+                                    {{ mensajes_flash[0] }}
+                                </p>
+                                {% elif mensajes_flash[0] == 'Contraseña cambiada correctamente' %}
+                                <script>
+                                    alert('{{ mensajes_flash[0] }}');
+                                </script>
+                                {% elif mensajes_flash[0] != ' ' %}
+                                <script>
+                                    alert('{{ mensajes_flash[0] }}');
+                                </script>
 
-                    {% endif %}
+                            {% endif %}
 
-
-                    {% endif %}
+                        {% endif %}
                     {% endwith %}
 
                     <button type="button" class="show-modal">

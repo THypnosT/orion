@@ -30,9 +30,12 @@ def Index2():
 def iniciarSeccion():
     return render_template('Login.html')
 
-@app.route('/registro', methods=['GET', 'POST'])
+@app.route('/registro', methods=['GET'])
 def registro():
-    return render_template('Registrarse.html')
+    if not session.get("username"):
+        return render_template('Registrarse.html')
+    else:
+        return redirect("/Home")
 
 @app.route('/registrar', methods=['GET', 'POST'])
 def registrar():
@@ -60,6 +63,7 @@ def registrar():
         # else:
         #     flash("Error al registrarse")
         #     return redirect("/registro")
+
 
         return redirect("/iniciarSeccion")
     else:

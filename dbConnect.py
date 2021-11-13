@@ -750,7 +750,7 @@ def crearContrasena():
     return ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(8))
 
 
-def insertarPersona(nombre, apellido, telefono, email, imagen_src, rolUsuario):
+def insertarPersona(nombre, apellido, sexo, fnacimiento, direccion, ciudad, imagen_src, rolUsuario):
     """ Insertar una persona en la base de datos.
 
     Este método recibe los datos de una persona y los inserta en la base de datos.
@@ -763,17 +763,17 @@ def insertarPersona(nombre, apellido, telefono, email, imagen_src, rolUsuario):
     try:       
         cursor.execute(
             """
-                INSERT INTO Persona (nombre_persona, apellido_persona, telefono_persona, email, imagen_src)
-                VALUES ('%s', '%s', '%s', '%s', '%s')
-            """ % (nombre, apellido, telefono, email, imagen_src))
+                INSERT INTO Persona (nombre_persona, apellido_persona, sexo_persona, fnacimiento_persona, direccion_persona, ciudad_persona, imagen_src)
+                VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%s')
+            """ % (nombre, apellido, sexo, fnacimiento, direccion, ciudad, imagen_src))
 
         conn.commit()
         conn.close()
     except sqlite3.Error as er:
-        if er.args[0] == 'UNIQUE constraint failed: Persona.email':
+        if er.args[0] == 'UNIQUE constraint failed: Usuario.email':
             conn.close()
             return False, flash('El correo ya está registrado.')
-        elif er.args[0] == 'UNIQUE constraint failed: Persona.telefono_persona':
+        elif er.args[0] == 'UNIQUE constraint failed: Usuario.telefono':
             conn.close()
             return False, flash('El teléfono ya está registrado.')
         
