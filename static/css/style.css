@@ -73,6 +73,7 @@ body {
 
 .sidebar .region-funciones .home,
 .sidebar .region-funciones .productos,
+.sidebar .region-funciones .lote,
 .sidebar .region-funciones .listas,
 .sidebar .region-funciones .usuarios,
 .sidebar .region-funciones .proveedores,
@@ -142,6 +143,12 @@ body {
 .sidebar .region-funciones .productos::before {
     font-family: "icomoon";
     content: "\e93a";
+    margin-right: var(--separacion-icono-texto);
+}
+
+.sidebar .region-funciones .lote::before {
+    font-family: "icomoon";
+    content: "\e9ba";
     margin-right: var(--separacion-icono-texto);
 }
 
