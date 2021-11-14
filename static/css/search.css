@@ -184,14 +184,14 @@
 }
 
 
-.box-producto .box-fondo .descripcion::-webkit-scrollbar {
+.box-producto .box-fondo .descripcion::-webkit-scrollbar,.description p::-webkit-scrollbar{
     width: 10px;
     color: var(--color-usuario);
     border-radius: var(--radio-contenedor);
     border: 1px solid var(--color-usuario);
 }
 
-.box-producto .box-fondo .descripcion::-webkit-scrollbar-thumb {
+.box-producto .box-fondo .descripcion::-webkit-scrollbar-thumb, .description p::-webkit-scrollbar-thumb{
     background: var(--color-usuario);
     /* border: 1px solid var(--color-usuario); */
 }
@@ -295,6 +295,9 @@ section article .description .text p{
     color:var(--color-gris);
     margin-left: 20px;
     font-size: 0.8em;
+    margin: 10px 0px;
+    overflow-y: auto;
+    height: 150px;
 }
 /* .buttons a{
     font-size: 20px;

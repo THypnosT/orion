@@ -755,17 +755,25 @@ def buscarPorProducto(texto):
 
     queryDatosProducto = cursor.execute(
     """
-        SELECT pro.id_producto,
+        SELECT pro.codigo_producto,
             pro.nombre_producto,
             prove.nombre_proveedor,
             pro.descripcion_producto,
-            pro.calificacion,
             pro.src_imagen,
             alm.cantidad_disponible,
-            pro.cantidad_minima,
-            prove.id_proveedor
-        FROM Producto pro, Almacen alm, Proveedor prove
-        WHERE alm.id_producto = pro.id_producto AND alm.id_proveedor = prove.id_proveedor AND pro.id_producto=alm.id_producto AND pro.nombre_producto LIKE '%s'
+            lote.cantidad_estandar,
+            prove.id_proveedor,
+            calComent.calificacion
+        FROM Producto pro,
+            Almacen alm,
+            Proveedor prove,
+            Lote lote,
+            Calificacion_Comentario calComent
+        WHERE alm.codigo_producto = pro.codigo_producto
+        AND alm.id_proveedor = prove.id_proveedor
+        AND lote.codigo_producto = pro.codigo_producto
+        AND calComent.codigo_producto = pro.codigo_producto
+        AND pro.nombre_producto LIKE '%s'
     """ % ('%'+texto+'%'))
     
     nombreColumnas = [i[0] for i in cursor.description]
