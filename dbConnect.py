@@ -679,7 +679,7 @@ def obtenerComentariosProductos(idProducto):
 
     queryComentariosProducto = cursor.execute(
         """
-            SELECT calComent.comentario, calComent.calificacion, calComent.fecha_calComentario, per.nombre_persona
+            SELECT calComent.comentario, calComent.calificacion, calComent.fecha_calComentario, per.nombre_persona, per.apellido_persona, per.imagen_src
             FROM Calificacion_Comentario calComent,
                 Usuario usr,
                 Producto pro,

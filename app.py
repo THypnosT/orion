@@ -39,9 +39,14 @@ def Index2():
 def singleProduct():
     if request.method == 'POST':
         codigoProducto = request.form['codigo_producto']
+        idProveedor = request.form['id_proveedor']
+        print("-----------------------------------------------------------")
+        print(codigoProducto)
+        print(idProveedor)
         # producto=conn.getProducto(codigoProducto)       #crear una funcion para obtener el producto
-        producto=""
-        comentarios=""
+        producto=conn.obtenerProductoPorID(idProveedor,codigoProducto)
+        comentarios=conn.obtenerComentariosProductos(codigoProducto)
+        print(comentarios)
         if not session.get("username"):
             return render_template('singleProduct.html',producto=producto,comentarios=comentarios)
         elif session["userType"] == "empleado" or session["userType"] == "superAdmin":
