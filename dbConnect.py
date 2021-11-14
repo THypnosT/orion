@@ -849,11 +849,17 @@ def insertarPersona(nombre, apellido, sexo, fnacimiento, direccion, ciudad, imag
 
     # Crear nuevamente la conexión a la base de datos. Por buenas prácticas, se debe cerrar
     # la conexión después de cada ejecución de un método/proceso.
-    conn = crearConexion()
-    cursor = conn.cursor()
+    password = crearContrasena()
     
     idCiudad = bucarIdCiudad(ciudad)
     
+    idUsuario = obtenerIDUsuario(email)
+    enviarEmailCreacionCuenta(email, nombre + " " + apellido, idUsuario, password)
+    
+    passwordHash = generate_password_hash(password)
+    
+    conn = crearConexion()
+    cursor = conn.cursor()
     
     try:       
         cursor.execute(
@@ -875,10 +881,8 @@ def insertarPersona(nombre, apellido, sexo, fnacimiento, direccion, ciudad, imag
         
     idPersona = cursor.lastrowid
     idRol = buscarIdRol(rolUsuario)
-    password = crearContrasena()
-    passwordHash = generate_password_hash(password)
-
-    insertarUsuario(idPersona, email, telefono, idRol, passwordHash)
+    
+    insertarUsuario(passwordHash, email, telefono, idRol, idPersona)
     
     if idRol == 1:
             insertarCedula(cedula, idPersona, None)
@@ -886,12 +890,10 @@ def insertarPersona(nombre, apellido, sexo, fnacimiento, direccion, ciudad, imag
         idCargo = bucarIdCargo(cargo)
         insertarCedula(cedula, idPersona, idCargo)
 
-    idUsuario = obtenerIDUsuario(email)
-    enviarEmailCreacionCuenta(email, nombre + " " + apellido, idUsuario, password)
     return True
 
 
-def insertarUsuario(idPersona, email, telefono, idRol, contrasena):
+def insertarUsuario(contrasena, email, telefono, idRol, idPersona):
     """ Insertar un usuario en la base de datos.
 
     Este método recibe los datos de un usuario y los inserta en la base de datos.
@@ -899,6 +901,7 @@ def insertarUsuario(idPersona, email, telefono, idRol, contrasena):
 
     # Crear nuevamente la conexión a la base de datos. Por buenas prácticas, se debe cerrar
     # la conexión después de cada ejecución de un método/proceso.
+        
     conn = crearConexion()
     cursor = conn.cursor()
 
@@ -906,7 +909,7 @@ def insertarUsuario(idPersona, email, telefono, idRol, contrasena):
         """
             INSERT INTO Usuario (contrasena, estatus_usuario, email, telefono, id_rol, id_sede, id_persona)
             VALUES ('%s', 0, '%s', '%s', '%s', 1, '%s')
-        """ % (contrasena, email, telefono, idRol , idPersona))
+        """ % (contrasena , email, telefono, idRol , idPersona))
 
     conn.commit()
     conn.close()
