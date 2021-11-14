@@ -22,24 +22,38 @@ conn = dbConnect
 
 # SECCION PARA LOS COMPRADORES
 
+
 @app.route('/')
 def Index2():
-    return render_template('IndexShop.html')
+    if not session.get("username"):
+        return render_template('IndexShop.html')
+    elif session["userType"] == "empleado" or session["userType"] == "superAdmin":
+        return redirect("/Home")
+    else:
+        return render_template('IndexShop.html')
 
 @app.route('/singleProduct')
 def singleProduct():
-    return render_template('SingleProduct.html')
+    if not session.get("username"):
+        return render_template('singleProduct.html')
+    elif session["userType"] == "empleado" or session["userType"] == "superAdmin":
+        return redirect("/Home")
+    else:
+        return render_template('singleProduct.html')
 
 @app.route('/iniciarSeccion', methods=['GET', 'POST'])
 def iniciarSeccion():
-    return render_template('Login.html')
+    if not session.get("username"):
+        return render_template('Login.html')
+    else:
+        return redirect("/")
 
 @app.route('/registro', methods=['GET'])
 def registro():
     if not session.get("username"):
         return render_template('Registrarse.html')
     else:
-        return redirect("/Home")
+        return redirect("/")
 
 @app.route('/registrar', methods=['GET', 'POST'])
 def registrar():
