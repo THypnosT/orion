@@ -75,11 +75,12 @@ def registrar():
             cedula= request.form['cedula_user']
             ciudad= request.form['ciudad_user']
             direccion= request.form['direccion_user']
-            telefono= request.form['telefono_user']                  
+            telefono= request.form['telefono_user']
+            image_src="/static/images/avatar.png"                  
 
 
             resultado=conn.insertarPersona(nombre, apellido, sexo, None, direccion, ciudad, 
-                                            None, tipoUser, email, cedula, None, telefono)
+                                            image_src, tipoUser, email, cedula, None, telefono)
             if resultado==True:
                 flash("Usuario creado correctamente")
                 return redirect('/iniciarSeccion')
