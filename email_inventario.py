@@ -10,7 +10,7 @@ from email.mime.text import MIMEText
 from email.mime.base import MIMEBase
 from email.mime.multipart import MIMEMultipart
 # Importando modulo para manejo de base de datos.
-from dbConnect import obtnerProductosMinimosDiponible
+from dbConnect import obtenerProductosMinimosDiponible
 
 # Datos cuenta envío de correos.
 gmail_user = 'almsaicmotors@gmail.com'
@@ -146,7 +146,7 @@ def enviarCorreo(argumentosEmail):
 
 def create_pdf(usuario, cuentacorreo):
     
-    table = pd.DataFrame(obtnerProductosMinimosDiponible())
+    table = pd.DataFrame(obtenerProductosMinimosDiponible())
     if len(table) > 0:
         table = table[columns_list]
         table = table.rename(columns=columns_dict)
