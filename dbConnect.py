@@ -1020,14 +1020,19 @@ def obtenerProductosMinimosDiponible():
 
     queryDatosProductos=cursor.execute(
         """
-            SELECT  pro.nombre_producto,
-                        pro.codigo_producto,
-                        prov.id_proveedor,
-                        pro.cantidad_disponible,
-                        prov.nombre_proveedor,
-                        alm.cantidad_disponible
-                    FROM Producto pro, Almacen alm, Proveedor prov
-                    WHERE pro.cantidad_disponible > alm.cantidad_disponible AND alm.codigo_producto=pro.codigo_producto AND alm.id_proveedor=prov.id_proveedor
+            SELECT lote.cantidad_disponible,
+                lote.cantidad_estandar,
+                pro.codigo_producto,
+                pro.nombre_producto,
+                prov.nombre_proveedor
+            FROM Producto pro,
+                Lote lote,
+                Almacen alm,
+                Proveedor prov
+            WHERE lote.cantidad_disponible < lote.cantidad_estandar
+            AND lote.codigo_producto = pro.codigo_producto
+            AND alm.codigo_producto = pro.codigo_producto
+            AND prov.id_proveedor = alm.id_proveedor;
         """
     )
 
