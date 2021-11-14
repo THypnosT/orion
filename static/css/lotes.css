@@ -37,28 +37,30 @@ body{
 
 .titulos, .contenedor{
     display: grid;
-    grid-template-columns: repeat(4,1fr);
+    grid-template-columns: 1fr 1fr 1.5fr 1fr 1fr 0.5fr;
     background: var(--color-blanco-fondo);
     box-shadow: var(--sombra-contenedores);
     border-radius: var(--radio-input);
     margin: 30px 50px;
-    padding: 5px 20px;
+    padding: 5px 10px;
     align-items: center;
     justify-items: stretch;
+    text-align: center;
 }
 
 .titulos h2{
     font: var(--fuente-sub-titulo);
     color:var(--color-usuario);
+    
 }
 
-.contenedor>*{
+.contenedor{
     font: var(--fuente-texto);
 }
 
 /*  */
 .nombre{
-    display: flex;
+    /* display: flex; */
     align-items: center;
 }
 
