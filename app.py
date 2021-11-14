@@ -125,13 +125,13 @@ def AddCarrito():
 
 @app.route('/Carrito', methods=['GET', 'POST'])
 def Carrito():
-    return render_template('Carrito.html')
-    # if not session.get("username"):
-    #     return redirect("/")
-    # elif session["userType"] == "usuario":
-    #     return render_template('Carrito.html')
-    # else:
-    #     return render_template('AccessDenied.html')
+    # return render_template('Carrito.html')
+    if not session.get("username"):
+        return redirect("/")
+    elif session["userType"] == "usuario":
+        return render_template('Carrito.html')
+    else:
+        return render_template('AccessDenied.html')
 
 @app.route('/addComentario', methods=['GET', 'POST'])
 def addComentario():
@@ -176,9 +176,9 @@ def Index():
                 session['autocompletarProductos'] = conn.autocompletarListaProductos()
                 session['autoCompletarProveedores'] = conn.autocompletarListaProveedores()
                 
-                if session["userType"] == "Usuario":
-                    return render_template('IndexShop.html',usuario=session["usuario"],consultaProductos=consultaProductos,
-                                        consultaProveedor=consultaProveedor,autocompletarProductos=session['autocompletarProductos'])
+                if session["userType"] == "usuario":
+                    session["comprador"]="activo"
+                    return redirect("/")
                 else:
                     return render_template('Index.html', userType=session["userType"],usuario=session["usuario"],consultaProductos=consultaProductos,
                                         consultaProveedor=consultaProveedor,autocompletarProductos=session['autocompletarProductos'], 
@@ -366,6 +366,7 @@ def Logout():
     session.pop('autocompletarProductos', None)
     session.pop('autoCompletarProveedores', None)
     session.pop('autoCompletarEmail', None)
+    session.pop('comprador', None)
     flash(" ")
     return redirect('/')
 

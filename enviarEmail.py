@@ -117,8 +117,7 @@ def emailCrearUsuario(cuentaCorreo, nombreUsuario, idUsuario, password):
     
     # Agregamos el cuerpo del mensaje como objeto MIME de tipo texto
     mensaje.attach(MIMEText(body, 'plain'))
-    # Cambiar la contraseña en la base de datos.
-    dbConnect.recuperarContrasena(cuentaCorreo, idUsuario, password)
+
 
     argumentosEmail = (sent_from, to, mensaje)
     return argumentosEmail
