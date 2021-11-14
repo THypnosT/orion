@@ -494,13 +494,13 @@ def obtenerDatosUsuarioById(id):
 
     queryDatosUsuario = cursor.execute(
         """
-            SELECT per.id_persona, per.nombre_persona, per.apellido_persona, per.direccion_persona, per.sexo_persona, per.fnacimiento_persona, usr.telefono, usr.email, per.imagen_src,
-                    usr.id_usuario, usr.estatus_usuario, rol.descripcion_rol, sede.nombre_sede, ciudad.nombre_ciudad, pais.nombre_pais, emp.cedula_persona, carg.descripcion_cargo
+            SELECT per.id_persona, per.nombre_persona, per.apellido_persona, usr.telefono, usr.email, per.imagen_src,
+                    usr.id_usuario, usr.estatus_usuario, rol.descripcion_rol, sede.nombre_sede, ciudad.nombre_ciudad, pais.nombre_pais
             
-            FROM Persona per, Usuario usr, Rol rol, Sede sede, Ciudad ciudad, Pais pais, Empleado emp, Cargo carg
+            FROM Persona per, Usuario usr, Rol rol, Sede sede, Ciudad ciudad, Pais pais
             
             WHERE usr.id_persona = per.id_persona AND rol.id_rol = usr.id_rol AND usr.id_sede = sede.id_sede
-            AND sede.id_ciudad = ciudad.id_ciudad AND ciudad.id_pais = pais.id_pais AND usr.id_persona = emp.id_persona AND emp.id_cargo = carg.id_cargo
+            AND sede.id_ciudad = ciudad.id_ciudad AND ciudad.id_pais = pais.id_pais
             AND per.id_persona =  '%s'
         """ % id)
 
@@ -979,8 +979,35 @@ def obtenerCantidadProductosEnLotes(codigoProducto):
     return total
 
 
+def obtenerCantidadProductosMinimoEnLotes(codigoProducto):
+    """ Obtener la cantidad de productos en lotes.
 
-def obtnerProductosMinimosDiponible():
+    Este método recibe un código de producto y devuelve los productos con cantidad menor a la mínima o estándar disponible total.
+    """
+
+    # Crear nuevamente la conexión a la base de datos. Por buenas prácticas, se debe cerrar
+    # la conexión después de cada ejecución de un método/proceso.
+    conn = crearConexion()
+    cursor = conn.cursor()
+
+    cursor.execute(
+        """
+            SELECT cantidad_estandar
+            FROM Lote
+            WHERE codigo_producto = %s
+        """ % (codigoProducto))
+
+    result = cursor.fetchall()
+    conn.close()
+
+    total = 0
+    for cantidad in result:
+        total += cantidad[0]
+
+    return total
+
+
+def obtenerProductosMinimosDiponible():
     """ Obtener los productos con cantidad mínima disponible.
 
     Este método obtiene los productos con cantidad mínima disponible.
