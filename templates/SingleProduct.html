@@ -17,15 +17,13 @@
                     class="product-image">
             </div>
             <form action="/anadir/AddCarrito" method="POST">
-                <input type="hidden" name="id" value="{{ producto['codigo_producto'] }}">
+                <input type="hidden" name="codigo_producto" value="{{ producto['codigo_producto'] }}">
                 <div class="product-info">
-                    <h2>Nombre del producto</h2>
-                    <h3>Proveedor</h3>
-                    <h4>Numero de calificaciones</h4>
+                    <h2>{{ producto['nombre_producto'] }}</h2>
+                    <h3>{{ producto['nombre_proveedor'] }}</h3>
+                    <h4>Numero de calificaciones: {{ producto['calificaciones'] }}</h4>
 
-                    <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quas, hic molestiae? Assumenda aliquid
-                        quis quam odit, nisi dolorem odio maiores laboriosam aspernatur! Consequuntur iure amet
-                        provident possimus tempora assumenda ea.</p>
+                    <p>{{ producto['descripcion_producto'] }}</p>
                     <p>Cantidad: <input type="number" min="1" max="20" step="1" value="1"></p>
                     <button>Añadir al carrito de compra</button>
                 </div>
@@ -33,7 +31,7 @@
         </div>
 
         <div class="newComment">
-            <form action="">
+            <form action="/addComentario" method="POST">
                 <h2>Añadir un comentario</h2>
                 <div class="newComment-calificacion">
                     <label for="">Calificación</label>

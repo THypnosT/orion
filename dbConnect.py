@@ -403,6 +403,7 @@ def listaProductos():
                 prove.nombre_proveedor,
                 pro.descripcion_producto,
                 lote.tipo_unidad,
+                pro.precio_unitario,
                 calComent.calificacion,
                 pro.src_imagen,
                 alm.cantidad_disponible
