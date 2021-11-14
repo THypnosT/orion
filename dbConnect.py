@@ -690,19 +690,6 @@ def obtenerComentariosProductos(idProducto):
             AND calComent.codigo_producto = '%s'
         """ % idProducto)
 
-    # i = 0
-    # datosComentarios = {}
-    # datosDB = queryComentariosProducto.fetchone()
-    # nombreColumnas = [i[0] for i in cursor.description]
-
-    # for nombre in nombreColumnas:
-    #     datosComentarios[nombre] = datosDB[i]
-    #     i += 1
-    
-    # conn.close()   
-        
-    # return datosComentarios
-
     nombreColumnas = [i[0] for i in cursor.description]
     comentariosProductoDB = queryComentariosProducto.fetchall()
 
