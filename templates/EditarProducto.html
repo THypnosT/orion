@@ -75,7 +75,7 @@
             </div>
             <div class="cantidad">
                 <label for="cantidad-minima">Cantidad minima</label>
-                <input type="number" name="cantidad_minima" required id="cantidad" value="{{ datosProducto['cantidad_minima'] }}">
+                <input type="number" name="cantidad_minima" required id="cantidad" value="{{ datosProducto['cantidad_estandar'] }}">
             </div>
             <div class="container-calificacion">
                 <label for="calificacion">¿Aplica bono?</label>
@@ -93,27 +93,77 @@
                     </div>
 
                     <div class="selected-calificacion" id="selected-calificacion">
-                        Si
+                        {{ datosProducto['bono_descuento'] }}
                     </div>
                 </div>
-                <input type="hidden" id="inputSelectedCalificacion" name="selectedCalificacion"  value="">
+                <input type="hidden" id="inputSelectedCalificacion" name="selectedCalificacion"  value="{{ datosProducto['bono_descuento'] }}">
             </div>
         </div>
         <div class="cantidad-calificacion">
             <div class="cantidad">
                 <label for="precio">Precio</label>
-                <input type="number" name="precio_producto" required id="precio" value="">
+                <input type="number" name="precio_producto" required id="precio" value="{{ datosProducto['precio_unitario'] }}">
             </div>
             <div class="cantidad">
                 <label for="lote">% Descuento</label>
-                <input type="number" name="descuento_producto" required id="descuento" value="">
+                <input type="number" name="descuento_producto" required id="descuento" value="{{ datosProducto['porcentaje_descuento'] }}">
             </div>
             <div class="cantidad">
-                <label for="lote">Lote</label>
-                <input type="number" name="lote_producto" required id="lote" value="">
+                
+                <div class="container-lote">
+                    <label for="lote">Lote</label>
+                    <div class="select-box-lote">
+                        <div class="options-container-lote">
+                            {% for fila in range(listaLote|length) %}
+                            <div class="option-lote">
+                                <input type="radio" class="radio" id="lote1" name="category" value="Lote" checked />
+                                <label for="lote1" id="lblLote1">{{ listaLote[fila]['descripcion_lote'] }} </label>
+                            </div>
+                            {% endfor %}
+                            <!-- <div class="option-proveedor">
+                                <input type="radio" class="radio" id="num2" name="category" value="Provedor 2" />
+                                <label for="prov2" id="lblnum2">Proveedor 2</label>
+                            </div> -->
+                        </div>
+                        
+                        <div class="selected-lote">
+                            {{ listaLote[0]['descripcion_lote'] }}
+                        </div>
+                    </div>
+                    <input type="hidden" id="inputSelectedLote" name="selectedLote"  value="{{ listaLote[0]['descripcion_lote'] }}">
+                                     
+                </div>
+                
             </div>
         </div>
+        <div class="container-unidad">
+            <label for="unidad">Tipo unidad</label>
+            <div class="select-box-unidad">
+                <div class="options-container-unidad">
+                    <div class="option-unidad">
+                        <input type="radio" class="radio" id="num1" name="category-cal" value="Caja" checked />
+                        <label for="num1" id="lblnum1">Caja</label>
+                    </div>
+                    <div class="option-unidad">
+                        <input type="radio" class="radio" id="num2" name="category-cal" value="Pares" />
+                        <label for="num2" id="lblnum2">Pares</label>
+                    </div>
+                    <div class="option-unidad">
+                        <input type="radio" class="radio" id="num2" name="category-cal" value="Bolsa" />
+                        <label for="num2" id="lblnum2">Bolsa</label>
+                    </div>
+                    <div class="option-unidad">
+                        <input type="radio" class="radio" id="num2" name="category-cal" value="Unidad" />
+                        <label for="num2" id="lblnum2">Unidad</label>
+                    </div>
+                </div>
 
+                <div class="selected-unidad" id="selected-unidad">
+                    {{ datosProducto['tipo_unidad'] }}
+                </div>
+            </div>
+            <input type="hidden" id="inputSelectedUnidad" name="selectedUnidad" value="{{ datosProducto['tipo_unidad'] }}">
+        </div>
         <div class="guardar-cancelar">
             <input type="button" class="cancelar" name="submit_button" value="Cancelar" onclick="history.back()">
             <input type="submit" class="guardar" name="submit_button" value="Guardar">

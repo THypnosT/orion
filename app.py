@@ -422,7 +422,8 @@ def AdminUser():
                 if session['userType']=='empleado':
                    
                     if tipoUSuario=="usuario":
-                        conn.eliminarUsuario(conn.obtenerIDUsuarioDesdePersona(request.form["id"]), request.form["id"])        
+                        conn.eliminarUsuario(conn.obtenerIDUsuarioDesdePersona(request.form["id"]), request.form["id"])  
+                       
                         flash("Usuario eliminado correctamente")
                     else: 
                         flash("No posees los permisos para borrar un usuario de tipo administrador y super administrador")
@@ -441,8 +442,10 @@ def AdminUser():
                 return redirect('/Usuarios')
             elif request.form.get('submit_button')=='Añadir usuario +':
                                           
-                datosusuarios={'id_persona': 0, 'nombre_persona': '', 'apellido_persona': '',
-                               'descripcion_rol': 'Usuario', 'email': '','telefono_persona': '', 'imagen_src': '/static/images/avatar.png'}
+                datosusuarios={'id_persona': 0, 'nombre_persona': '', 'apellido_persona': '', 'cedula_persona': '',
+                               'descripcion_rol': 'Usuario', 'sexo_persona': 'Femenino', 'descripcion_cargo' : "Comercial",
+                               'direccion_persona': '', 'ciudad_persona': '', 'email': '','telefono_persona': '',
+                               'imagen_src': '/static/images/avatar.png'}
                 
                 return render_template('AdminUser.html',datosusuarios=datosusuarios)
     # return render_template('AdminUser.html')
@@ -561,14 +564,12 @@ def GuardarUser():
                     nombre=request.form['nombre']
                     apellido=request.form['apellido']
                     tipoUser=request.form['selectedUsuario']   
-                    print("\n\n\n//////////////////////////////////////////////////////  "+tipoUser+"   //////////////////////////////////////////////////////\n\n\n") 
                     if (tipoUser == "Empleado"):
                         tipoUser="empleado"
                     elif(tipoUser=="Super administrador"):
                         tipoUser="superAdmin"
                     else:
                         tipoUser="usuario"
-                    print("\n\n\n//////////////////////////////////////////////////////  "+tipoUser+"   //////////////////////////////////////////////////////\n\n\n")
                     
                     sexo = request.form['selectedSexo']
                     fnacimiento = request.form['fnacimiento']
@@ -576,7 +577,6 @@ def GuardarUser():
                     ciudad = request.form['ciudad']
                     cedula = request.form['cedula']
                     cargo = request.form['selectedCargo']
-                    print("\n\n\n//////////////////////////////////////////////////////  "+cargo+"   //////////////////////////////////////////////////////\n\n\n")
                 
                     email=request.form['email']
                     telefono=request.form['telefono']
