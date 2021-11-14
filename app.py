@@ -25,21 +25,27 @@ conn = dbConnect
 
 @app.route('/')
 def Index2():
+    listaProductos = conn.listaProductos()
+    print("--------------------------------------------------------------")
+    print(listaProductos)
     if not session.get("username"):
-        return render_template('IndexShop.html')
+        return render_template('IndexShop.html',listaProductos=listaProductos)
     elif session["userType"] == "empleado" or session["userType"] == "superAdmin":
         return redirect("/Home")
     else:
-        return render_template('IndexShop.html')
+        return render_template('IndexShop.html',listaProductos=listaProductos)
 
-@app.route('/singleProduct')
+@app.route('/singleProduct', methods=['GET', 'POST'])
 def singleProduct():
+    codigoProducto = request.form['codigo_producto']
+    # producto=conn.getProducto(codigoProducto)       #crear una funcion para obtener el producto
+    producto=""
     if not session.get("username"):
-        return render_template('singleProduct.html')
+        return render_template('singleProduct.html',producto=producto)
     elif session["userType"] == "empleado" or session["userType"] == "superAdmin":
         return redirect("/Home")
     else:
-        return render_template('singleProduct.html')
+        return render_template('singleProduct.html',producto=producto)
 
 @app.route('/iniciarSeccion', methods=['GET', 'POST'])
 def iniciarSeccion():
@@ -86,6 +92,21 @@ def registrar():
         return redirect("/iniciarSeccion")
     else:
         return redirect("/registro")
+
+@app.route('/anadir/AddCarrito', methods=['GET', 'POST'])
+def AddCarrito():
+    if not session.get("username"):
+        return redirect("/") 
+    elif session["userType"] == "usuario":
+        if request.method == 'POST':
+            id_producto = request.form['codigo_producto']
+            cantidad = request.form['cantidad']
+            # conn.addCarrito(id_producto, cantidad)
+            return redirect("/Carrito")
+        else:
+            return redirect("/")   
+    else:
+        return render_template('AccessDenied.html')
 
 @app.route('/Carrito', methods=['GET', 'POST'])
 def Carrito():

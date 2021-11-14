@@ -4,9 +4,9 @@
 
 {% block content %}
 
-<link rel="stylesheet" href={{ url_for( 'static', filename='css/font-awesome.min.css' ) }}>
-<link rel="stylesheet" href={{ url_for( 'static', filename='css/font-awesome.css' ) }}>
-<link rel="stylesheet" href={{ url_for( 'static', filename='css/Styleindex.css' ) }}>
+<link rel="stylesheet" href={{ url_for( 'static' , filename='css/font-awesome.min.css' ) }}>
+<link rel="stylesheet" href={{ url_for( 'static' , filename='css/font-awesome.css' ) }}>
+<link rel="stylesheet" href={{ url_for( 'static' , filename='css/Styleindex.css' ) }}>
 
 
 <body>
@@ -15,48 +15,64 @@
             <h2> Flitros</h2>
             <div class="price">
                 <div class="filter-price">
-                <h3 class="price-title">PRICE</h3> 
-                <div class="price-range"><p>$</p>
-                    <span id="price-range1">1</span><p>&nbsp; - &nbsp; $</p>
-                    <span id="price-range2">50000</span>
-                </div>                
+                    <h3 class="price-title">PRICE</h3>
+                    <div class="price-range">
+                        <p>$</p>
+                        <span id="price-range1">1</span>
+                        <p>&nbsp; - &nbsp; $</p>
+                        <span id="price-range2">50000</span>
+                    </div>
                 </div>
                 <div class="priceContainer">
                     <div class="priceContainer-sliderTrack"></div>
                     <input type="range" min="1" max="50000" value="0" id="slider" oninput="sliderUno()">
                     <input type="range" min="1" max="50000" value="50000" id="slider2" oninput="sliderDos()">
-                </div> 
+                </div>
             </div>
         </div>
-        
+
         <div class="products">
-            {% for fila in range(3) %}
+            {% for fila in range(listaProductos|length) %}
+
+            <input type="hidden" name="codigo_producto" value="{{ listaProductos[fila]['codigo_producto'] }}">
             <div class="products-items">
-                <div class="item-top">
-                    <a href="{{url_for('singleProduct')}}"><img src={{ url_for( 'static', filename='images/upload/enlatados.jpg' ) }} alt="">
-                    </a>
-                    <button class="favorite"></button>
-                </div>
+                <form action="/singleProduct" method="POST" class="form-imagen">
+                    <input type="hidden" name="codigo_producto" value="{{ listaProductos[fila]['codigo_producto'] }}">
+                    <div class="item-top">
+
+                        <img src="{{ listaProductos[fila]['src_imagen'] }}" alt="" onclick="document.querySelector('.form-imagen').submit();">
+
+                        <button class="favorite"></button>
+                    </div>
+                </form>
                 <div class="products-info">
-                    <h3>Nombre del producto</h3>
+                    <h3>{{ listaProductos[fila]['nombre_producto'] }}</h3>
                     <div class="puntuacion">
                         <div class="estrellas-outer">
-                            <div class="estrellas-inner" style="width: {{ fila }}rem;"></div>
+                            <div class="estrellas-inner" style="width: {{ listaProductos[fila]['calificacion'] }}rem;">
+                            </div>
                         </div>
-                        <div class="valor">{{ fila }}</div>
+                        <div class="valor">{{ listaProductos[fila]['calificacion'] }}</div>
                     </div>
-                    <p>$480000</p>
-                    <div class="products-buy">
-                        <input type="number" min="1" max="20" placeholder="1">
-                        <button> Comprar</button>
-                    </div>
+                    <p>${{ listaProductos[fila]['precio_unitario'] }}</p>
+                    <form action="/anadir/AddCarrito" method="POST">
+                        <div class="products-buy">
+                            <input type="hidden" name="codigo_producto" value="{{ listaProductos[fila]['codigo_producto'] }}">
+                            <input type="number" min="1" max="20" placeholder="1" id="cantidad" name="cantidad">
+                            <label class="boton-comprar"><input type="submit" name="submit_button" id="comprar"
+                                    class="boton-comprar" value="Comprar" style="display: none;">Comprar</label>
+
+                        </div>
+                    </form>
                 </div>
             </div>
+
+
             {% endfor %}
         </div>
-    </section>
+        </section>
 </body>
-<script src={{ url_for( 'static', filename='js/index.js' ) }}></script>
+<script src={{ url_for( 'static' , filename='js/index.js' ) }}></script>
 
-    
-    {% endblock %}
+
+{% endblock %}

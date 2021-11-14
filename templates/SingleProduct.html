@@ -4,32 +4,38 @@
 
 {% block content %}
 
-<link rel="stylesheet" href={{ url_for( 'static', filename='css/font-awesome.min.css' ) }}>
-<link rel="stylesheet" href={{ url_for( 'static', filename='css/font-awesome.css' ) }}>
-<link rel="stylesheet" href={{ url_for( 'static', filename='css/singleProduct.css' ) }}>
+<link rel="stylesheet" href={{ url_for( 'static' , filename='css/font-awesome.min.css' ) }}>
+<link rel="stylesheet" href={{ url_for( 'static' , filename='css/font-awesome.css' ) }}>
+<link rel="stylesheet" href={{ url_for( 'static' , filename='css/singleProduct.css' ) }}>
 
 
 <body>
     <section class="product">
         <div class="product-item">
             <div class="product-image">
-                <img src={{ url_for( 'static', filename='images/upload/enlatados.jpg') }} alt="product" class="product-image">
+                <img src={{ url_for( 'static' , filename='images/upload/enlatados.jpg' ) }} alt="product"
+                    class="product-image">
             </div>
-            <div class="product-info">
-                <h2>Nombre del producto</h2>
-                <h3>Proveedor</h3>
-                <h4>Numero de calificaciones</h4>
-                
-                <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quas, hic molestiae? Assumenda aliquid quis quam odit, nisi dolorem odio maiores laboriosam aspernatur! Consequuntur iure amet provident possimus tempora assumenda ea.</p>
-                <p>Cantidad: <input type="number" min="1" max="20" step="1" value="1"></p>
-                <button>Añadir al carrito de compra</button>
-            </div>
+            <form action="/anadir/AddCarrito" method="POST">
+                <input type="hidden" name="id" value="{{ producto['codigo_producto'] }}">
+                <div class="product-info">
+                    <h2>Nombre del producto</h2>
+                    <h3>Proveedor</h3>
+                    <h4>Numero de calificaciones</h4>
+
+                    <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quas, hic molestiae? Assumenda aliquid
+                        quis quam odit, nisi dolorem odio maiores laboriosam aspernatur! Consequuntur iure amet
+                        provident possimus tempora assumenda ea.</p>
+                    <p>Cantidad: <input type="number" min="1" max="20" step="1" value="1"></p>
+                    <button>Añadir al carrito de compra</button>
+                </div>
+            </form>
         </div>
         {% for fila in range(6) %}
         <div class="product-review">
             <div class="review-One">
                 <div class="review-user">
-                    <img src={{ url_for( 'static', filename='images/upload/admin.jpg') }} alt="">
+                    <img src={{ url_for( 'static' , filename='images/upload/admin.jpg' ) }} alt="">
                     <h3>Nombre usuario</h3>
                 </div>
                 <div class="puntuacion">
@@ -39,14 +45,16 @@
                     <div class="valor">{{ fila }}</div>
                 </div>
                 <p class="fecha">23/10/2021</p>
-                <p class="comment">Lorem ipsum dolor sit amet consectetur adipisicing elit. In minima quod, aperiam quo provident vel quas rem dolores labore saepe officiis explicabo reiciendis nobis nostrum? Excepturi quasi ipsum pariatur expedita?</p>
+                <p class="comment">Lorem ipsum dolor sit amet consectetur adipisicing elit. In minima quod, aperiam quo
+                    provident vel quas rem dolores labore saepe officiis explicabo reiciendis nobis nostrum? Excepturi
+                    quasi ipsum pariatur expedita?</p>
             </div>
         </div>
         {% endfor %}
-        
+
     </section>
 </body>
-<script src={{ url_for( 'static', filename='js/index.js' ) }}></script>
+<script src={{ url_for( 'static' , filename='js/index.js' ) }}></script>
 
-    
+
 {% endblock %}
