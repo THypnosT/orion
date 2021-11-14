@@ -32,6 +32,7 @@
 
         <div class="newComment">
             <form action="/addComentario" method="POST">
+                <input type="hidden" name="codigo_producto" value="{{ producto['codigo_producto'] }}">
                 <h2>Añadir un comentario</h2>
                 <div class="newComment-calificacion">
                     <label for="">Calificación</label>
@@ -39,7 +40,7 @@
                 </div>
                 <div class="newComment-comentario">
                     <label for="">Comentario</label>
-                    <textarea type="text" class="newComment-textarea"></textarea>
+                    <textarea type="text" class="newComment-textarea" name="newComentario"></textarea>
                 </div>
                 <input type="submit" class="sendComment" value="Comentar">
             </form>
