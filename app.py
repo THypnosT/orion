@@ -558,18 +558,28 @@ def GuardarUser():
                     id=request.form['id']
                     nombre=request.form['nombre']
                     apellido=request.form['apellido']
-                    tipoUser=request.form['selectedUsuario']    
-                    if(tipoUser=="Empleado"):
+                    tipoUser=request.form['selectedUsuario']   
+                    print("\n\n\n//////////////////////////////////////////////////////  "+tipoUser+"   //////////////////////////////////////////////////////\n\n\n") 
+                    if (tipoUser == "Empleado"):
                         tipoUser="empleado"
                     elif(tipoUser=="Super administrador"):
                         tipoUser="superAdmin"
                     else:
                         tipoUser="usuario"
-
+                    print("\n\n\n//////////////////////////////////////////////////////  "+tipoUser+"   //////////////////////////////////////////////////////\n\n\n")
+                    
+                    sexo = request.form['selectedSexo']
+                    fnacimiento = request.form['fnacimiento']
+                    direccion = request.form['direccion']
+                    ciudad = request.form['ciudad']
+                    cedula = request.form['cedula']
+                    cargo = request.form['selectedCargo']
+                    print("\n\n\n//////////////////////////////////////////////////////  "+cargo+"   //////////////////////////////////////////////////////\n\n\n")
+                
                     email=request.form['email']
                     telefono=request.form['telefono']
                     
-                    image_src=request.files['archivo']            
+                    image_src=request.files['archivo']                    
                     
                     if id=="0":
                         
@@ -581,7 +591,8 @@ def GuardarUser():
                             image_src="/static/images/avatar.png"   # Si no se selecciona ninguna imagen, establece la imagen por defecto
                         
                         #Consulta para insert en la base de datos
-                        resultado=conn.insertarPersona(nombre,apellido,telefono,email,image_src,tipoUser)
+                        resultado=conn.insertarPersona(nombre, apellido, sexo, fnacimiento, direccion, ciudad, 
+                                                    image_src, tipoUser, email, cedula, cargo, telefono)
                         if resultado==True:
                             flash("Usuario creado correctamente")
                             return redirect('/Usuarios')
@@ -592,13 +603,15 @@ def GuardarUser():
                             image_src="/static/images/upload/"+image_src
                         
                             #Consulta para update en la base de datos cambiando la imagen por la seleccionada en el momento
-                            conn.actualizarPersona(id,nombre,apellido,telefono,email,image_src)
+                            conn.actualizarPersona(id,nombre, apellido, sexo, fnacimiento, direccion, ciudad, 
+                                                    image_src, tipoUser, email, cedula, cargo, telefono)
                             conn.actualizarRolUsuario(conn.obtenerIDUsuarioDesdePersona(id), conn.buscarIdRol(tipoUser.strip()))
                             flash("Usuario actualizado correctamente")
                         else:
                             #Consulta para update en la base de datos sin incluir imagen, permanece la actual
                             image_src = conn.obtenerImagenPersona(id)
-                            conn.actualizarPersona(id,nombre,apellido,telefono,email,image_src)
+                            conn.actualizarPersona(id,nombre, apellido, sexo, fnacimiento, direccion, ciudad, 
+                                                    image_src, tipoUser, email, cedula, cargo, telefono)
                             conn.actualizarRolUsuario(conn.obtenerIDUsuarioDesdePersona(id), conn.buscarIdRol(tipoUser.strip()))
                             flash("Usuario actualizado correctamente")
                 

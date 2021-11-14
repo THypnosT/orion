@@ -188,6 +188,63 @@ def buscarIdRol(rol):
     conn.close()
     return queryRolId[0]
 
+def bucarIdCargo(cargo):
+    """ Buscar el id del cargo de la base de datos.
+
+    Este método recibe una descripción de cargo y busca el id de cargo asociado en la tabla Cargo.
+
+    Parameters
+
+    Cargo -- Es la descripción del cargo que se buscará.
+    """
+
+    # Crear nuevamente la conexión a la base de datos. Por buenas prácticas, se debe cerrar
+    # la conexión después de cada ejecución de un método/proceso.
+
+    conn = crearConexion()
+    cursor = conn.cursor()
+
+    queryIdCargo = cursor.execute(
+        "SELECT id_cargo FROM Cargo WHERE descripcion_cargo = '%s'" % cargo).fetchone()
+
+    conn.close()
+    return queryIdCargo[0]
+
+def bucarIdCiudad(ciudad):
+    """ Buscar el id de la ciudad de la base de datos.
+
+    Este método recibe una descripción de ciudad y busca el id de ciudad asociado en la tabla ciudad.
+
+    Parameters
+
+    ciudad -- Es la descripción de la ciudad que se buscará.
+    """
+
+    # Crear nuevamente la conexión a la base de datos. Por buenas prácticas, se debe cerrar
+    # la conexión después de cada ejecución de un método/proceso.
+
+    conn = crearConexion()
+    cursor = conn.cursor()
+
+    queryIdCiudad = cursor.execute(
+        "SELECT id_ciudad FROM Ciudad WHERE nombre_ciudad = '%s'" % ciudad).fetchone()
+    
+    if queryIdCiudad is None:
+        cursor.execute(
+            """
+                INSERT INTO Ciudad (nombre_ciudad, id_pais)
+                VALUES ('%s', 1)
+            """ % (ciudad))
+        conn.commit()
+        
+        queryIdCiudad = cursor.lastrowid
+
+        conn.close()
+        return queryIdCiudad
+    else:
+        conn.close()
+        return queryIdCiudad[0]
+
 
 def comprobarEstatusUsuario(idUsuario):
     """ Comprobar el estatus del usuario.
@@ -750,7 +807,7 @@ def crearContrasena():
     return ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(8))
 
 
-def insertarPersona(nombre, apellido, sexo, fnacimiento, direccion, ciudad, imagen_src, rolUsuario, email):
+def insertarPersona(nombre, apellido, sexo, fnacimiento, direccion, ciudad, imagen_src, rolUsuario, email, cedula, cargo, telefono):
     """ Insertar una persona en la base de datos.
 
     Este método recibe los datos de una persona y los inserta en la base de datos.
@@ -760,12 +817,17 @@ def insertarPersona(nombre, apellido, sexo, fnacimiento, direccion, ciudad, imag
     # la conexión después de cada ejecución de un método/proceso.
     conn = crearConexion()
     cursor = conn.cursor()
+    
+    idCiudad = bucarIdCiudad(ciudad)
+    
+    
     try:       
         cursor.execute(
             """
-                INSERT INTO Persona (nombre_persona, apellido_persona, sexo_persona, fnacimiento_persona, direccion_persona, ciudad_persona, imagen_src)
+                INSERT INTO Persona (
+                    nombre_persona, apellido_persona, sexo_persona, fnacimiento_persona, direccion_persona, ciudad_persona, imagen_src)
                 VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%s')
-            """ % (nombre, apellido, sexo, fnacimiento, direccion, ciudad, imagen_src))
+            """ % (nombre, apellido, sexo, fnacimiento, direccion, idCiudad, imagen_src))
 
         conn.commit()
         conn.close()
@@ -782,14 +844,20 @@ def insertarPersona(nombre, apellido, sexo, fnacimiento, direccion, ciudad, imag
     password = crearContrasena()
     passwordHash = generate_password_hash(password)
 
-    insertarUsuario(idPersona, idRol, passwordHash)
+    insertarUsuario(idPersona, email, telefono, idRol, passwordHash)
+    
+    if idRol == 1:
+            insertarCedula(cedula, idPersona, None)
+    else:
+        idCargo = bucarIdCargo(cargo)
+        insertarCedula(cedula, idPersona, idCargo)
 
     idUsuario = obtenerIDUsuario(email)
     enviarEmailCreacionCuenta(email, nombre + " " + apellido, idUsuario, password)
     return True
 
 
-def insertarUsuario(idPersona, idRol, contrasena):
+def insertarUsuario(idPersona, email, telefono, idRol, contrasena):
     """ Insertar un usuario en la base de datos.
 
     Este método recibe los datos de un usuario y los inserta en la base de datos.
@@ -802,11 +870,39 @@ def insertarUsuario(idPersona, idRol, contrasena):
 
     cursor.execute(
         """
-            INSERT INTO Usuario (contrasena, estatus_usuario, id_persona, id_rol, id_sede)
-            VALUES ('%s', 0, '%s', '%s', 1)
-        """ % (contrasena, idPersona, idRol))
+            INSERT INTO Usuario (contrasena, estatus_usuario, email, telefono, id_rol, id_sede, id_persona)
+            VALUES ('%s', 0, '%s', '%s', '%s', 1, '%s')
+        """ % (contrasena, email, telefono, idRol , idPersona))
 
     conn.commit()
+    conn.close()
+    
+def insertarCedula(cedula, idPersona, idCargo):
+    """ Insertar un usuario en la base de datos.
+
+    Este método recibe los datos de un usuario y los inserta en la base de datos.
+    """
+
+    # Crear nuevamente la conexión a la base de datos. Por buenas prácticas, se debe cerrar
+    # la conexión después de cada ejecución de un método/proceso.
+    conn = crearConexion()
+    cursor = conn.cursor()
+    
+    if idCargo == None:
+        cursor.execute(
+            """
+                INSERT INTO Comprador (cedula_persona, id_persona, id_bonoRedencion)
+                VALUES ('%s', '%s', 0)
+            """ % (cedula, idPersona))
+        conn.commit()
+    else:
+        cursor.execute(
+            """
+                INSERT INTO Empleado (cedula_persona, id_persona, id_cargo)
+                VALUES ('%s', '%s', '%s')
+            """ % (cedula, idPersona, idCargo))
+        conn.commit()
+        
     conn.close()
 
 def enviarEmailCreacionCuenta(email, nombreApellido, idUsuario, contrasena):
