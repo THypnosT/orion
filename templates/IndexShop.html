@@ -74,6 +74,8 @@
         </section>
 </body>
 <script src={{ url_for( 'static' , filename='js/index.js' ) }}></script>
-
+<script>
+    sessionStorage.setItem('comprador', "{{ comprador }}")
+</script>
 
 {% endblock %}

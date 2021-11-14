@@ -891,12 +891,7 @@ def insertarPersona(nombre, apellido, sexo, fnacimiento, direccion, ciudad, imag
     password = crearContrasena()
     
     idCiudad = bucarIdCiudad(ciudad)
-    
-    idUsuario = obtenerIDUsuario(email)
-    enviarEmailCreacionCuenta(email, nombre + " " + apellido, idUsuario, password)
-    
-    passwordHash = generate_password_hash(password)
-    
+        
     conn = crearConexion()
     cursor = conn.cursor()
     
@@ -923,8 +918,6 @@ def insertarPersona(nombre, apellido, sexo, fnacimiento, direccion, ciudad, imag
     password = crearContrasena()
     passwordHash = generate_password_hash(password)
 
-    insertarUsuario(idPersona, email, telefono, idRol, passwordHash)
-    
     insertarUsuario(passwordHash, email, telefono, idRol, idPersona)
 
     if idRol == 1:
@@ -932,7 +925,8 @@ def insertarPersona(nombre, apellido, sexo, fnacimiento, direccion, ciudad, imag
     else:
         idCargo = bucarIdCargo(cargo)
         insertarCedula(cedula, idPersona, idCargo)
-
+    idUsuario = obtenerIDUsuario(email)
+    enviarEmailCreacionCuenta(email, nombre + " " + apellido, idUsuario, password)
     return True
 
 

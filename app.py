@@ -26,14 +26,15 @@ conn = dbConnect
 @app.route('/')
 def Index2():
     listaProductos = conn.listaProductos()
-
-    print(listaProductos)
+    if not session.get("comprador"):
+        session["comprador"] = "no"
+    
     if not session.get("username"):
-        return render_template('IndexShop.html',listaProductos=listaProductos)
+        return render_template('IndexShop.html',listaProductos=listaProductos,comprador=session["comprador"])
     elif session["userType"] == "empleado" or session["userType"] == "superAdmin":
         return redirect("/Home")
     else:
-        return render_template('IndexShop.html',listaProductos=listaProductos)
+        return render_template('IndexShop.html',listaProductos=listaProductos,comprador=session["comprador"])
 
 @app.route('/singleProduct', methods=['GET', 'POST'])
 def singleProduct():
