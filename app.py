@@ -135,15 +135,14 @@ def Carrito():
 
 @app.route('/addComentario', methods=['GET', 'POST'])
 def addComentario():
-    # if request.method == 'POST':
-    #     if request.form['add_comentario'] == 'Agregar':
-    #         comentario = request.form['comentario']
-    #         id_producto = request.form['codigo_producto']
-    #         conn.addComentario(id_producto, comentario)
-    #         return redirect("/")
-    #     else:
-    #         return redirect("/")
-    # else:
+    if request.method == 'POST':
+        codigo_producto = request.form['codigo_producto']
+        comentario = request.form['newComentario']
+        id_usuario = session["id_usuario"]
+        calificacion = request.form['newCalificacion']
+        conn.insertarComentarioCalificacionProducto(comentario,calificacion,codigo_producto,id_usuario)
+        return redirect("/singleProduct")
+    else:
         return redirect("/")
 
 # SECCION PARA LOS SUPERAMINISTRADORES Y USUARIOS INTERNOS

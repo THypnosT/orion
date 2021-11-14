@@ -916,7 +916,8 @@ def insertarPersona(nombre, apellido, sexo, fnacimiento, direccion, ciudad, imag
     idRol = buscarIdRol(rolUsuario)
     password = crearContrasena()
     passwordHash = generate_password_hash(password)
-
+    print(passwordHash)
+    print("-----------------------------------------------------------------------------")
     insertarUsuario(idPersona, email, telefono, idRol, passwordHash)
     
     if idRol == 1:
