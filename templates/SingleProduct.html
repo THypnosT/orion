@@ -25,6 +25,22 @@
                 <button>Añadir al carrito de compra</button>
             </div>
         </div>
+
+        <div class="newComment">
+            <form action="">
+                <h2>Añadir un comentario</h2>
+                <div class="newComment-calificacion">
+                    <label for="">Calificación</label>
+                    <input type="number" min="1" max="5" value="1" class="newCalificacion" onKeyDown="return false">
+                </div>
+                <div class="newComment-comentario">
+                    <label for="">Comentario</label>
+                    <textarea type="text" class="newComment-textarea"></textarea>
+                </div>
+                <input type="submit" class="sendComment" value="Comentar">
+            </form>
+        </div>
+
         {% for fila in range(6) %}
         <div class="product-review">
             <div class="review-One">
