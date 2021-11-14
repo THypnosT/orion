@@ -345,7 +345,7 @@ def Editarproducto():
                 datosProducto = conn.obtenerProductoPorID(idproveedor, idProducto)
                 proveedores=conn.listaProveedores()
                 
-                return render_template('EditarProducto.html',datosProducto=datosProducto,proveedores=proveedores)
+                return render_template('EditarProducto.html',datosProducto=datosProducto,proveedores=proveedores, listaLote=conn.obtenerListaLote(idProducto))
             
             elif request.form['submit_button'] == 'eliminar':
                 
@@ -521,11 +521,8 @@ def ConfirmacionNewPass():
                 return redirect('/CambiarContrasena')
 
             if conn.validarContrasena(request.form['email'], contrasenaActual) is not False:
-                print("Ingresé al if de cambiar la clave: ----------------------------------------******************")
                 datos=conn.obtenerDatosUsuario(request.form['email'])
-                print("Obtuve datos del usuario ----------------------------------------******************")
                 conn.cambiarContrasena(datos['id_persona'], generate_password_hash(nuevaContrasena))
-                print("Logré cambiar la clave ----------------------------------------******************")
                 conn.cambiarEstatusUsuario(1, datos['id_persona'])
                 flash("Contraseña cambiada correctamente")
                 return redirect('/')
