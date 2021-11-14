@@ -361,7 +361,7 @@ def Editarproducto():
                 datosProducto = conn.obtenerProductoPorID(idproveedor, idProducto)
                 proveedores=conn.listaProveedores()
                 
-                return render_template('EditarProducto.html',datosProducto=datosProducto,proveedores=proveedores, listaLote="Prueba")
+                return render_template('EditarProducto.html',datosProducto=datosProducto,proveedores=proveedores, listaLote=conn.obtenerListaLote(idProducto))
             
             elif request.form['submit_button'] == 'eliminar':
                 

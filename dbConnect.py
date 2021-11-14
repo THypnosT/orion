@@ -621,19 +621,6 @@ def obtenerProductoPorID(idProveedor, idProducto):
     cursor = conn.cursor()
 
     queryDatosProducto = cursor.execute(
-        # """
-        #     SELECT pro.id_producto,
-        #         pro.nombre_producto,
-        #         prove.nombre_proveedor,
-        #         pro.descripcion_producto,
-        #         pro.calificacion,
-        #         pro.src_imagen,
-        #         alm.cantidad_disponible,
-        #         pro.cantidad_minima
-        #     FROM Producto pro, Almacen alm, Proveedor prove
-        #     WHERE alm.id_producto = pro.id_producto AND alm.id_proveedor = prove.id_proveedor AND pro.id_producto=alm.id_producto AND pro.id_producto='%s' AND alm.id_proveedor = '%s'
-        # """ % (idProducto, idProveedor))
-
         """
             SELECT pro.codigo_producto,
                 pro.nombre_producto,
@@ -642,14 +629,21 @@ def obtenerProductoPorID(idProveedor, idProducto):
                 pro.src_imagen,
                 alm.cantidad_disponible,
                 prove.id_proveedor,
-                calComent.calificacion
+                calComent.calificacion,
+                lote.cantidad_estandar,
+                lote.tipo_unidad,
+                pro.precio_unitario,
+                IIF(pro.bono_descuento == 1, 'Si', 'No' ) bono_descuento,
+                pro.porcentaje_descuento * 100 as porcentaje_descuento
             FROM Producto pro,
                 Almacen alm,
                 Proveedor prove,
+                Lote lote,
                 Calificacion_Comentario calComent
             WHERE alm.codigo_producto = pro.codigo_producto
             AND alm.id_proveedor = prove.id_proveedor
             AND calComent.codigo_producto = pro.codigo_producto
+            AND lote.codigo_producto = pro.codigo_producto
             AND pro.codigo_producto = '%s'
             AND alm.id_proveedor = '%s';
         """ % (idProducto, idProveedor))
@@ -657,8 +651,6 @@ def obtenerProductoPorID(idProveedor, idProducto):
     i = 0
     datosProducto = {}
     datosDB = queryDatosProducto.fetchone()
-    print("************************************-------------------")
-    print(datosDB)
     nombreColumnas = [i[0] for i in cursor.description]
 
     for nombre in nombreColumnas:
@@ -685,7 +677,7 @@ def cambiarImagenProducto(srcProducto, idProducto):
         """
             UPDATE Producto
             SET src_imagen = '%s'
-            WHERE id_producto = '%s'
+            WHERE codigo_producto = '%s'
         """ % (srcProducto, idProducto))
 
     conn.commit()
@@ -1067,15 +1059,23 @@ def obtenerListaLote(codigoProducto):
     conn = crearConexion()
     cursor = conn.cursor()
 
-    cursor.execute(
+    queryListaLote = cursor.execute(
         """
             SELECT * FROM Lote WHERE codigo_producto = '%s'
         """ % (codigoProducto))
 
-    listaLotes = cursor.fetchall()
+
+    nombreColumnas = [i[0] for i in cursor.description]
+    listaLotesDB = queryListaLote.fetchall()
+
+    jsonlistaLote=[]
+    for result in listaLotesDB:
+        jsonlistaLote.append(dict(zip(nombreColumnas,result)))
+    
     conn.close()
 
-    return listaLotes
+    return jsonlistaLote
+
 
 
 def insertarRegistroAlmacen(idProducto, idProveedor, cantidadDisponible):
@@ -1263,7 +1263,7 @@ def obtenerImagenProducto(idProducto):
         """
             SELECT src_imagen
             FROM Producto
-            WHERE id_producto = %s
+            WHERE codigo_producto = %s
         """ % (idProducto))
 
     imagen = cursor.fetchone()
@@ -1595,16 +1595,24 @@ def productosDisponibles():
 
     queryDatosProductos=cursor.execute(
         """
-            SELECT pro.id_producto,
+            SELECT pro.codigo_producto,
                 pro.nombre_producto,
                 prove.id_proveedor,
                 prove.nombre_proveedor,
                 pro.descripcion_producto,
-                pro.calificacion,
+                calComent.calificacion,
                 pro.src_imagen,
                 alm.cantidad_disponible
-            FROM Producto pro, Almacen alm, Proveedor prove
-            WHERE alm.id_producto = pro.id_producto AND alm.id_proveedor = prove.id_proveedor AND alm.cantidad_disponible > 0
+            FROM Producto pro,
+                Almacen alm,
+                Proveedor prove,
+                Calificacion_Comentario calComent,
+                Lote lote
+            WHERE alm.codigo_producto = pro.codigo_producto
+            AND alm.id_proveedor = prove.id_proveedor
+            AND calComent.codigo_producto = pro.codigo_producto
+            AND lote.codigo_producto = pro.codigo_producto
+            AND lote.cantidad_disponible > 0
             ORDER BY pro.fecha_creado DESC;
         """ )
 
@@ -1632,16 +1640,24 @@ def productosNoDisponibles():
 
     queryDatosProductos=cursor.execute(
         """
-            SELECT pro.id_producto,
+            SELECT pro.codigo_producto,
                 pro.nombre_producto,
                 prove.id_proveedor,
                 prove.nombre_proveedor,
                 pro.descripcion_producto,
-                pro.calificacion,
+                calComent.calificacion,
                 pro.src_imagen,
                 alm.cantidad_disponible
-            FROM Producto pro, Almacen alm, Proveedor prove
-            WHERE alm.id_producto = pro.id_producto AND alm.id_proveedor = prove.id_proveedor AND alm.cantidad_disponible = 0
+            FROM Producto pro,
+                Almacen alm,
+                Proveedor prove,
+                Calificacion_Comentario calComent,
+                Lote lote
+            WHERE alm.codigo_producto = pro.codigo_producto
+            AND alm.id_proveedor = prove.id_proveedor
+            AND calComent.codigo_producto = pro.codigo_producto
+            AND lote.codigo_producto = pro.codigo_producto
+            AND lote.cantidad_disponible = 0
             ORDER BY pro.fecha_creado DESC;
         """ )
 
