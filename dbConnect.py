@@ -402,12 +402,14 @@ def listaProductos():
                 prove.id_proveedor,
                 prove.nombre_proveedor,
                 pro.descripcion_producto,
+                lote.tipo_unidad,
                 calComent.calificacion,
                 pro.src_imagen,
                 alm.cantidad_disponible
-            FROM Producto pro, Almacen alm, Proveedor prove, Calificacion_Comentario calComent
+            FROM Producto pro, Almacen alm, Proveedor prove, Calificacion_Comentario calComent, Lote lote
             WHERE alm.codigo_producto = pro.codigo_producto AND alm.id_proveedor = prove.id_proveedor
                 AND calComent.codigo_producto = pro.codigo_producto
+                AND lote.codigo_producto = pro.codigo_producto
             ORDER BY pro.fecha_creado DESC;
         """)
 
@@ -1197,7 +1199,7 @@ def obtenerProductosMinimosDiponible():
     return jsonProductos
 
 def actualizarProducto(idProducto, nombreProducto, descripcionProducto, precio, srcImagen, bonoDescuento, porcentajeDescuento,
-                        nombreProveedor, cantidadMinima, cantidadDisponible, descripcionLote, tipoUnidad):
+                        nombreProveedor, cantidadMinima, cantidadDisponible, lote, descripcionLote, tipoUnidad):
     """ Actualizar un producto en la base de datos.
 
     Este método recibe una imagen, un id y un telefono y los cambia en la base de datos.
