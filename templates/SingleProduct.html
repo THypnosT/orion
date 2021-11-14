@@ -13,19 +13,17 @@
     <section class="product">
         <div class="product-item">
             <div class="product-image">
-                <img src={{ url_for( 'static' , filename='images/upload/enlatados.jpg' ) }} alt="product"
+                <img src="{{ producto['src_imagen'] }}" alt="product"
                     class="product-image">
             </div>
             <form action="/anadir/AddCarrito" method="POST">
-                <input type="hidden" name="id" value="{{ producto['codigo_producto'] }}">
+                <input type="hidden" name="codigo_producto" value="{{ producto['codigo_producto'] }}">
                 <div class="product-info">
-                    <h2>Nombre del producto</h2>
-                    <h3>Proveedor</h3>
-                    <h4>Numero de calificaciones</h4>
+                    <h2>{{ producto['nombre_producto'] }}</h2>
+                    <h3>{{ producto['nombre_proveedor'] }}</h3>
+                    <h4>Numero de calificaciones: {{ producto['calificacion'] }}</h4>
 
-                    <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quas, hic molestiae? Assumenda aliquid
-                        quis quam odit, nisi dolorem odio maiores laboriosam aspernatur! Consequuntur iure amet
-                        provident possimus tempora assumenda ea.</p>
+                    <p>{{ producto['descripcion_producto'] }}</p>
                     <p>Cantidad: <input type="number" min="1" max="20" step="1" value="1"></p>
                     <button>Añadir al carrito de compra</button>
                 </div>
@@ -33,7 +31,8 @@
         </div>
 
         <div class="newComment">
-            <form action="">
+            <form action="/addComentario" method="POST">
+                <input type="hidden" name="codigo_producto" value="{{ producto['codigo_producto'] }}">
                 <h2>Añadir un comentario</h2>
                 <div class="newComment-calificacion">
                     <label for="">Calificación</label>
@@ -41,29 +40,27 @@
                 </div>
                 <div class="newComment-comentario">
                     <label for="">Comentario</label>
-                    <textarea type="text" class="newComment-textarea"></textarea>
+                    <textarea type="text" class="newComment-textarea" name="newComentario"></textarea>
                 </div>
                 <input type="submit" class="sendComment" value="Comentar">
             </form>
         </div>
 
-        {% for fila in range(6) %}
+        {% for fila in range(comentarios|length) %}
         <div class="product-review">
             <div class="review-One">
                 <div class="review-user">
-                    <img src={{ url_for( 'static' , filename='images/upload/admin.jpg' ) }} alt="">
-                    <h3>Nombre usuario</h3>
+                    <img src="{{ comentarios[fila]['imagen_src'] }}" alt="">
+                    <h3>{{ comentarios[fila]['nombre_persona'] }} {{ comentarios[fila]['apellido_persona'] }}</h3>
                 </div>
                 <div class="puntuacion">
                     <div class="estrellas-outer">
-                        <div class="estrellas-inner" style="width:{{ fila }}rem;"></div>
+                        <div class="estrellas-inner" style="width:{{ comentarios[fila]['calificacion'] }}rem;"></div>
                     </div>
-                    <div class="valor">{{ fila }}</div>
+                    <div class="valor">{{ comentarios[fila]['calificacion'] }}</div>
                 </div>
-                <p class="fecha">23/10/2021</p>
-                <p class="comment">Lorem ipsum dolor sit amet consectetur adipisicing elit. In minima quod, aperiam quo
-                    provident vel quas rem dolores labore saepe officiis explicabo reiciendis nobis nostrum? Excepturi
-                    quasi ipsum pariatur expedita?</p>
+                <p class="fecha">{{ comentarios[fila]['fecha_calcomentario'] }}</p>
+                <p class="comment">{{ comentarios[fila]['comentario'] }}</p>
             </div>
         </div>
         {% endfor %}

@@ -38,6 +38,7 @@
             <div class="products-items">
                 <form action="/singleProduct" method="POST" class="form-imagen">
                     <input type="hidden" name="codigo_producto" value="{{ listaProductos[fila]['codigo_producto'] }}">
+                    <input type="hidden" name="id_proveedor" value="{{ listaProductos[fila]['id_proveedor'] }}">
                     <div class="item-top">
 
                         <img src="{{ listaProductos[fila]['src_imagen'] }}" alt="" onclick="document.querySelector('.form-imagen').submit();">

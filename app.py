@@ -26,7 +26,7 @@ conn = dbConnect
 @app.route('/')
 def Index2():
     listaProductos = conn.listaProductos()
-    print("--------------------------------------------------------------")
+
     print(listaProductos)
     if not session.get("username"):
         return render_template('IndexShop.html',listaProductos=listaProductos)
@@ -37,15 +37,24 @@ def Index2():
 
 @app.route('/singleProduct', methods=['GET', 'POST'])
 def singleProduct():
-    codigoProducto = request.form['codigo_producto']
-    # producto=conn.getProducto(codigoProducto)       #crear una funcion para obtener el producto
-    producto=""
-    if not session.get("username"):
-        return render_template('singleProduct.html',producto=producto)
-    elif session["userType"] == "empleado" or session["userType"] == "superAdmin":
-        return redirect("/Home")
+    if request.method == 'POST':
+        codigoProducto = request.form['codigo_producto']
+        idProveedor = request.form['id_proveedor']
+        print("-----------------------------------------------------------")
+        print(codigoProducto)
+        print(idProveedor)
+        # producto=conn.getProducto(codigoProducto)       #crear una funcion para obtener el producto
+        producto=conn.obtenerProductoPorID(idProveedor,codigoProducto)
+        comentarios=conn.obtenerComentariosProductos(codigoProducto)
+        print(comentarios)
+        if not session.get("username"):
+            return render_template('singleProduct.html',producto=producto,comentarios=comentarios)
+        elif session["userType"] == "empleado" or session["userType"] == "superAdmin":
+            return redirect("/Home")
+        else:
+            return render_template('singleProduct.html',producto=producto)
     else:
-        return render_template('singleProduct.html',producto=producto)
+        return redirect("/")
 
 @app.route('/iniciarSeccion', methods=['GET', 'POST'])
 def iniciarSeccion():
@@ -125,6 +134,17 @@ def Carrito():
     # else:
     #     return render_template('AccessDenied.html')
 
+@app.route('/addComentario', methods=['GET', 'POST'])
+def addComentario():
+    if request.method == 'POST':
+        codigo_producto = request.form['codigo_producto']
+        comentario = request.form['newComentario']
+        id_usuario = session["id_usuario"]
+        calificacion = request.form['newCalificacion']
+        conn.insertarComentarioCalificacionProducto(comentario,calificacion,codigo_producto,id_usuario)
+        return redirect("/singleProduct")
+    else:
+        return redirect("/")
 
 # SECCION PARA LOS SUPERAMINISTRADORES Y USUARIOS INTERNOS
 

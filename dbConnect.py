@@ -402,12 +402,15 @@ def listaProductos():
                 prove.id_proveedor,
                 prove.nombre_proveedor,
                 pro.descripcion_producto,
+                lote.tipo_unidad,
+                pro.precio_unitario,
                 calComent.calificacion,
                 pro.src_imagen,
                 alm.cantidad_disponible
-            FROM Producto pro, Almacen alm, Proveedor prove, Calificacion_Comentario calComent
+            FROM Producto pro, Almacen alm, Proveedor prove, Calificacion_Comentario calComent, Lote lote
             WHERE alm.codigo_producto = pro.codigo_producto AND alm.id_proveedor = prove.id_proveedor
                 AND calComent.codigo_producto = pro.codigo_producto
+                AND lote.codigo_producto = pro.codigo_producto
             ORDER BY pro.fecha_creado DESC;
         """)
 
@@ -662,6 +665,42 @@ def obtenerProductoPorID(idProveedor, idProducto):
     return datosProducto
 
 
+def obtenerComentariosProductos(idProducto):
+    """ Obtener los comentarios de un producto.
+
+    Este método recibe un id y busca los comentarios del producto asociados en las
+    diferentes tablas.
+    """
+
+    # Crear nuevamente la conexión a la base de datos. Por buenas prácticas, se debe cerrar
+    # la conexión después de cada ejecución de un método/proceso.
+    conn = crearConexion()
+    cursor = conn.cursor()
+
+    queryComentariosProducto = cursor.execute(
+        """
+            SELECT calComent.comentario, calComent.calificacion, calComent.fecha_calComentario, per.nombre_persona, per.apellido_persona, per.imagen_src
+            FROM Calificacion_Comentario calComent,
+                Usuario usr,
+                Producto pro,
+                Persona per
+            WHERE usr.id_persona = per.id_persona
+            AND pro.codigo_producto = calComent.codigo_producto
+            AND calComent.id_usuario = usr.id_usuario
+            AND calComent.codigo_producto = '%s'
+        """ % idProducto)
+
+    nombreColumnas = [i[0] for i in cursor.description]
+    comentariosProductoDB = queryComentariosProducto.fetchall()
+
+    jsonlistaComentarios=[]
+    for result in comentariosProductoDB:
+        jsonlistaComentarios.append(dict(zip(nombreColumnas,result)))
+    
+    conn.close()
+    return jsonlistaComentarios
+    
+
 def cambiarImagenProducto(srcProducto, idProducto):
     """ Cambiar la imagen del producto.
 
@@ -883,7 +922,7 @@ def insertarPersona(nombre, apellido, sexo, fnacimiento, direccion, ciudad, imag
     idRol = buscarIdRol(rolUsuario)
     
     insertarUsuario(passwordHash, email, telefono, idRol, idPersona)
-    
+
     if idRol == 1:
             insertarCedula(cedula, idPersona, None)
     else:
@@ -1200,7 +1239,7 @@ def obtenerProductosMinimosDiponible():
     return jsonProductos
 
 def actualizarProducto(idProducto, nombreProducto, descripcionProducto, precio, srcImagen, bonoDescuento, porcentajeDescuento,
-                        nombreProveedor, cantidadMinima, cantidadDisponible, descripcionLote, tipoUnidad):
+                        nombreProveedor, cantidadMinima, cantidadDisponible, lote, descripcionLote, tipoUnidad):
     """ Actualizar un producto en la base de datos.
 
     Este método recibe una imagen, un id y un telefono y los cambia en la base de datos.
