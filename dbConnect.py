@@ -664,6 +664,55 @@ def obtenerProductoPorID(idProveedor, idProducto):
     return datosProducto
 
 
+def obtenerComentariosProductos(idProducto):
+    """ Obtener los comentarios de un producto.
+
+    Este método recibe un id y busca los comentarios del producto asociados en las
+    diferentes tablas.
+    """
+
+    # Crear nuevamente la conexión a la base de datos. Por buenas prácticas, se debe cerrar
+    # la conexión después de cada ejecución de un método/proceso.
+    conn = crearConexion()
+    cursor = conn.cursor()
+
+    queryComentariosProducto = cursor.execute(
+        """
+            SELECT calComent.comentario, calComent.calificacion, calComent.fecha_calComentario, per.nombre_persona
+            FROM Calificacion_Comentario calComent,
+                Usuario usr,
+                Producto pro,
+                Persona per
+            WHERE usr.id_persona = per.id_persona
+            AND pro.codigo_producto = calComent.codigo_producto
+            AND calComent.id_usuario = usr.id_usuario
+            AND calComent.codigo_producto = '%s'
+        """ % idProducto)
+
+    # i = 0
+    # datosComentarios = {}
+    # datosDB = queryComentariosProducto.fetchone()
+    # nombreColumnas = [i[0] for i in cursor.description]
+
+    # for nombre in nombreColumnas:
+    #     datosComentarios[nombre] = datosDB[i]
+    #     i += 1
+    
+    # conn.close()   
+        
+    # return datosComentarios
+
+    nombreColumnas = [i[0] for i in cursor.description]
+    comentariosProductoDB = queryComentariosProducto.fetchall()
+
+    jsonlistaComentarios=[]
+    for result in comentariosProductoDB:
+        jsonlistaComentarios.append(dict(zip(nombreColumnas,result)))
+    
+    conn.close()
+    return jsonlistaComentarios
+    
+
 def cambiarImagenProducto(srcProducto, idProducto):
     """ Cambiar la imagen del producto.
 
