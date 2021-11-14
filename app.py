@@ -64,17 +64,27 @@ def registro():
 @app.route('/registrar', methods=['GET', 'POST'])
 def registrar():
     if request.method == 'POST':
-        username = request.form['username']
-        email = request.form['email']
-        nombre = request.form['nombre_user']
-        apellido = request.form['apellido_user']
-        # sexo= request.form['sexo_user']
-        sexo = request.form['selectedSexo']
-        edad= request.form['edad_user']
-        ciudad= request.form['ciudad_user']
-        teleono= request.form['telefono_user']
-        cedula= request.form['cedula_user']
+        if request.form['sign-in'] == 'Registrarse':
+            username = request.form['username']
+            email = request.form['email']
+            nombre = request.form['nombre_user']
+            apellido = request.form['apellido_user']
+            tipoUser='usuario'
+            # sexo= request.form['sexo_user']
+            sexo = request.form['selectedSearch']
+            cedula= request.form['cedula_user']
+            ciudad= request.form['ciudad_user']
+            direccion= request.form['direccion_user']
+            telefono= request.form['telefono_user']                  
 
+
+            resultado=conn.insertarPersona(nombre, apellido, sexo, None, direccion, ciudad, 
+                                            None, tipoUser, email, cedula, None, telefono)
+            if resultado==True:
+                flash("Usuario creado correctamente")
+                return redirect('/iniciarSeccion')
+       
+            
         # contrasena = request.form['newpw']
         # contrasena2 = request.form['confirmpw']
         # if contrasena != contrasena2:
@@ -86,12 +96,8 @@ def registrar():
         #     return redirect("/iniciarSeccion")
         # else:
         #     flash("Error al registrarse")
-        #     return redirect("/registro")
-
-
-        return redirect("/iniciarSeccion")
-    else:
-        return redirect("/registro")
+        #     return redirect("/registro")]
+    
 
 @app.route('/anadir/AddCarrito', methods=['GET', 'POST'])
 def AddCarrito():
@@ -461,7 +467,7 @@ def AdminUser():
             elif request.form.get('submit_button')=='Añadir usuario +':
                                           
                 datosusuarios={'id_persona': 0, 'nombre_persona': '', 'apellido_persona': '', 'cedula_persona': '',
-                               'descripcion_rol': 'Usuario', 'sexo_persona': 'Femenino', 'descripcion_cargo' : "Comercial",
+                               'descripcion_rol': 'Empleado', 'sexo_persona': 'Femenino', 'descripcion_cargo' : "Comercial",
                                'direccion_persona': '', 'ciudad_persona': '', 'email': '','telefono_persona': '',
                                'imagen_src': '/static/images/avatar.png'}
                 
