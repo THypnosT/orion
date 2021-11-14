@@ -146,7 +146,7 @@ def enviarCorreo(argumentosEmail):
 
 def create_pdf(usuario, cuentacorreo):
     
-    table = pd.DataFrame(obtnerProductosMinimosDiponible())
+    table = pd.DataFrame(obtenerProductosMinimosDiponible())
     if len(table) > 0:
         table = table[columns_list]
         table = table.rename(columns=columns_dict)

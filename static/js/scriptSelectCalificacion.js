@@ -29,7 +29,8 @@ optionsListUnidad.forEach(o => {
     o.addEventListener("click", () => {
         selectedUnidad.innerHTML = o.querySelector("label").innerHTML;
         optionsContainerUnidad.classList.remove("active");
-        var nombre = document.querySelector(".selected-Unidad").textContent;
+        var nombre = document.querySelector(".selected-unidad").textContent;
         document.getElementById("inputSelectedUnidad").value=nombre;
+        
     });
 });
