@@ -335,6 +335,9 @@ def Editarproducto():
             if request.form['submit_button'] == 'editar':
                 idProducto=request.form['id']
                 idproveedor=request.form['idproveedor']
+                print("*************************--------------")
+                print(idProducto)
+                print(idproveedor)
                 # Aqui se recibe el id del producto para su busqueda en la base de datos, esta retorna los datos
                 # del producto
                 datosProducto = conn.obtenerProductoPorID(idproveedor, idProducto)
