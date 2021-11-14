@@ -109,7 +109,7 @@
                 <input type="number" name="descuento_producto" required id="descuento" value="{{ datosProducto['porcentaje_descuento'] }}">
             </div>
             <div class="cantidad">
-                <!-- {{ listaLote['descripcion_lote']}} -->
+                
                 <div class="container-lote">
                     <label for="lote">Lote</label>
                     <div class="select-box-lote">
@@ -130,7 +130,7 @@
                             {{ listaLote[0]['descripcion_lote'] }}
                         </div>
                     </div>
-                    <input type="hidden" id="inputSelectedProveedor" name="selectedProveedor"  value="{{ proveedores[0]['nombre_proveedor'] }}">
+                    <input type="hidden" id="inputSelectedLote" name="selectedLote"  value="{{ listaLote[0]['descripcion_lote'] }}">
                                      
                 </div>
                 

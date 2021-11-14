@@ -34,3 +34,22 @@ optionsListUnidad.forEach(o => {
         
     });
 });
+
+// DESPLIEGE DE LA OPCION DEL LOTE
+const selectedLote = document.querySelector(".selected-lote");
+const optionsContainerLote = document.querySelector(".options-container-lote");
+const optionsListLote = document.querySelectorAll(".option-lote");
+
+selectedLote.addEventListener("click", () => {
+    optionsContainerLote.classList.toggle("active");
+});
+
+optionsListLote.forEach(o => {
+    o.addEventListener("click", () => {
+        selectedLote.innerHTML = o.querySelector("label").innerHTML;
+        optionsContainerLote.classList.remove("active");
+        var nombre = document.querySelector(".selected-lote").textContent;
+        document.getElementById("inputSelectedLote").value=nombre;
+        
+    });
+});
