@@ -239,7 +239,7 @@ textarea:focus{
     transition: all 0.4s;
     border-radius: 8px;
     overflow: hidden;
-    /* order: 1; */
+    order: 1;
 }
 
 .selected-calificacion,.selected-unidad, .selected-lote {
@@ -267,7 +267,7 @@ textarea:focus{
 .select-box-calificacion .options-container-calificacion.active,
 .select-box-unidad .options-container-unidad.active,
 .select-box-lote .options-container-lote.active {
-    max-height: 240px;
+    max-height: 150px;
     opacity: 1;
     overflow-y: scroll;
 }
@@ -279,10 +279,14 @@ textarea:focus{
     top: -6px;
 }
 
-.select-box-calificacion .options-container-calificacion::-webkit-scrollbar,
+.select-box-calificacion .options-container-calificacion::-webkit-scrollbar{
+    display: none;
+}
 .select-box-unidad .options-container-unidad::-webkit-scrollbar
 .select-box-lote .options-container-lote::-webkit-scrollbar {
-    display: none;
+    width: 20px;
+    color: var(--color-gris);
+    background: var(--color-superadmin)+5e; 
 }
 
 .select-box-calificacion .options-container-calificacion::-webkit-scrollbar-thumb,
