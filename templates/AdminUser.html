@@ -42,16 +42,12 @@
                     <div class="select-box-usuario">
                         <div class="options-container-usuario">
                             <div class="option-user">
-                                <input type="radio" class="radio" id="usuario" name="category" value="usuario" />
-                                <label for="usuario" id="primer-tipo-usuario">Usuario</label>
+                                <input type="radio" class="radio" id="Empleado" name="Empleado" value="Empleado"/>
+                                <label for="Empleado" id="primer-tipo-usuario">Empleado</label>
                             </div>
                             <div class="option-user">
-                                <input type="radio" class="radio" id="administrador" name="category" value="admin"/>
-                                <label for="administrador" id="segundo-tipo-usuario">Administrador</label>
-                            </div>
-                            <div class="option-user">
-                                <input type="radio" class="radio" id="superadmin" name="category" value="superAdmin"/>
-                                <label for="superadmin" id="tercer-tipo-usuario">Super administrador</label>
+                                <input type="radio" class="radio" id="superadmin" name="Super administrador" value="superAdmin"/>
+                                <label for="superadmin" id="segundo-tipo-usuario">Super administrador</label>
                             </div>
                         </div>
                         <div class="selected-usuario">
@@ -76,6 +72,10 @@
                                 <input type="radio" class="radio" id="masculino" name="category" value="masculino"/>
                                 <label for="sexo" id="masculino">Masculino</label>
                             </div>
+                            <div class="option-sc">
+                                <input type="radio" class="radio" id="no_Binario" name="category" value="no_Binario"/>
+                                <label for="sexo" id="no_Binario">No Binario</label>
+                            </div>
                         </div>
                         <div class="selected-sc">
                             {{ datosusuarios['sexo_persona'] }}       
@@ -96,7 +96,7 @@
                             </div>
                             <div class="option-cargo">
                                 <input type="radio" class="radio" id="ejecutivo_comercial" name="category" value="ejecutivo_comercial"/>
-                                <label for="ejecutivo_comercial" id="segundo-cargo">Ejectivo Comercial</label>
+                                <label for="ejecutivo_comercial" id="segundo-cargo">Ejecutivo Comercial</label>
                             </div>
                             <div class="option-cargo">
                                 <input type="radio" class="radio" id="asistente_presidencia" name="category" value="asistente_presidencial"/>
