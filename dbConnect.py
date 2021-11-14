@@ -621,22 +621,44 @@ def obtenerProductoPorID(idProveedor, idProducto):
     cursor = conn.cursor()
 
     queryDatosProducto = cursor.execute(
+        # """
+        #     SELECT pro.id_producto,
+        #         pro.nombre_producto,
+        #         prove.nombre_proveedor,
+        #         pro.descripcion_producto,
+        #         pro.calificacion,
+        #         pro.src_imagen,
+        #         alm.cantidad_disponible,
+        #         pro.cantidad_minima
+        #     FROM Producto pro, Almacen alm, Proveedor prove
+        #     WHERE alm.id_producto = pro.id_producto AND alm.id_proveedor = prove.id_proveedor AND pro.id_producto=alm.id_producto AND pro.id_producto='%s' AND alm.id_proveedor = '%s'
+        # """ % (idProducto, idProveedor))
+
         """
-            SELECT pro.id_producto,
+            SELECT pro.codigo_producto,
                 pro.nombre_producto,
                 prove.nombre_proveedor,
                 pro.descripcion_producto,
-                pro.calificacion,
                 pro.src_imagen,
                 alm.cantidad_disponible,
-                pro.cantidad_minima
-            FROM Producto pro, Almacen alm, Proveedor prove
-            WHERE alm.id_producto = pro.id_producto AND alm.id_proveedor = prove.id_proveedor AND pro.id_producto=alm.id_producto AND pro.id_producto='%s' AND alm.id_proveedor = '%s'
+                prove.id_proveedor,
+                calComent.calificacion
+            FROM Producto pro,
+                Almacen alm,
+                Proveedor prove,
+                Calificacion_Comentario calComent
+            WHERE alm.codigo_producto = pro.codigo_producto
+            AND alm.id_proveedor = prove.id_proveedor
+            AND calComent.codigo_producto = pro.codigo_producto
+            AND pro.codigo_producto = '%s'
+            AND alm.id_proveedor = '%s';
         """ % (idProducto, idProveedor))
    
     i = 0
     datosProducto = {}
     datosDB = queryDatosProducto.fetchone()
+    print("************************************-------------------")
+    print(datosDB)
     nombreColumnas = [i[0] for i in cursor.description]
 
     for nombre in nombreColumnas:
@@ -1033,6 +1055,28 @@ def insertarLoteProducto(fechaEntrada, cantidadEstandar, cantidadDisponible, cod
 
     conn.commit()
     conn.close()
+
+def obtenerListaLote(codigoProducto):
+    """ Obtener la lista de lotes de un producto.
+
+    Este método recibe un código de producto y devuelve una lista con los lotes del mismo.
+    """
+
+    # Crear nuevamente la conexión a la base de datos. Por buenas prácticas, se debe cerrar
+    # la conexión después de cada ejecución de un método/proceso.
+    conn = crearConexion()
+    cursor = conn.cursor()
+
+    cursor.execute(
+        """
+            SELECT * FROM Lote WHERE codigo_producto = '%s'
+        """ % (codigoProducto))
+
+    listaLotes = cursor.fetchall()
+    conn.close()
+
+    return listaLotes
+
 
 def insertarRegistroAlmacen(idProducto, idProveedor, cantidadDisponible):
     """ Insertar un registro de almacén en la base de datos.
